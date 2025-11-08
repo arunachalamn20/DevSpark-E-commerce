@@ -2608,6 +2608,52 @@
        });
     </script>
 
+    <!-- Global admin delete handler (non-module) -->
+    <script>
+      // Inline Delete button calls this: deleteProduct('product-id')
+      window.deleteProduct = function(productId) {
+        try {
+          if (localStorage.getItem('isAdmin') !== 'true') {
+            if (typeof window.displayMessage === 'function') window.displayMessage('Admin privileges required.', 'error');
+            return;
+          }
+
+          const targetId = String(productId);
+          if (!confirm('Delete this product? This cannot be undone.')) return;
+
+          // Remove from in-memory arrays if present
+          try {
+            if (Array.isArray(window.allProducts)) {
+              window.allProducts = window.allProducts.filter(p => String(p.id) !== targetId);
+            }
+            if (Array.isArray(window.currentProducts)) {
+              window.currentProducts = window.currentProducts.filter(p => String(p.id) !== targetId);
+            }
+          } catch (_) {}
+
+          // Remove just the DOM card
+          const card = document.querySelector(`.product-card[data-pid="${targetId}"]`);
+          if (card && card.parentElement) card.parentElement.removeChild(card);
+
+          // If page becomes empty, fallback re-render current page
+          const container = document.getElementById('productsContainer');
+          if (container && container.children.length === 0) {
+            const productsPerPage = window.productsPerPage || 8;
+            const total = Array.isArray(window.currentProducts) ? window.currentProducts.length : 0;
+            const maxPage = Math.max(1, Math.ceil(total / productsPerPage));
+            if (window.currentPage > maxPage) window.currentPage = maxPage;
+            if (typeof window.renderProducts === 'function') window.renderProducts(window.currentProducts || [], window.currentPage || 1);
+            if (typeof window.renderPagination === 'function') window.renderPagination();
+          }
+
+          if (typeof window.displayMessage === 'function') window.displayMessage('Product deleted.', 'success');
+        } catch (e) {
+          console.error('deleteProduct failed:', e);
+          if (typeof window.displayMessage === 'function') window.displayMessage('Failed to delete product.', 'error');
+        }
+      };
+    </script>
+
     <!-- Firebase readiness + proxies to avoid "Firebase not initialized" at runtime -->
     <script>
       // Wait until Firebase globals are ready
@@ -2677,7 +2723,7 @@
     <!-- Firebase Module Script (restored) -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
       import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
       // Firebase config (same as index.html)
@@ -2695,6 +2741,13 @@
       try {
         app = initializeApp(firebaseConfig);
         auth = getAuth(app);
+        // Ensure session persists across pages on the same domain
+        try {
+          await setPersistence(auth, browserLocalPersistence);
+          console.log('[pro.html] Firebase auth persistence set to local.');
+        } catch (perr) {
+          console.warn('[pro.html] Failed to set auth persistence (will use default):', perr);
+        }
         db = getFirestore(app);
 
         // Expose global API expected by existing code
@@ -2715,10 +2768,8 @@
             if (typeof window.displayMessage === 'function') window.displayMessage('Logged in successfully!', 'success');
           } catch (err) {
             console.error('Login failed:', err);
-            if (typeof document !== 'undefined') {
-              const loginError = document.getElementById('loginError');
-              if (loginError) loginError.textContent = 'Login failed. Please check your credentials.';
-            }
+            const el = document.getElementById('loginError');
+            if (el) el.textContent = 'Login failed. Please check your credentials.';
           }
         };
 
