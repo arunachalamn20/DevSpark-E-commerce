@@ -5,13 +5,14 @@
 3. Added authentication in firebase  
 4. Added rules for creating a document for each user in firebase
 5. Added separate functions for user and admin
-6. Admin has separate predefined email and password,inside index.html
-7. Admin can only edit or delete products
-8. An ai chatbot is included
-9. Message will be sent using emailjs to customer mailid after placing order
-10. user datas will be stored in firebase
-11.Implemented all objectives in problem statement 1 and problem statement 2
-12.Deployed in onrender - link: https://devspark-e-commerce.onrender.com
+6. Sign up if you not signed in before 
+7. Admin has separate predefined email and password,inside index.html
+8. Admin can only edit or delete products
+9. An ai chatbot is included
+10. Message will be sent using emailjs to customer mailid after placing order
+11. user datas will be stored in firebase
+12.Implemented all objectives in problem statement 1 and problem statement 2
+13.Deployed in onrender - link: https://devspark-e-commerce.onrender.com
 
 Step 1 - install node inside C:\Users\lapto\Downloads\Projects\Nithin Battery\server
 Step 2 - OPEN CMD-C:\Users\lapto\Downloads\Projects\Nithin Battery\server
