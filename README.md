@@ -13,7 +13,7 @@
 11.Implemented all objectives in problem statement 1 and problem statement 2
 
 Step 1 - install node inside C:\Users\lapto\Downloads\Projects\Nithin Battery\server
-Step 2 - OPEN CMD -  C:\Users\lapto\Downloads\Projects\Nithin Battery\server
+Step 2 - OPEN CMD-C:\Users\lapto\Downloads\Projects\Nithin Battery\server
 Step 3 - npm init -y  
 Step 4 - npm pkg set type=module
 Step 5 - npm install express socket.io cors dotenv openai  
