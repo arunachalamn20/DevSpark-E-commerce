@@ -10,8 +10,8 @@
 8. Admin can only edit or delete products
 9. An ai chatbot is included
 10. Message will be sent using emailjs to customer mailid after placing order
-11. user datas will be stored in firebase
-12.Implemented all objectives in problem statement 1 and problem statement 2
+11. user datas will be stored in firebase  
+12.Implemented all objectives in problem statement 1 and problem statement 2  
 13.Deployed in onrender - link: https://devspark-e-commerce.onrender.com
 
 Step 1 - install node inside C:\Users\lapto\Downloads\Projects\Nithin Battery\server
