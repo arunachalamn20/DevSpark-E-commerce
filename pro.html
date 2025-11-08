@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Battery Products | Car, Inverter & Bike Batteries - Nithin Enterprises - Battery Zone - Chennai</title>
+    <meta name="description" content="Explore Nithin Enterprises - Battery Zone's wide selection of high-quality car, inverter, and bike batteries. Find the perfect power solution for your vehicle or home in Chennai.">
+    <meta name="google-site-verification" content="qeu7UN34pz6WROO8qsVl03edIxcFJXX5v-MF3PPEBpU" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="icon" href="/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <!-- EmailJS SDK CDN - IMPORTANT: Add this script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+      /* Custom Tailwind Configuration for primary color and border-radius */
+      /* This must be correctly defined for Tailwind classes like bg-primary, bg-secondary to work */
+      /* Removed: :where([class^="ri-"])::before { content: "\f3c2"; } - This was causing a SyntaxError in some environments */
+      .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+      }
+      .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      }
+      .page-transition {
+      transition: opacity 0.3s ease;
+      }
+      .skeleton {
+      background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 50%, #f3f4f6 100%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      }
+      @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+
+      /* Styles for sidebars - crucial for transform animation */
+      .sidebar {
+          transition: transform 0.3s ease-in-out;
+      }
+      .sidebar.translate-x-0 {
+          transform: translateX(0);
+      }
+      .sidebar.translate-x-full {
+          transform: translateX(100%);
+      }
+
+      /* Explicit CSS for Add to Cart Button to ensure visibility and styling */
+      .add-to-cart-btn {
+          display: flex !important; /* Force display flex to ensure visibility */
+          align-items: center;
+          justify-content: center;
+          padding: 8px 16px;
+          min-width: 120px; /* Ensure a consistent width */
+          flex-shrink: 0;
+          white-space: nowrap; /* Prevent text from wrapping */
+          transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for color changes */
+      }
+
+      /* Custom styles for Auth Modal */
+      .auth-modal-content {
+          background: linear-gradient(to bottom right, #6b46c1, #a03c9d); /* Purple to pink gradient */
+          padding: 2rem;
+          border-radius: 1.5rem; /* More rounded corners */
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          position: relative; /* For absolute positioning of close button */
+          max-width: 90%; /* Responsive width */
+      }
+
+      .auth-input {
+          background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: #333;
+          padding: 0.75rem 1rem;
+          border-radius: 0.75rem; /* More rounded inputs */
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .auth-input::placeholder {
+          color: #666;
+      }
+
+      .auth-input:focus {
+          outline: none;
+          border-color: #f0f0f0;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+      }
+
+      .auth-button {
+          background: linear-gradient(to right, #6a0dad, #ec4899); /* Deeper purple to stronger pink */
+          color: white;
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px; /* Fully rounded */
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          border: none; /* Remove default button border */
+      }
+
+      .auth-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+          background: linear-gradient(to right, #8a2be2, #f472b6); /* Slightly lighter on hover */
+      }
+
+      .auth-link {
+          color: #f0f0f0; /* Lighter color for links on dark background */
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.2s ease;
+      }
+
+      .auth-link:hover {
+          color: #fff;
+          text-decoration: underline;
+      }
+      /* Custom styles for info/error messages */
+      .message-box {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background-color: #333;
+          color: white;
+          padding: 15px 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          opacity: 0;
+          transform: translateY(-20px);
+          transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      }
+      .message-box.show {
+          opacity: 1;
+          transform: translateY(0);
+      }
+
+      /* Explicit CSS for User Icon Visibility */
+      #userButton {
+          display: flex !important; /* Ensure the user button container is always visible */
+          align-items: center;
+          justify-content: center;
+          position: relative; /* For absolute positioning of inner icons */
+          width: 40px; /* Or whatever size fits your design */
+          height: 40px; /* Or whatever size fits your design */
+      }
+
+      /* The ri-user-line icon should always be visible */
+      #userRiIcon {
+          position: absolute; /* Allows icons to overlap in the same space */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex; /* Ensure these are flex containers for centering */
+          align-items: center;
+          justify-content: center;
+          transition: opacity 0.2s ease; /* Smooth transition when toggling visibility */
+      }
+
+      /* The userInitialIcon should always be hidden */
+      #userInitialIcon {
+          display: none !important; /* Force hide the initial display */
+      }
+
+      /* Styles for the Buy Now Modal */
+      .buy-now-modal-content {
+          background-color: #ffffff;
+          padding: 2rem;
+          border-radius: 1rem;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+          position: relative;
+          max-width: 90%;
+          width: 500px; /* Fixed width for larger screens */
+          max-height: 90vh; /* Allow modal content to take up to 90% of viewport height */
+          overflow: hidden; /* Hide overflow on the modal content itself */
+          display: flex;
+          flex-direction: column;
+      }
+
+      .buy-now-input {
+          border: 1px solid #d1d5db;
+          padding: 0.75rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          color: #374151;
+          background-color: #f9fafb;
+      }
+
+      .buy-now-input:focus {
+          outline: none;
+          border-color: #3b82f6; /* Primary color */
+          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+
+      .buy-now-button {
+          /* Apply the same padding and min-width as add-to-cart-btn */
+          padding: 8px 16px;
+          min-width: 120px;
+          border-radius: 0.5rem; /* Keep existing border-radius */
+          font-weight: 600;
+          transition: background-color 0.2s ease;
+          display: flex; /* Ensure flex for icon alignment */
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          white-space: nowrap;
+      }
+
+      .buy-now-button.primary-btn {
+          background-color: #3b82f6; /* Primary color */
+          color: white;
+      }
+
+      .buy-now-button.primary-btn:hover {
+          background-color: #2563eb; /* Darker primary */
+      }
+
+      .buy-now-button.green-btn {
+          background-color: #10b981; /* Secondary green */
+          color: white;
+      }
+
+      .buy-now-button.green-btn:hover {
+          background-color: #059669; /* Darker green */
+      }
+
+      .payment-option-label {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem 1rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+      }
+
+      .payment-option-label:hover {
+          background-color: #f3f4f6;
+      }
+
+      .payment-option-label input[type="radio"]:checked + span {
+          color: #3b82f6; /* Primary color */
+          font-weight: 600;
+      }
+
+      .payment-option-label input[type="radio"]:checked {
+          accent-color: #3b82f6; /* Primary color for radio button */
+      }
+
+      /* FIX: Mobile Menu Positioning */
+      #mobile-menu {
+          top: 0; /* Position at the very top of the viewport */
+          z-index: 51; /* Higher than header's z-50 to appear above it */
+          /* No need for padding-top here, it will be applied to the inner container */
+      }
+      /* Optional: Add a border-top to visually separate it from the header */
+      #mobile-menu.flex {
+          border-top: 1px solid #e2e8f0; /* Light gray border */
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#3b82f6", secondary: "#10b981" }, /* secondary is now a distinct green */
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div
+        class="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <!-- Updated logo image with direct placeholder URL -->
+        <img src="logo.png" alt="Nithin Battery Logo" class="h-24 sm:h-32 md:h-40 object-contain" style="padding-right:40px">
+        <div class="relative w-full max-w-xl mx-4">
+          <div
+            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+          >
+            <div class="w-5 h-5 flex items-center justify-center text-gray-400">
+              <i class="ri-search-line"></i>
+            </div>
+          </div>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input w-full py-2.5 pl-10 pr-4 bg-gray-100 border-none rounded-button text-gray-700 placeholder-gray-500"
+            placeholder="Search for products..."
+          />
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pr-3"
+            id="clearSearch"
+            style="display: none; cursor: pointer;"
+          >
+            <div
+              class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600"
+            >
+              <i class="ri-close-line"></i>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="relative" id="wishlistButton">
+            <div class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition cursor-pointer">
+              <i class="ri-heart-line ri-lg"></i>
+            </div>
+            <span class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full" id="wishlistCount">0</span>
+          </div>
+         <div class="relative" id="cartButton">
+            <div
+              class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition cursor-pointer"
+            >
+              <i class="ri-shopping-cart-line ri-lg"></i>
+            </div>
+            <span
+              id="cartCount"
+              class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full"
+              >0</span
+            >
+          </div>
+          <!-- User Icon / Initial Display -->
+          <a href="#" class="p-2 text-gray-700 hover:text-primary" id="userButton">
+            <!-- userRiIcon is always shown -->
+            <i class="ri-user-line ri-lg" id="userRiIcon"></i>
+            <!-- userInitialIcon is always hidden -->
+            <div id="userInitialIcon" class="text-lg font-bold text-white bg-gray-700 rounded-full hidden w-8 h-8 flex items-center justify-center"></div>
+          </a>
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700 cursor-pointer" id="mobile-menu-button">
+            <i class="ri-menu-line ri-lg"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden bg-white shadow-lg fixed top-0 w-full z-51"
+    >
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3 pt-24">
+        <a href="index.html" class="text-gray-800 hover:text-primary font-medium py-2"
+          >Home</a
+        >
+        <a
+          href="pro.html"
+          class="text-gray-800 hover:text-primary font-medium py-2"
+          >Products</a
+        >
+
+        <a
+          href="contact.html"
+          class="text-gray-800 hover:text-primary font-medium py-2"
+          >Contact</a
+        >
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 pt-28"> <!-- Added pt-28 to push content below fixed header -->
+      <!-- Category Filters -->
+      <div class="mb-8">
+        <h2 class="text-lg font-medium text-gray-900 mb-4">Categories</h2>
+        <div class="flex flex-wrap gap-2" id="categoryFilters">
+          <button
+            class="category-filter px-4 py-2 rounded-full text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap"
+            data-category="all"
+          >
+            All Products
+          </button>
+        </div>
+      </div>
+      <!-- Active Filters -->
+      <div id="activeFilters" class="flex items-center gap-2 mb-6 hidden">
+        <span class="text-sm text-gray-600">Active filters:</span>
+        <div class="flex flex-wrap gap-2" id="activeFilterTags"></div>
+      </div>
+      <!-- Search Results Indicator -->
+      <div id="searchResultsIndicator" class="mb-6 hidden">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-semibold text-gray-800">
+            Showing results for:
+            <span id="searchTerm" class="text-primary"></span>
+          </h2>
+          <button
+            id="clearSearchResults"
+            class="px-4 py-2 text-sm text-gray-600 hover:text-primary flex items-center !rounded-button whitespace-nowrap"
+          >
+            <div class="w-4 h-4 flex items-center justify-center">
+              <i class="ri-arrow-left-line"></i>
+            </div>
+            Show all products
+          </button>
+        </div>
+      </div>
+      <!-- No Results Message -->
+      <div
+        id="noResultsMessage"
+        class="hidden flex flex-col items-center justify-center py-16"
+      >
+        <div
+          class="w-20 h-20 flex items-center justify-center text-gray-400 mb-4"
+        >
+          <i class="ri-search-line ri-3x"></i>
+        </div>
+        <h3 class="text-xl font-medium text-gray-700 mb-2">
+          No products found
+        </h3>
+        <p class="text-gray-500 mb-6">
+          We couldn't find any products matching your search.
+        </p>
+        <button
+          id="resetSearchBtn"
+          class="px-6 py-2.5 bg-primary text-white font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap"
+        >
+          View all products
+        </button>
+      </div>
+      <!-- Loading Skeleton -->
+      <div id="loadingSkeleton" class="hidden">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <!-- Skeleton Cards -->
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+          <div class="skeleton h-80 rounded"></div>
+        </div>
+      </div>
+      <!-- Error Message (for product loading failures) -->
+      <div
+        id="errorMessage"
+        class="hidden flex flex-col items-center justify-center py-16"
+      >
+        <div
+          class="w-20 h-20 flex items-center justify-center text-red-500 mb-4"
+        >
+          <i class="ri-error-warning-line ri-3x"></i>
+        </div>
+        <h3 class="text-xl font-medium text-gray-700 mb-2">
+          Something went wrong
+        </h3>
+        <p class="text-gray-500 mb-6">
+          We're having trouble loading the products. Please try again.
+        </p>
+        <button
+          id="retryBtn"
+          class="px-6 py-2.5 bg-primary text-white font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap"
+        >
+          Try again
+        </button>
+      </div>
+      <!-- Products Grid -->
+      <div
+        id="productsContainer"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      >
+        <!-- Products will be populated here by JavaScript -->
+      </div>
+      <!-- Pagination -->
+      <div class="flex justify-center mt-12 mb-8">
+        <nav
+          class="inline-flex rounded-md shadow-sm -space-x-px"
+          aria-label="Pagination"
+          id="pagination"
+        >
+          <button
+            class="pagination-btn relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            id="prevPage"
+            disabled
+          >
+            <div class="w-5 h-5 flex items-center justify-center">
+              <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <span class="sr-only">Previous</span>
+          </button>
+          <!-- Page numbers will be populated here by JavaScript -->
+          <button
+            class="pagination-btn relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            id="nextPage"
+          >
+            <div class="w-5 h-5 flex items-center justify-center">
+              <i class="ri-arrow-right-s-line"></i>
+            </div>
+            <span class="sr-only">Next</span>
+          </button>
+        </nav>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <!-- Updated logo image with direct placeholder URL -->
+            <img src="logo.png" alt="Nithin Battery Logo" class="h-24 sm:h-32 md:h-40 object-contain" style="padding-right:40px">
+            <p class="mt-4 text-gray-600">
+              Your one-stop destination for quality products at affordable
+              prices.
+            </p>
+            <div class="flex space-x-4 mt-6">
+              <a href="#" class="text-gray-500 hover:text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-facebook-fill"></i>
+                </div>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-twitter-x-fill"></i>
+                </div>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-primary">
+                <div
+                  class="w-6 h-6 flex items-center justify-center text-gray-600"
+                >
+                  <i class="ri-instagram-fill"></i>
+                </div>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-primary">
+                <div
+                  class="w-6 h-6 flex items-center justify-center text-gray-600"
+                >
+                  <i class="ri-pinterest-fill"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3
+              class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4"
+            >
+              Pages
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a href="index.html" class="text-gray-600 hover:text-primary"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="pro.html" class="text-gray-600 hover:text-primary"
+                  >Products</a
+                >
+
+              </li>
+
+              <li>
+                <a href="contact.html" class="text-gray-800 hover:text-primary font-medium py-2"
+                  >Contact Us</a
+                >
+              </li>
+
+            </ul>
+          </div>
+          
+          <div>
+            <h3
+              class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4"
+            >
+              Newsletter
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Subscribe to get special offers and updates.
+            </p>
+            <div class="flex">
+              <input
+                type="email"
+                class="px-4 py-2 w-full border-gray-300 border rounded-l-button focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                placeholder="Your email"
+              />
+              <button
+                class="bg-primary text-white px-4 py-2 rounded-r-button hover:bg-primary/90 whitespace-nowrap"
+              >
+                Subscribe
+              </button>
+            </div>
+            
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-200 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-500 text-sm">
+            © 2025 Nithin Battery. All rights reserved.
+          </p>
+          <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >Privacy Policy</a
+            >
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >Terms of Service</a
+            >
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >Cookies Settings</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Cart Sidebar -->
+    <div
+      id="cartSidebar"
+      class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 sidebar"
+    >
+      <div class="h-full flex flex-col">
+        <div class="p-4 border-b">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-gray-800">Shopping Cart</h2>
+            <button id="closeCart" class="text-gray-400 hover:text-gray-600">
+              <div class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-close-line ri-lg"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4" id="cartItems">
+          <!-- Cart items will be dynamically inserted here -->
+        </div>
+        <div class="p-4 border-t">
+          <div class="flex justify-between mb-4">
+            <span class="text-gray-600">Total:</span>
+            <span class="text-xl font-semibold text-gray-800" id="cartTotal"
+              >₹0.00</span
+            >
+          </div>
+          <button
+            id="checkoutButton"
+            class="w-full bg-primary hover:bg-blue-600 text-white py-3 rounded-button font-medium transition duration-300 whitespace-nowrap"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div
+      id="wishlistSidebar"
+      class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 sidebar"
+    >
+      <div class="h-full flex flex-col">
+        <div class="p-4 border-b">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-gray-800">Liked Products</h2>
+            <button id="closeWishlist" class="text-gray-400 hover:text-gray-600">
+              <div class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-close-line ri-lg"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4" id="wishlistItems">
+          <!-- Wishlist items will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth Modal (Sign-in/Sign-up Popup) -->
+    <div id="authModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[100] hidden">
+        <div class="auth-modal-content w-full max-w-md">
+            <button id="closeAuthModal" class="absolute top-4 right-4 text-white hover:text-gray-200">
+                <i class="ri-close-line ri-lg"></i>
+            </button>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6">
+                <div class="flex justify-center mb-6">
+                    <!-- Updated logo image with direct placeholder URL -->
+                    <img src="logo.png" alt="Nithin Battery Logo" class="h-20 w-20 rounded-full border-4 border-white shadow-lg">
+                </div>
+                <h2 class="text-2xl font-bold text-white text-center mb-6">Nithin Battery</h2>
+                <div>
+                    <label for="loginEmail" class="sr-only">Email</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="Email address" required
+                           class="w-full auth-input">
+                </div>
+                <div>
+                    <label for="loginPassword" class="sr-only">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Password" required
+                           class="w-full auth-input">
+                </div>
+                <p id="loginError" class="text-red-300 text-sm text-center"></p>
+                <button type="submit" class="w-full auth-button">
+                    Login
+                </button>
+                <p class="text-center text-white text-sm mt-4">
+                    Don't have an account? <a href="#" id="showSignup" class="auth-link">Sign Up</a>
+                </p>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="space-y-6 hidden">
+                <div class="flex justify-center mb-6">
+                    <!-- Updated logo image with direct placeholder URL -->
+                    <img src="logo.png" alt="Nithin Battery Logo" class="h-20 w-20 rounded-full border-4 border-white shadow-lg">
+                </div>
+                <h2 class="text-2xl font-bold text-white text-center mb-6">Nithin Battery</h2>
+                <div>
+                    <label for="signupEmail" class="sr-only">Email</label>
+                    <input type="email" id="signupEmail" name="email" placeholder="Email address" required
+                           class="w-full auth-input">
+                </div>
+                <div>
+                    <label for="signupPassword" class="sr-only">Password</label>
+                    <input type="password" id="signupPassword" name="password" placeholder="Password (min 6 characters)" required
+                           class="w-full auth-input">
+                </div>
+                <p id="signupError" class="text-red-300 text-sm text-center"></p>
+                <button type="submit" class="w-full auth-button">
+                    Sign Up
+                </button>
+                <p class="text-center text-white text-sm mt-4">
+                    Already have an account? <a href="#" id="showLogin" class="auth-link">Sign In</a>
+                </p>
+            </form>
+
+            <!-- Logged-in User View -->
+            <div id="loggedInUserView" class="space-y-6 text-center text-white hidden">
+                <div class="flex justify-center mb-4">
+                    <img src="https://placehold.co/80x80/e0e0e0/505050?text=User" alt="User Icon" class="h-20 w-20 rounded-full border-4 border-white shadow-lg" />
+                </div>
+                <p class="text-xl font-semibold mb-2">Welcome,</p>
+                <p id="loggedInUserName" class="text-2xl font-bold break-words"></p>
+                <button id="logoutButtonModal" class="w-full auth-button mt-6">
+                    Log Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="messageBox" class="message-box hidden"></div>
+
+    <!-- Buy Now Modal -->
+    <div id="buyNowModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[100] hidden">
+        <div class="buy-now-modal-content">
+            <button id="closeBuyNowModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="ri-close-line ri-lg"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Complete Your Purchase</h2>
+
+            <form id="buyNowForm" class="space-y-4 overflow-y-auto max-h-[80vh] pr-2">
+                <div>
+                    <label for="buyName" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                    <input type="text" id="buyName" name="name" required placeholder="Full Name"
+                           class="w-full buy-now-input">
+                </div>
+                <div>
+                    <label for="buyPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <input type="tel" id="buyPhone" name="phone" required pattern="[0-9]{10}" placeholder="e.g., 9876543210"
+                           class="w-full buy-now-input">
+                </div>
+                <div>
+                    <label for="buyEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address (Optional)</label>
+                    <input type="email" id="buyEmail" name="email" placeholder="your.email@example.com (optional)"
+                           class="w-full buy-now-input">
+                </div>
+                <!-- New: GPay User Name input, conditionally visible -->
+                <div id="gpayUsernameInputContainer" class="hidden">
+                    <label for="gpayUsername" class="block text-sm font-medium text-gray-700 mb-1">GPay User Name</label>
+                    <input type="text" id="gpayUsername" name="gpayUsername" placeholder="Your GPay registered name"
+                           class="w-full buy-now-input">
+                </div>
+                <div>
+                    <label for="buyAddress" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
+                    <textarea id="buyAddress" name="address" rows="3" required placeholder="Street, City, State, Zip Code"
+                              class="w-full buy-now-input"></textarea>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-lg font-medium text-gray-700 mt-4 mb-2">Payment Option</h3>
+                    <label class="payment-option-label">
+                        <input type="radio" name="paymentOption" value="gpay" class="mr-2" checked>
+                        <span>GPay (Google Pay)</span>
+                    </label>
+                    <label class="payment-option-label">
+                        <input type="radio" name="paymentOption" value="cod" class="mr-2">
+                        <span>Cash on Delivery</span>
+                    </label>
+                </div>
+
+                <p id="buyNowError" class="text-red-500 text-sm text-center hidden"></p>
+
+                <div id="gpayQrCodeContainer" class="text-center mt-4 hidden">
+                    <p class="text-gray-700 mb-2">Scan with your GPay app to pay:</p>
+                    <img id="gpayQrCode" src="" alt="Scan to Pay with GPay" class="mx-auto w-40 h-40 border border-gray-300 rounded-lg p-2">
+                </div>
+
+                <div id="paymentButtons" class="flex justify-center mt-6">
+                    <button type="button" id="gpayButton" class="buy-now-button green-btn">
+                        Pay with GPay <span id="gpayAmount">₹0.00</span>
+                    </button>
+                    <button type="submit" id="codSubmitButton" class="buy-now-button primary-btn hidden">
+                        Submit Order (Cash on Delivery)
+                    </button>
+                </div>
+
+                <!-- New button for manual payment confirmation -->
+                <div class="flex justify-center mt-4">
+                    <button type="button" id="confirmPaidButton" class="buy-now-button primary-btn hidden">
+                        I have Paid / Confirm Order
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Payment Success/COD Confirmation Screen -->
+            <div id="paymentConfirmation" class="text-center py-8 hidden">
+                <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="ri-check-line ri-4x text-green-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Order Confirmed!</h3>
+                <p class="text-gray-600 mb-6" id="confirmationMessage">Your order details have been recorded.</p>
+                <div class="flex justify-center mt-6"> <!-- Added flex justify-center here -->
+                    <button id="closeConfirmation" class="buy-now-button primary-btn">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+            <!-- Payment Failed/Cancelled Screen -->
+            <div id="paymentFailed" class="text-center py-8 hidden">
+                <div class="w-20 h-20 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="ri-close-line ri-4x text-red-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Order Cancelled / Payment Failed</h3>
+                <p class="text-gray-600 mb-6" id="failureMessage">Your payment could not be confirmed. Please try again.</p>
+                <div class="flex justify-center mt-6"> <!-- Added flex justify-center here -->
+                    <button id="closeFailure" class="buy-now-button primary-btn">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      // Product data - MOVED HERE FOR RELIABLE LOADING
+      const allProducts = [
+        {
+          id: 1,
+          name: "POWERZONE 48PZTZ5L",
+          price: 1434,
+          description:
+            "BIKE: POWERZONE: 48M WARRANTY : WITH EXCHANGE ₹1100",
+          image:
+            "https://rukminim2.flixcart.com/image/704/844/xif0q/vehicle-battery/u/h/7/12-48pztz5l-4-powerzone-original-imagjghffc8fzdea.jpeg?q=90&crop=false",
+          category: "POWERZONE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 2,
+          name: "EXIDE EXPLORE 12XLSL-B",
+          price: 1637,
+          description:
+            "BIKE: EXIDE EXPLORE: 48M WARRANTY: WITH EXCHANGE ₹1350",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSarUVmmI2W5xdta2j6Zt_Y-OypPeiHYaw-rQ&s",
+          category: "EXIDE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 3,
+          name: "EXIDE XLTZ4",
+          price: 1250,
+          description:
+            "BIKE: EXIDE XLTZ4: 48M WARRANTY: WITH EXCHANGE ₹1100",
+          image:
+            "https://rukminim2.flixcart.com/image/704/844/xif0q/solar-battery/u/t/h/12xlt-z4-exide-12-original-imagn565rgy6u6ss.jpeg?q=90&crop=false".trim(), // Trimmed trailing space
+          category: "EXIDE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 4,
+          name: "POWERZONE 48PZTZ4L",
+          price: 1250,
+          description:
+            "BIKE: POWERZONE: 48M WARRANTY: WITH EXCHANGE 1000",
+          image:
+            "https://rukminim2.flixcart.com/image/704/844/xif0q/vehicle-battery/v/5/q/12-48pztz4l-3-powerzone-original-imahb2cyyzmr7hwa.jpeg?q=20&crop=false".trim(), // Trimmed trailing space
+          category: "POWERZONE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 5,
+          name: "SF SONIC Z9",
+          price: 2280,
+          description:
+            "BIKE: SF SONIC Z9: 48M WARRANTY: WITH EXCHANGE ₹1650",
+          image:
+            "https://content.jdmagicbox.com/quickquotes/images_main/torque-fsq0-sq1440-tz9-b-379454725-em6ft.png?impolicy=queryparam&im=Resize=(360,360),aspect=fit".trim(), // Trimmed trailing space
+          category: "SF SONIC BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 6,
+          name: "EXIDE 5LB",
+          price: 1637,
+          description:
+            "BIKE: EXIDE XPLORE: 48M WARRANTY: WITH EXCHANGE ₹1350",
+          image:
+            "https://rukminim2.flixcart.com/image/704/844/k09vv680/vehicle-battery/a/e/h/5lb-exide-original-imafk3pvrcktzggx.jpeg?q=90&crop=false",
+          category: "EXIDE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 7,
+          name: "EXIDE XLTX14",
+          price: 3500,
+          description:
+            "BIKE: EXIDE XLTX14: 48M WARRANTY: WITH EXCHANGE ₹2800",
+          image:
+            "https://m.media-amazon.com/images/I/71RQ4bgnvaL.jpg".trim(), // Trimmed trailing space
+          category: "EXIDE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 8,
+          name: "EXIDE XLTZ9",
+          price: 2450,
+          description:
+            "BIKE: EXIDE XLTZ9: 48M WARRANTY: WITH EXCHANGE ₹1950",
+          image:
+            "https://5.imimg.com/data5/ANDROID/Default/2024/2/388133114/KS/QQ/LC/61242310/product-jpeg-500x500.jpg",
+          category: "EXIDE BIKE",
+          war: "48M WARRANTY"
+        },
+        {
+          id: 9,
+          name: "EXIDE EEZY 34B19L",
+          price: 4500,
+          description:
+            "CAR/SUV: EXIDE EEZY 34B19L: 48M WARRANTY: WITH EXCHANGE ₹3450",
+          image:
+            "https://batteryseller.in/wp-content/uploads/2021/06/exide-34b19l.png".trim(), // Trimmed trailing spaces
+          category: "EXIDE CAR/SUV",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 10,
+          name: "POWERZONE 40B20L",
+          price: 4100,
+          description:
+            "CAR/SUV: POWERZONE 40B20L: 60M WARRANTY: WITH EXCHANGE ₹3050",
+          image:
+            "https://m.media-amazon.com/images/I/41bAWq2h--L._UF1000,1000_QL80_.jpg".trim(), // Trimmed trailing space
+          category: "POWERZONE CAR/SUV",
+          war: "60MON WARRANTY"
+        },
+         {
+          id: 11,
+          name: "EXIDE MILEAGE ML DIN 60",
+          price: 9340,
+          description:
+            "CAR/SUV: EXIDE MILEAGE ML DIN 60: 60M WARRANTY: WITH EXCHANGE ₹7200",
+          image:
+            "https://www.batterymantra.com/images/product/613cdad2e239eExide_MLDIN60.png".trim(), // Trimmed trailing space
+          category: "EXIDE CAR/SUV",
+          war: "60MON WARRANTY"
+        },
+          {
+          id: 12,
+          name: "EXIDE XPLORE XLTZ5",
+          price: 1600,
+          description:
+            "BIKE: EXIDE XPLORE XLTZ5: 60M WARRANTY: WITH EXCHANGE ₹1350",
+          image:
+            "https://5.imimg.com/data5/SELLER/Default/2022/6/QK/VB/MS/144510791/exide-xplore-xltz9-battery-500x500.jpg ",
+          category: "EXIDE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 13,
+          name: "EXIDE IMTT1500 150AH TALL TUBULAR",
+          price: 16500,
+          description:
+            "INVERTER: EXIDE IMTT1500: 60M WARRANTY: WITH EXCHANGE ₹11000",
+          image:
+            "https://solar-world.in/cdn/shop/files/51UtLogDrzL._AC_UF894_1000_QL80.jpg?v=1707214192&width=1445 ",
+          category: "EXIDE INVERTER",
+          war: "60MON WARRANTY"
+        },
+        {
+          id: 14,
+          name: "EXIDE EEZY EY700",
+          price: 8900,
+          description:
+            "CAR/SUV: EXIDE EEZY EY700: 48M WARRANTY: WITH EXCHANGE ₹6700",
+          image:
+            "https://www.exidecare.com/assets/ProductImages/EY700.jpg ",
+          category: "EXIDE CAR/SUV",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 15,
+          name: "POWERZONE 5LB",
+          price: 1494,
+          description:
+            "BIKE: POWERZONE 5LB: 48M WARRANTY: WITH EXCHANGE ₹1100",
+          image:
+            "https://m.media-amazon.com/images/I/81E5LI6Y4sL.jpg",
+          category: "POWERZONE BIKE",
+          war: "48MON WARRANTY"
+        },
+        {
+          id: 16,
+          name: "POWERZONE 35AH 4000L",
+          price: 3844,
+          description:
+            "CAR/SUV: : 3YEARS WARRANTY: WITH EXCHANGE ₹2800",
+          image:
+            "https://5.imimg.com/data5/SELLER/Default/2023/3/296214382/HE/CX/VU/187124166/powerzone-35-ah-car-battery.jpg",
+          category: "POWERZONE CAR/SUV",
+          war: "3YEARS WARRANTY"
+        },
+         {
+          id: 17,
+          name: "EXIDE MILEAGE ML40LBH",
+          price: 5900,
+          description:
+            "CAR/SUV: : 60M WARRANTY: WITH EXCHANGE ₹4600",
+          image:
+            "https://www.batteryboss.in/assets/images/batteryboss/battery/71_71_MGRID40LBH.jpg",
+          category: "EXIDE CAR/SUV",
+          war: "60M WARRANTY"
+        },
+        
+        
+      ];
+
+
+      // Initialize cart and wishlist from localStorage (fallback for non-logged in or if Firebase isn't configured)
+      // These are now global in the non-module script
+      window.cart = JSON.parse(localStorage.getItem('cart')) || [];
+      window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+
+      // DOM elements
+      const searchInput = document.getElementById("searchInput");
+      const categoryFilters = document.getElementById("categoryFilters");
+      const activeFiltersDisplay = document.getElementById("activeFilters");
+      const activeFilterTags = document.getElementById("activeFilterTags");
+      const productsContainer = document.getElementById("productsContainer");
+      const searchResultsIndicator = document.getElementById("searchResultsIndicator");
+      const searchTerm = document.getElementById("searchTerm");
+      const clearSearchResults = document.getElementById("clearSearchResults");
+      const noResultsMessage = document.getElementById("noResultsMessage");
+      const resetSearchBtn = document.getElementById("resetSearchBtn");
+      const loadingSkeleton = document.getElementById("loadingSkeleton");
+      const errorMessage = document.getElementById("errorMessage"); // For product loading errors
+      const retryBtn = document.getElementById("retryBtn");
+      const pagination = document.getElementById("pagination");
+      const prevPageBtn = document.getElementById("prevPage");
+      const nextPageBtn = document.getElementById("nextPage");
+
+      // Cart and Wishlist related DOM elements
+      const cartButton = document.getElementById("cartButton");
+      const cartSidebar = document.getElementById("cartSidebar");
+      const closeCart = document.getElementById("closeCart");
+      const cartCount = document.getElementById("cartCount");
+      const cartItemsContainer = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      const checkoutButton = document.getElementById("checkoutButton"); // Added checkout button reference
+
+      const wishlistButton = document.getElementById("wishlistButton");
+      const wishlistSidebar = document.getElementById("wishlistSidebar");
+      const closeWishlist = document.getElementById("closeWishlist");
+      const wishlistCount = document.getElementById("wishlistCount");
+      const wishlistItemsContainer = document.getElementById("wishlistItems");
+
+      // Auth Modal DOM elements
+      const userButton = document.getElementById("userButton");
+      const authModal = document.getElementById("authModal");
+      const closeAuthModal = document.getElementById("closeAuthModal");
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const showSignupLink = document.getElementById("showSignup");
+      const showLoginLink = document.getElementById("showLogin");
+      const loginError = document.getElementById("loginError");
+      const signupError = document.getElementById("signupError");
+      // Renamed logoutButton to logoutButtonModal for clarity as it's inside the modal
+      const logoutButtonModal = document.getElementById("logoutButtonModal");
+      const userInitialIcon = document.getElementById("userInitialIcon");
+      const userRiIcon = document.getElementById("userRiIcon");
+      const loggedInUserView = document.getElementById("loggedInUserView");
+      const loggedInUserName = document.getElementById("loggedInUserName");
+
+      // Message box for non-critical errors/info
+      const messageBox = document.getElementById('messageBox');
+
+      // Buy Now Modal DOM elements
+      const buyNowModal = document.getElementById('buyNowModal');
+      const closeBuyNowModal = document.getElementById('closeBuyNowModal');
+      const buyNowForm = document.getElementById('buyNowForm');
+      const buyName = document.getElementById('buyName');
+      const buyPhone = document.getElementById('buyPhone');
+      const buyEmail = document.getElementById('buyEmail');
+      const gpayUsernameInputContainer = document.getElementById('gpayUsernameInputContainer'); // New DOM element
+      const gpayUsername = document.getElementById('gpayUsername'); // New DOM element
+      const buyAddress = document.getElementById('buyAddress');
+      const gpayButton = document.getElementById('gpayButton');
+      const gpayAmount = document.getElementById('gpayAmount');
+      const codSubmitButton = document.getElementById('codSubmitButton');
+      const paymentOptions = document.querySelectorAll('input[name="paymentOption"]');
+      const paymentButtons = document.getElementById('paymentButtons');
+      const paymentConfirmation = document.getElementById('paymentConfirmation');
+      const confirmationMessage = document.getElementById('confirmationMessage');
+      const closeConfirmation = document.getElementById('closeConfirmation');
+      const buyNowError = document.getElementById('buyNowError');
+      const gpayQrCodeContainer = document.getElementById('gpayQrCodeContainer');
+      const gpayQrCode = document.getElementById('gpayQrCode');
+      const confirmPaidButton = document.getElementById('confirmPaidButton'); // New button for confirming payment
+      const paymentFailed = document.getElementById('paymentFailed'); // New div for payment failure
+      const failureMessage = document.getElementById('failureMessage'); // Message for payment failure
+      const closeFailure = document.getElementById('closeFailure'); // Button to close failure message
+
+
+      let currentProductForBuy = null; // To store the product being purchased
+      let isCartCheckout = false; // New flag to distinguish cart checkout from single product buy now
+
+      // Get unique categories
+      const categories = [
+        ...new Set(allProducts.map((product) => product.category)),
+      ].sort();
+
+      // Create category filter buttons
+      categories.forEach((category) => {
+        const button = document.createElement("button");
+        button.className =
+          "category-filter px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors !rounded-button whitespace-nowrap";
+        button.setAttribute("data-category", category);
+        button.textContent = category;
+        categoryFilters.appendChild(button);
+      });
+
+      // State variables for product display
+      let currentProducts = [...allProducts];
+      let currentPage = 1;
+      let productsPerPage = 8;
+      let totalPages = Math.ceil(allProducts.length / productsPerPage);
+      let isSearchActive = false;
+
+      // Initial render on page load
+      document.addEventListener("DOMContentLoaded", function() {
+        console.log("DOMContentLoaded event fired.");
+        console.log("allProducts array content:", allProducts); // Check product data
+        initPage();
+        // No longer relying on Firebase for initial product load
+        renderProducts(currentProducts, currentPage);
+        renderPagination();
+        hideLoading();
+        updateCartDisplay();
+        updateWishlistDisplay();
+        updateUserUI(); // Initial UI update for user icon
+      });
+
+
+      // Event listeners
+      searchInput.addEventListener("input", handleSearch);
+      document.getElementById("clearSearch").addEventListener("click", clearSearchInput);
+      clearSearchResults.addEventListener("click", resetSearch);
+      resetSearchBtn.addEventListener("click", resetSearch);
+      retryBtn.addEventListener("click", retryLoading);
+      prevPageBtn.addEventListener("click", goToPrevPage);
+      nextPageBtn.addEventListener("click", goToNextPage);
+
+      // Sidebar toggle listeners
+      cartButton.addEventListener("click", () => {
+          cartSidebar.classList.remove("translate-x-full");
+          cartSidebar.classList.add("translate-x-0");
+          renderCart(); // Render cart items when sidebar is opened
+      });
+
+      closeCart.addEventListener("click", () => {
+          cartSidebar.classList.remove("translate-x-0");
+          cartSidebar.classList.add("translate-x-full");
+      });
+
+      wishlistButton.addEventListener("click", () => {
+          wishlistSidebar.classList.remove("translate-x-full");
+          wishlistSidebar.classList.add("translate-x-0");
+          renderWishlist(); // Render wishlist items when sidebar is opened
+      });
+
+      closeWishlist.addEventListener("click", () => {
+          wishlistSidebar.classList.remove("translate-x-0");
+          wishlistSidebar.classList.add("translate-x-full");
+      });
+
+      // Checkout button listener
+      checkoutButton.addEventListener('click', () => {
+          openCheckoutModalForCart();
+      });
+
+      // Auth modal event listeners
+      userButton.addEventListener("click", () => {
+          const currentUser = window.myAppFirebase?.currentUser;
+          // Always show login form unless specifically in logged-in view from a previous state
+          if (currentUser && currentUser.email && !currentUser.isAnonymous) {
+              // If logged in (and not anonymous), show user details
+              loggedInUserName.textContent = currentUser.email;
+              loggedInUserView.classList.remove("hidden");
+              loginForm.classList.add("hidden");
+              signupForm.classList.add("hidden");
+          } else {
+              // If not logged in or is anonymous, show login form
+              loggedInUserView.classList.add("hidden");
+              loginForm.classList.remove("hidden");
+              signupForm.classList.add("hidden");
+          }
+          authModal.classList.remove("hidden");
+          loginError.textContent = "";
+          signupError.textContent = "";
+      });
+
+      closeAuthModal.addEventListener("click", () => {
+          authModal.classList.add("hidden");
+      });
+
+      showSignupLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          loginForm.classList.add("hidden");
+          signupForm.classList.remove("hidden");
+          loggedInUserView.classList.add("hidden"); // Hide logged-in view
+          loginError.textContent = "";
+          signupError.textContent = "";
+      });
+
+      showLoginLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          signupForm.classList.add("hidden");
+          loginForm.classList.remove("hidden");
+          loggedInUserView.classList.add("hidden"); // Hide logged-in view
+          loginError.textContent = "";
+          signupError.textContent = "";
+      });
+
+      loginForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (window.myAppFirebase && typeof window.myAppFirebase.handleLogin === 'function') {
+              window.myAppFirebase.handleLogin(loginForm.loginEmail.value, loginForm.loginPassword.value);
+          } else {
+              displayMessage("Firebase is not ready. Cannot log in.", "error");
+              console.error("Firebase not initialized or handleLogin not available. Cannot log in.");
+          }
+      });
+
+      signupForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (window.myAppFirebase && typeof window.myAppFirebase.handleSignup === 'function') {
+              window.myAppFirebase.handleSignup(signupForm.signupEmail.value, signupForm.signupPassword.value);
+          } else {
+              displayMessage("Firebase is not ready. Cannot sign up.", "error");
+              console.error("Firebase not initialized or handleSignup not available. Cannot sign up.");
+          }
+      });
+      // Corrected logout button handler within the modal
+      logoutButtonModal.addEventListener("click", () => {
+          if (window.myAppFirebase && typeof window.myAppFirebase.handleLogout === 'function') {
+              window.myAppFirebase.handleLogout();
+          } else {
+              console.error("Firebase not initialized or handleLogout not available. Cannot log out.");
+          }
+      });
+
+
+      // Event delegation for Add to Cart, Wishlist and Buy Now buttons on product cards
+      productsContainer.addEventListener("click", (e) => {
+          const addToCartBtn = e.target.closest(".add-to-cart-btn");
+          const wishlistBtn = e.target.closest(".wishlist-icon");
+          const buyNowBtn = e.target.closest(".buy-now-btn");
+
+          if (addToCartBtn) {
+              const productId = parseInt(addToCartBtn.dataset.id);
+              addToCart(productId);
+          } else if (wishlistBtn) {
+              const productId = parseInt(wishlistBtn.dataset.id);
+              toggleWishlist(productId);
+          } else if (buyNowBtn) {
+              const productId = parseInt(buyNowBtn.dataset.id);
+              openBuyNowModal(productId);
+          }
+      });
+
+      // Event delegation for removing items from cart sidebar
+      cartItemsContainer.addEventListener("click", (e) => {
+          const removeBtn = e.target.closest(".remove-btn");
+          if (removeBtn) {
+              const productId = parseInt(removeBtn.dataset.id);
+              removeFromCart(productId);
+          }
+      });
+
+      // Event delegation for removing items from wishlist sidebar
+      wishlistItemsContainer.addEventListener("click", (e) => {
+          const removeBtn = e.target.closest(".remove-btn");
+          const addToCartFromWishlistBtn = e.target.closest(".add-to-cart-from-wishlist-btn");
+
+          if (removeBtn) {
+              const productId = parseInt(removeBtn.dataset.id);
+              removeFromWishlist(productId);
+          } else if (addToCartFromWishlistBtn) {
+              const productId = parseInt(addToCartFromWishlistBtn.dataset.id);
+              addToCart(productId);
+              removeFromWishlist(productId); // Optionally remove from wishlist after adding to cart
+          }
+      });
+
+      // Buy Now Modal Listeners
+      closeBuyNowModal.addEventListener('click', () => {
+          buyNowModal.classList.add('hidden');
+          // Reset modal state
+          buyNowForm.reset();
+          buyNowForm.classList.remove('hidden');
+          paymentConfirmation.classList.add('hidden');
+          paymentFailed.classList.add('hidden'); // Hide failure message
+          buyNowError.classList.add('hidden');
+          buyNowError.textContent = '';
+          // Reset payment option to GPay and show GPay button
+          document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
+          gpayButton.classList.remove('hidden');
+          codSubmitButton.classList.add('hidden');
+          gpayQrCodeContainer.classList.add('hidden'); // Hide QR code container
+          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
+          gpayUsernameInputContainer.classList.add('hidden'); // Hide GPay username input
+          gpayUsername.value = ''; // Clear GPay username input
+          isCartCheckout = false; // Ensure flag is reset when modal is closed
+      });
+
+      paymentOptions.forEach(radio => {
+          radio.addEventListener('change', (e) => {
+              if (e.target.value === 'gpay') {
+                  gpayButton.classList.remove('hidden');
+                  codSubmitButton.classList.add('hidden');
+                  gpayQrCodeContainer.classList.remove('hidden'); // Show QR code container
+                  confirmPaidButton.classList.add('hidden'); // Hide confirm button initially for GPay
+                  gpayUsernameInputContainer.classList.remove('hidden'); // Show GPay username input
+                  generateGPayQrCode(); // Generate QR code immediately
+              } else { // COD selected
+                  gpayButton.classList.add('hidden');
+                  codSubmitButton.classList.remove('hidden');
+                  gpayQrCodeContainer.classList.add('hidden'); // Hide QR code container
+                  confirmPaidButton.classList.add('hidden'); // Hide confirm button for COD
+                  gpayUsernameInputContainer.classList.add('hidden'); // Hide GPay username input
+              }
+          });
+      });
+
+      // Function to generate and display GPay QR code
+      function generateGPayQrCode() {
+          const amount = isCartCheckout ? window.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2) : (currentProductForBuy ? currentProductForBuy.price.toFixed(2) : '0.00');
+          const transactionNote = isCartCheckout ? `Payment for items in your Nithin Battery cart` : `Payment for ${currentProductForBuy ? currentProductForBuy.name : 'product'} from Nithin Battery`;
+
+          const myGPayId = 'ushanatarajan1411-1@okicici'; // Your GPay UPI ID
+          const myGPayName = 'Usha Natarajan'; // Your name for GPay
+
+          const gpayUri = `upi://pay?pa=${myGPayId}&pn=${encodeURIComponent(myGPayName)}&mc=0000&tid=TEST${Date.now()}&tr=TEST${Date.now()}&tn=${encodeURIComponent(transactionNote)}&am=${amount}&cu=INR`;
+
+          const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(gpayUri)}`;
+          gpayQrCode.src = qrCodeApiUrl;
+          gpayAmount.textContent = `₹${amount}`; // Update amount on GPay button
+      }
+
+
+      gpayButton.addEventListener('click', async () => {
+          // Basic validation
+          if (!buyNowForm.checkValidity()) {
+              buyNowError.textContent = 'Please fill in all required fields correctly.';
+              buyNowError.classList.remove('hidden');
+              buyNowForm.reportValidity(); // Show browser's validation messages
+              return;
+          }
+          buyNowError.classList.add('hidden'); // Hide error if validation passes
+
+          // Check if Firebase Firestore is initialized
+          if (!window.myAppFirebase.db) {
+              displayMessage("Firebase is not ready. Please try again later.", "error");
+              console.error("Firestore object is not initialized. Cannot save order.");
+              return;
+          }
+
+          // Ensure QR code and instructions are visible
+          gpayQrCodeContainer.classList.remove('hidden');
+
+          // Hide the "Pay with GPay" button and show "I have Paid" button
+          gpayButton.classList.add('hidden');
+          confirmPaidButton.classList.remove('hidden');
+          displayMessage("Please complete payment in GPay app. Then, return here and click 'I have Paid / Confirm Order'.", "info", 10000); // Increased duration for message
+
+          // Attempt to open GPay app directly upon clicking "Pay with GPay"
+          const amount = isCartCheckout ? window.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2) : (currentProductForBuy ? currentProductForBuy.price.toFixed(2) : '0.00');
+          const transactionNote = isCartCheckout ? `Payment for items in your Nithin Battery cart` : `Payment for ${currentProductForBuy ? currentProductForBuy.name : 'product'} from Nithin Battery`;
+          const myGPayId = 'muthu19909-2@okaxis'; // Your GPay UPI ID
+          const myGPayName = 'ESAKKI MUTHU'; // Your name for GPay
+          const gpayUri = `upi://pay?pa=${myGPayId}&pn=${encodeURIComponent(myGPayName)}&mc=0000&tid=TEST${Date.now()}&tr=TEST${Date.now()}&tn=${encodeURIComponent(transactionNote)}&am=${amount}&cu=INR`;
+          window.open(gpayUri, '_blank'); // Open GPay app in a new tab/window
+      });
+
+      confirmPaidButton.addEventListener('click', async () => {
+          // This is where we assume the user has paid and proceed to save the order
+          buyNowForm.classList.add('hidden');
+
+          const orderId = `ORDER-${Date.now()}`;
+          const selectedPaymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
+
+          let totalAmountValue;
+          if (isCartCheckout) {
+              totalAmountValue = window.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+          } else {
+              totalAmountValue = currentProductForBuy ? currentProductForBuy.price : 0;
+          }
+
+          let orderData = {
+              customerName: buyName.value,
+              customerPhone: buyPhone.value,
+              customerEmail: buyEmail.value || null, // Ensure email is null if empty
+              deliveryAddress: buyAddress.value,
+              orderId: orderId,
+              totalAmount: parseFloat(totalAmountValue), // Ensure totalAmount is always set
+              paymentOption: selectedPaymentOption,
+              timestamp: new Date().toISOString()
+          };
+
+          if (selectedPaymentOption === 'gpay') {
+              // Get the trimmed value; if the element is null or value is undefined/null, default to empty string.
+              const gpayUserVal = (gpayUsername && gpayUsername.value !== undefined && gpayUsername.value !== null) ? gpayUsername.value.trim() : '';
+
+              // Assign the value. If it's an empty string, it will be saved as null.
+              orderData.gpayUsername = gpayUserVal === '' ? null : gpayUserVal;
+          } else {
+              // If paymentOption is not 'gpay', explicitly set gpayUsername to null
+              orderData.gpayUsername = null;
+          }
+
+          if (isCartCheckout) {
+              orderData.products = window.cart.map(item => ({
+                  id: item.id,
+                  name: item.name,
+                  price: item.price,
+                  quantity: item.quantity,
+                  image: item.image
+              }));
+              // Clear cart after successful checkout
+              window.cart = [];
+              // No need to explicitly save cart to Firestore here, as it's handled by the listener
+          } else {
+              orderData.productName = currentProductForBuy.name;
+              orderData.productPrice = currentProductForBuy.price;
+          }
+
+          try {
+              const currentUser = window.myAppFirebase?.currentUser;
+              // Ensure user is logged in and has an email before attempting to save to Firestore
+              if (!currentUser || currentUser.isAnonymous || !currentUser.email) {
+                  console.error("User not authenticated with email. Cannot save order to user-specific path.");
+                  displayMessage("Please log in or sign up to complete your purchase. Order could not be saved to your account.", "error", 8000);
+                  paymentConfirmation.classList.add('hidden');
+                  paymentFailed.classList.remove('hidden');
+                  failureMessage.textContent = "You must be logged in with an email to place an order. Please log in and try again.";
+                  return;
+              }
+
+              const userDocRef = window.myAppFirebase.doc(window.myAppFirebase.db, 'users', currentUser.email);
+              const userDocSnap = await window.myAppFirebase.getDoc(userDocRef);
+              let existingOrders = [];
+
+              if (userDocSnap.exists() && userDocSnap.data().orders) {
+                  try {
+                      existingOrders = JSON.parse(userDocSnap.data().orders);
+                  } catch (e) {
+                      console.error("Error parsing existing orders from Firestore:", e);
+                      // If parsing fails, treat as empty to avoid breaking
+                      existingOrders = [];
+                  }
+              }
+
+              existingOrders.push(orderData);
+
+              // Update the user's document with the new orders array
+              // Changed to pretty-print JSON for better readability in Firestore console
+              await window.myAppFirebase.setDoc(userDocRef, { orders: JSON.stringify(existingOrders, null, 2) }, { merge: true });
+
+              // If cart checkout, clear cart in Firestore
+              if (isCartCheckout) {
+                  await window.myAppFirebase.setDoc(userDocRef, { cartItems: JSON.stringify([]) }, { merge: true });
+                  localStorage.removeItem('cart'); // Clear local storage too
+                  window.updateCartDisplay(); // Update cart count in header
+              }
+
+              paymentConfirmation.classList.remove('hidden');
+              paymentFailed.classList.add('hidden');
+              confirmationMessage.textContent = "Order successful. Our team checks the payment and delivers the products.";
+              displayMessage("Order placed and details recorded in Firestore!", "success");
+
+              if (orderData.customerEmail) {
+                  await sendOrderConfirmationEmail(orderData);
+              } else {
+                  console.warn("Customer email not provided. Email confirmation not sent.");
+              }
+
+          } catch (error) {
+              console.error("Error processing order or saving to Firestore:", error);
+              displayMessage("Order placed, but failed to record details in cloud. Please contact support and provide this error: " + error.message, "error");
+              paymentConfirmation.classList.add('hidden');
+              paymentFailed.classList.remove('hidden');
+              failureMessage.textContent = "There was an issue recording your order. Please contact support.";
+          }
+          isCartCheckout = false;
+      });
+
+
+      buyNowForm.addEventListener('submit', async (e) => {
+          e.preventDefault(); // Prevent default form submission for COD
+
+          // Basic validation for COD
+          if (!buyNowForm.checkValidity()) {
+              buyNowError.textContent = 'Please fill in all required fields correctly.';
+              buyNowError.classList.remove('hidden');
+              buyNowForm.reportValidity(); // Show browser's validation messages
+              return;
+          }
+          buyNowError.classList.add('hidden'); // Hide error if validation passes
+
+          // Check if Firebase Firestore is initialized
+          if (!window.myAppFirebase.db) {
+              displayMessage("Firebase is not ready. Please try again later.", "error");
+              console.error("Firestore object is not initialized. Cannot save order.");
+              return;
+          }
+
+          // Handle Cash on Delivery submission
+          buyNowForm.classList.add('hidden');
+          paymentConfirmation.classList.remove('hidden');
+          confirmationMessage.textContent = "Order successful. Our team checks the payment and delivers the products."; // Updated message
+          paymentFailed.classList.add('hidden'); // Ensure failure is hidden
+
+          const orderId = `ORDER-${Date.now()}`; // Unique ID for COD orders
+          const selectedPaymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
+
+          let totalAmountValue;
+          if (isCartCheckout) {
+              totalAmountValue = window.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+          } else {
+              totalAmountValue = currentProductForBuy ? currentProductForBuy.price : 0;
+          }
+
+          let orderData = {
+              customerName: buyName.value,
+              customerPhone: buyPhone.value,
+              customerEmail: buyEmail.value || null, // Ensure email is null if empty
+              deliveryAddress: buyAddress.value,
+              orderId: orderId,
+              totalAmount: parseFloat(totalAmountValue), // Ensure totalAmount is always set
+              paymentOption: selectedPaymentOption,
+              timestamp: new Date().toISOString()
+          };
+
+          if (selectedPaymentOption === 'gpay') {
+              // Get the trimmed value; if the element is null or value is undefined/null, default to empty string.
+              const gpayUserVal = (gpayUsername && gpayUsername.value !== undefined && gpayUsername.value !== null) ? gpayUsername.value.trim() : '';
+
+              // Assign the value. If it's an empty string, it will be saved as null.
+              orderData.gpayUsername = gpayUserVal === '' ? null : gpayUserVal;
+          } else {
+              // If paymentOption is not 'gpay', explicitly set gpayUsername to null
+              orderData.gpayUsername = null;
+          }
+
+          if (isCartCheckout) {
+              orderData.products = window.cart.map(item => ({
+                  id: item.id,
+                  name: item.name,
+                  price: item.price,
+                  quantity: item.quantity,
+                  image: item.image
+              }));
+              // Clear cart after successful checkout
+              window.cart = [];
+              // No need to explicitly save cart to Firestore here, as it's handled by the listener
+          } else {
+              orderData.productName = currentProductForBuy.name;
+              orderData.productPrice = currentProductForBuy.price;
+          }
+
+          try {
+              const currentUser = window.myAppFirebase?.currentUser;
+              // Ensure user is logged in and has an email before attempting to save to Firestore
+              if (!currentUser || currentUser.isAnonymous || !currentUser.email) {
+                  console.error("User not authenticated with email. Cannot save order to user-specific path.");
+                  displayMessage("Please log in or sign up to complete your purchase. Order could not be saved to your account.", "error", 8000);
+                  paymentConfirmation.classList.add('hidden');
+                  paymentFailed.classList.remove('hidden');
+                  failureMessage.textContent = "You must be logged in with an email to place an order. Please log in and try again.";
+                  return;
+              }
+
+              const userDocRef = window.myAppFirebase.doc(window.myAppFirebase.db, 'users', currentUser.email);
+              const userDocSnap = await window.myAppFirebase.getDoc(userDocRef);
+              let existingOrders = [];
+
+              if (userDocSnap.exists() && userDocSnap.data().orders) {
+                  try {
+                      existingOrders = JSON.parse(userDocSnap.data().orders);
+                  } catch (e) {
+                      console.error("Error parsing existing orders from Firestore:", e);
+                      existingOrders = [];
+                  }
+              }
+
+              existingOrders.push(orderData);
+
+              // Update the user's document with the new orders array
+              // Changed to pretty-print JSON for better readability in Firestore console
+              await window.myAppFirebase.setDoc(userDocRef, { orders: JSON.stringify(existingOrders, null, 2) }, { merge: true });
+
+              // If cart checkout, clear cart in Firestore
+              if (isCartCheckout) {
+                  await window.myAppFirebase.setDoc(userDocRef, { cartItems: JSON.stringify([]) }, { merge: true });
+                  localStorage.removeItem('cart'); // Clear local storage too
+                  window.updateCartDisplay(); // Update cart count in header
+              }
+
+              displayMessage("Order placed via Cash on Delivery! Details recorded in Firestore.", "success");
+
+              if (orderData.customerEmail) {
+                  await sendOrderConfirmationEmail(orderData);
+              } else {
+                  console.warn("Customer email not provided. Email confirmation not sent.");
+              }
+
+          } catch (error) {
+              console.error("Error processing order or saving to Firestore:", error);
+              displayMessage("Order placed, but failed to record details in cloud. Please contact support and provide this error: " + error.message, "error");
+              paymentConfirmation.classList.add('hidden');
+              paymentFailed.classList.remove('hidden');
+              failureMessage.textContent = "There was an issue recording your order. Please contact support.";
+          }
+          isCartCheckout = false;
+      });
+
+      closeConfirmation.addEventListener('click', () => {
+          buyNowModal.classList.add('hidden');
+          // Reset modal state for next purchase
+          buyNowForm.reset();
+          buyNowForm.classList.remove('hidden');
+          paymentConfirmation.classList.add('hidden');
+          paymentFailed.classList.add('hidden'); // Hide failure message
+          buyNowError.classList.add('hidden');
+          buyNowError.textContent = '';
+          document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
+          gpayButton.classList.remove('hidden');
+          codSubmitButton.classList.add('hidden');
+          gpayQrCodeContainer.classList.add('hidden'); // Hide QR code container
+          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
+          gpayUsernameInputContainer.classList.add('hidden'); // Hide GPay username input
+          gpayUsername.value = ''; // Clear GPay username input
+          isCartCheckout = false; // Ensure flag is reset when confirmation is closed
+      });
+
+      closeFailure.addEventListener('click', () => {
+          buyNowModal.classList.add('hidden');
+          // Reset modal state for next purchase
+          buyNowForm.reset();
+          buyNowForm.classList.remove('hidden');
+          paymentConfirmation.classList.add('hidden');
+          paymentFailed.classList.add('hidden'); // Hide failure message
+          buyNowError.classList.add('hidden');
+          buyNowError.textContent = '';
+          document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
+          gpayButton.classList.remove('hidden');
+          codSubmitButton.classList.add('hidden');
+          gpayQrCodeContainer.classList.add('hidden'); // Hide QR code container
+          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
+          gpayUsernameInputContainer.classList.add('hidden'); // Hide GPay username input
+          gpayUsername.value = ''; // Clear GPay username input
+          isCartCheckout = false; // Ensure flag is reset when confirmation is closed
+      });
+
+
+      // Functions
+      function initPage() {
+        console.log("initPage called.");
+        showLoading();
+      }
+
+      function handleSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (query) {
+          document.getElementById("clearSearch").style.display = "flex";
+          isSearchActive = true;
+          showLoading();
+          setTimeout(() => {
+            const filteredProducts = allProducts.filter(
+              (product) =>
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query) ||
+                product.category.toLowerCase().includes(query),
+            );
+            currentProducts = filteredProducts;
+            currentPage = 1;
+            if (filteredProducts.length > 0) {
+              searchTerm.textContent = query;
+              searchResultsIndicator.classList.remove("hidden");
+              noResultsMessage.classList.add("hidden");
+              renderProducts(filteredProducts, currentPage);
+              renderPagination();
+            } else {
+              searchResultsIndicator.classList.add("hidden");
+              noResultsMessage.classList.remove("hidden");
+              productsContainer.innerHTML = "";
+              pagination.classList.add("hidden");
+            }
+            hideLoading();
+          }, 300);
+        } else {
+          document.getElementById("clearSearch").style.display = "none";
+          resetSearch();
+        }
+      }
+
+      function clearSearchInput() {
+        searchInput.value = "";
+        document.getElementById("clearSearch").style.display = "none";
+        resetSearch();
+        searchInput.focus();
+      }
+
+      function resetFilters() {
+        const allButton = document.querySelector('[data-category="all"]');
+        const filterButtons = document.querySelectorAll(".category-filter");
+
+        filterButtons.forEach((btn) => {
+          btn.classList.remove("bg-primary", "text-white");
+          btn.classList.add("bg-gray-100", "text-gray-700");
+        });
+        allButton.classList.remove("bg-gray-100", "text-gray-700");
+        allButton.classList.add("bg-primary", "text-white");
+
+        activeFiltersDisplay.classList.add("hidden");
+        activeFilterTags.innerHTML = "";
+
+        currentProducts = [...allProducts];
+        currentPage = 1;
+        renderProducts(currentProducts, currentPage);
+        renderPagination();
+      }
+
+      function resetSearch() {
+        isSearchActive = false;
+        searchInput.value = "";
+        document.getElementById("clearSearch").style.display = "none";
+        searchResultsIndicator.classList.add("hidden");
+        noResultsMessage.classList.add("hidden");
+        resetFilters();
+        showLoading();
+        setTimeout(() => {
+          currentProducts = [...allProducts];
+          currentPage = 1;
+          renderProducts(currentProducts, currentPage);
+          renderPagination();
+          hideLoading();
+        }, 300);
+      }
+
+      function renderProducts(products, page) {
+        console.log("renderProducts called with products:", products, "and page:", page);
+        if (!productsContainer) {
+            console.error("productsContainer element not found!");
+            return; // Exit if the container isn't found
+        }
+        productsContainer.innerHTML = "";
+        const startIndex = (page - 1) * productsPerPage;
+        const endIndex = startIndex + productsPerPage;
+        const paginatedProducts = products.slice(startIndex, endIndex);
+
+        if (paginatedProducts.length > 0) {
+          productsContainer.classList.remove("hidden"); // Ensure products container is visible
+          productsContainer.style.visibility = 'visible'; // Ensure visibility
+          productsContainer.style.height = ''; // Ensure height is reset
+          paginatedProducts.forEach((product) => {
+            const productCard = createProductCard(product);
+            productsContainer.appendChild(productCard);
+            console.log("Appended product card for:", product.name); // Confirm card appended
+          });
+          pagination.classList.remove("hidden");
+        } else {
+          productsContainer.classList.add("hidden"); // Hide product container if no products
+          productsContainer.style.visibility = 'hidden'; // Hide element completely
+          productsContainer.style.height = '0'; // Collapse height
+          // Updated logic for no results:
+          if (isSearchActive) {
+            noResultsMessage.classList.remove("hidden");
+            searchResultsIndicator.classList.add("hidden");
+          } else {
+            // Only show no results if there are genuinely no products at all
+            if (allProducts.length === 0) {
+              noResultsMessage.classList.remove("hidden");
+            }
+          }
+          pagination.classList.add("hidden");
+        }
+        updateWishlistIcons();
+        updateAddToCartButtons();
+      }
+
+      function createProductCard(product) {
+        console.log("Creating product card for:", product.name); // Confirm card creation
+        const card = document.createElement("div");
+        card.className = "product-card bg-white rounded shadow-sm overflow-hidden";
+        card.innerHTML = `
+          <div class="relative h-48 overflow-hidden">
+              <img src="${product.image}" alt="${product.name}" class="w-full h-full object-top transition-transform duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e0e0e0/505050?text=Image+Not+Found';">
+              <button class="absolute top-2 left-2 text-gray-400 hover:text-red-500 transition wishlist-icon" data-id="${product.id}">
+                  <i class="ri-heart-line ri-lg"></i>
+              </button>
+          </div>
+          <div
+              class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"
+          >
+              ${product.war}
+          </div>
+
+          <div class="p-4">
+              <div class="flex justify-between items-start mb-2">
+                  <h3 class="text-lg font-medium text-gray-900 line-clamp-1">${product.name}</h3>
+                  <span class="font-semibold text-primary">₹${product.price.toFixed(2)}</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">${product.description}</p>
+              <div class="flex flex-col gap-2"> <!-- Changed to flex-col to stack buttons -->
+                  <button class="add-to-cart-btn bg-primary hover:bg-blue-600 text-white rounded w-full gap-1" data-id="${product.id}">
+                      <div class="w-4 h-4 flex items-center justify-center">
+                          <i class="ri-shopping-cart-line"></i>
+                      </div>
+                      Add to Cart
+                  </button>
+                  <button class="buy-now-btn bg-secondary hover:bg-green-600 text-white rounded w-full gap-1" data-id="${product.id}">
+                      <div class="w- h- flex items-center justify-center">
+
+                      </div>
+                      <span>Buy Now</span>
+                  </button>
+              </div>
+          </div>
+        `;
+        return card;
+      }
+
+      function renderPagination() {
+        const pageButtonsContainer = pagination.querySelector("div");
+        if (pageButtonsContainer) {
+          pageButtonsContainer.remove();
+        }
+        totalPages = Math.ceil(currentProducts.length / productsPerPage);
+        // Create page buttons container
+        const buttonsContainer = document.createElement("div");
+        buttonsContainer.className = "flex";
+        // Determine which page numbers to show
+        let startPage = Math.max(1, currentPage - 2);
+        let endPage = Math.min(totalPages, startPage + 4);
+        if (endPage - startPage < 4 && totalPages > 5) {
+          startPage = Math.max(1, endPage - 4);
+        }
+        // Add page number buttons
+        for (let i = startPage; i <= endPage; i++) {
+          const pageBtn = document.createElement("button");
+          pageBtn.className = `relative inline-flex items-center px-4 py-2 border ${
+            i === currentPage
+              ? "border-primary bg-primary/10 text-primary font-medium"
+              : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+          } text-sm`;
+          pageBtn.textContent = i;
+          pageBtn.addEventListener("click", () => {
+            if (currentPage !== i) {
+              goToPage(i);
+            }
+          });
+          buttonsContainer.appendChild(pageBtn);
+        }
+        // Insert the page buttons between prev and next buttons
+        pagination.insertBefore(buttonsContainer, nextPageBtn);
+        // Update prev/next button states
+        prevPageBtn.disabled = currentPage === 1;
+        nextPageBtn.disabled = currentPage === totalPages;
+        // Hide pagination if there's only one page
+        if (totalPages <= 1) {
+          pagination.classList.add("hidden");
+        } else {
+          pagination.classList.remove("hidden");
+        }
+      }
+
+      function goToPage(page) {
+        currentPage = page;
+        showLoading();
+        setTimeout(() => {
+          renderProducts(currentProducts, currentPage);
+          renderPagination();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          hideLoading();
+        }, 300);
+      }
+
+      function goToPrevPage() {
+        if (currentPage > 1) {
+          goToPage(currentPage - 1);
+        }
+      }
+
+      function goToNextPage() {
+        if (currentPage < totalPages) {
+          goToPage(currentPage + 1);
+        }
+      }
+
+      function showLoading() {
+        productsContainer.classList.add("opacity-0");
+        productsContainer.style.visibility = 'hidden'; // Hide element completely
+        productsContainer.style.height = '0'; // Collapse height
+        loadingSkeleton.classList.remove("hidden");
+        errorMessage.classList.add("hidden");
+      }
+
+      function hideLoading() {
+        loadingSkeleton.classList.add("hidden");
+        productsContainer.classList.remove("opacity-0");
+        productsContainer.style.visibility = 'visible'; // Make element visible
+        productsContainer.style.height = ''; // Reset height
+      }
+
+      // Updated displayErrorMessage function to use the custom message box
+      function displayMessage(message, type = 'info', duration = 3000) {
+          messageBox.textContent = message;
+          messageBox.className = 'message-box show'; // Reset classes and show
+          if (type === 'error') {
+              messageBox.style.backgroundColor = '#dc2626'; // Red for error
+          } else if (type === 'success') {
+              messageBox.style.backgroundColor = '#10b981'; // Green for success
+          } else if (type === 'warning') {
+              messageBox.style.backgroundColor = '#f59e0b'; // Amber for warning
+          } else {
+              messageBox.style.backgroundColor = '#333'; // Dark gray for info
+          }
+
+          // Automatically hide after duration
+          setTimeout(() => {
+              messageBox.classList.remove('show');
+              // Optionally clear text after animation
+              setTimeout(() => { messageBox.textContent = ''; }, 300);
+          }, duration);
+      }
+
+      function retryLoading() {
+        // This retry is for product fetching, which isn't network-dependent in this current setup.
+        // If products were fetched from an API, this would re-call the fetch function.
+        // For now, it just re-renders.
+        errorMessage.classList.add("hidden");
+        productsContainer.classList.remove("hidden");
+        initPage();
+        renderProducts(currentProducts, currentPage);
+        renderPagination();
+        hideLoading();
+      }
+
+      // Cart Functions (now conditionally saves to Firebase)
+      async function addToCart(productId) {
+          const productToAdd = allProducts.find(p => p.id === productId);
+          if (!productToAdd) return;
+
+          const existingItem = window.cart.find(item => item.id === productId);
+          if (existingItem) {
+              existingItem.quantity++;
+          } else {
+              window.cart.push({ ...productToAdd, quantity: 1 });
+          }
+
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (currentUser && !currentUser.isAnonymous && currentUser.email) {
+              try {
+                  // Use the user's email as the document ID directly under 'users' collection
+                  const userDocRef = window.myAppFirebase.doc(window.myAppFirebase.db, 'users', currentUser.email);
+                  // Update the 'cartItems' field within that user's document
+                  await window.myAppFirebase.setDoc(userDocRef, { cartItems: JSON.stringify(window.cart) }, { merge: true });
+                  displayMessage("Product added to cart (synced to cloud).", "info");
+              } catch (e) {
+                  console.error("Error writing cart to Firestore:", e);
+                  localStorage.setItem('cart', JSON.stringify(window.cart)); // Fallback to local storage
+                  displayMessage("Failed to sync cart to cloud. Data saved locally. Error: " + e.message, "error");
+              }
+          } else {
+              localStorage.setItem('cart', JSON.stringify(window.cart));
+              displayMessage("Product added to cart (saved locally).", "info");
+          }
+          updateCartDisplay();
+          updateAddToCartButtons();
+      }
+
+      async function removeFromCart(productId) {
+          window.cart = window.cart.filter(item => item.id !== productId);
+
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (currentUser && !currentUser.isAnonymous && currentUser.email) {
+              try {
+                  const userDocRef = window.myAppFirebase.doc(window.myAppFirebase.db, 'users', currentUser.email);
+                  await window.myAppFirebase.setDoc(userDocRef, { cartItems: JSON.stringify(window.cart) }, { merge: true });
+                  displayMessage("Product removed from cart (synced to cloud).", "info");
+              } catch (e) {
+                  console.error("Error removing item from Firestore cart:", e);
+                  localStorage.setItem('cart', JSON.stringify(window.cart)); // Fallback to local storage
+                  displayMessage("Failed to sync cart removal to cloud. Data removed locally. Error: " + e.message, "error");
+              }
+          } else {
+              localStorage.setItem('cart', JSON.stringify(window.cart));
+              displayMessage("Product removed from cart (removed locally).", "info");
+          }
+          updateCartDisplay();
+          renderCart();
+          updateAddToCartButtons();
+      }
+
+      function updateCartDisplay() {
+          cartCount.textContent = window.cart.reduce((sum, item) => sum + item.quantity, 0);
+          let total = 0;
+          window.cart.forEach(item => {
+              total += item.price * item.quantity;
+          });
+          cartTotal.textContent = `₹${total.toFixed(2)}`;
+      }
+
+      function renderCart() {
+          cartItemsContainer.innerHTML = "";
+          if (window.cart.length === 0) {
+              cartItemsContainer.innerHTML = `
+                  <div class="text-center py-10">
+                      <i class="ri-shopping-cart-line ri-4x text-gray-400"></i>
+                      <p class="text-gray-600 mt-3">Your cart is empty.</p>
+                  </div>
+              `;
+          } else {
+              window.cart.forEach(item => {
+                  const itemElement = document.createElement("div");
+                  itemElement.className = "flex justify-between items-center mb-4";
+                  itemElement.innerHTML = `
+                      <div class="flex items-center gap-4">
+                          <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+                          <div>
+                              <h4 class="font-medium text-gray-800">${item.name}</h4>
+                              <p class="text-sm text-gray-600">₹${item.price.toFixed(2)} x ${item.quantity}</p>
+                          </div>
+                      </div>
+                      <button class="text-red-500 remove-btn" data-id="${item.id}">
+                          <i class="ri-delete-bin-line"></i>
+                      </button>
+                  `;
+                  cartItemsContainer.appendChild(itemElement);
+              });
+          }
+          updateCartDisplay();
+      }
+
+      function updateAddToCartButtons() {
+          document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+              const productId = parseInt(button.dataset.id);
+              const isInCart = window.cart.some(item => item.id === productId);
+
+              if (isInCart) {
+                  // Apply 'added' state styles: green background, white text, check icon, "Added" text
+                  button.classList.add("bg-secondary", "hover:bg-secondary/90");
+                  button.classList.remove("bg-primary", "hover:bg-blue-600");
+                  button.innerHTML = `
+                      <div class="w-4 h-4 flex items-center justify-center">
+                          <i class="ri-check-line"></i>
+                      </div>
+                      Added
+                  `;
+              } else {
+                  // Apply default state styles: primary background, white text, cart icon, "Add to Cart" text
+                  button.classList.remove("bg-secondary", "hover:bg-secondary/90");
+                  button.classList.add("bg-primary", "hover:bg-blue-600");
+                  button.innerHTML = `
+                      <div class="w-4 h-4 flex items-center justify-center">
+                          <i class="ri-shopping-cart-line"></i>
+                      </div>
+                      Add to Cart
+                  `;
+              }
+          });
+      }
+
+
+      // Wishlist Functions (now conditionally saves to Firebase)
+      async function toggleWishlist(productId) {
+          const productToToggle = allProducts.find(p => p.id === productId);
+          if (!productToToggle) return;
+
+          const existingItemIndex = window.wishlist.findIndex(item => item.id === productId);
+          if (existingItemIndex > -1) {
+              window.wishlist.splice(existingItemIndex, 1);
+              displayMessage("Product removed from liked list.", "info");
+          } else {
+              window.wishlist.push(productToToggle);
+              displayMessage("Product added to liked list.", "info");
+          }
+
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (currentUser && !currentUser.isAnonymous && currentUser.email) {
+              try {
+                  const userDocRef = window.myAppFirebase.doc(window.myAppFirebase.db, 'users', currentUser.email);
+                  await window.myAppFirebase.setDoc(userDocRef, { wishlistItems: JSON.stringify(window.wishlist) }, { merge: true });
+              } catch (e) {
+                  console.error("Error writing wishlist to Firestore:", e);
+                  localStorage.setItem('wishlist', JSON.stringify(window.wishlist)); // Fallback to local storage
+                  displayMessage("Failed to sync liked list to cloud. Data saved locally. Error: " + e.message, "error");
+              }
+          } else {
+              localStorage.setItem('wishlist', JSON.stringify(window.wishlist));
+          }
+          updateWishlistDisplay();
+          updateWishlistIcons();
+      }
+
+      async function removeFromWishlist(productId) {
+          window.wishlist = window.wishlist.filter(item => item.id !== productId);
+
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (currentUser && !currentUser.isAnonymous && currentUser.email) {
+              try {
+                  const userDocRef = window.myAppFirebase.doc(window.myAppFirebase.db, 'users', currentUser.email);
+                  await window.myAppFirebase.setDoc(userDocRef, { wishlistItems: JSON.stringify(window.wishlist) }, { merge: true });
+                  displayMessage("Product removed from liked list (synced to cloud).", "info");
+              } catch (e) {
+                  console.error("Error removing item from Firestore wishlist:", e);
+                  localStorage.setItem('wishlist', JSON.stringify(window.wishlist)); // Fallback to local storage
+                  displayMessage("Failed to sync liked list removal to cloud. Data removed locally. Error: " + e.message, "error");
+              }
+          } else {
+              localStorage.setItem('wishlist', JSON.stringify(window.wishlist));
+              displayMessage("Product removed from liked list (removed locally).", "info");
+          }
+          updateWishlistDisplay();
+          renderWishlist();
+          updateWishlistIcons();
+      }
+
+      function updateWishlistDisplay() {
+          wishlistCount.textContent = window.wishlist.length;
+      }
+
+      function renderWishlist() {
+          wishlistItemsContainer.innerHTML = "";
+          if (window.wishlist.length === 0) {
+              wishlistItemsContainer.innerHTML = `
+                  <div class="text-center py-10">
+                      <i class="ri-heart-line ri-4x text-gray-400"></i>
+                      <p class="text-gray-600 mt-3">Your liked list is empty.</p>
+                  </div>
+              `;
+          } else {
+              window.wishlist.forEach(item => {
+                  const itemElement = document.createElement("div");
+                  itemElement.className = "flex justify-between items-center mb-4";
+                  itemElement.innerHTML = `
+                      <div class="flex items-center gap-4">
+                          <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+                          <div>
+                              <h4 class="font-medium text-gray-800">${item.name}</h4>
+                              <p class="text-sm text-gray-600">₹${item.price.toFixed(2)}</p>
+                          </div>
+                      </div>
+                      <div class="flex flex-col items-end space-y-2">
+                           <button class="bg-primary hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm add-to-cart-from-wishlist-btn" data-id="${item.id}">Add to Cart</button>
+                           <button class="text-red-500 remove-btn" data-id="${item.id}">
+                              <i class="ri-delete-bin-line"></i>
+                          </button>
+                      </div>
+                  `;
+                  wishlistItemsContainer.appendChild(itemElement);
+              });
+          }
+          updateWishlistDisplay();
+      }
+
+      function updateWishlistIcons() {
+          document.querySelectorAll(".wishlist-icon").forEach(button => {
+              const productId = parseInt(button.dataset.id);
+              const icon = button.querySelector("i");
+              if (window.wishlist.some(item => item.id === productId)) {
+                  icon.classList.remove("ri-heart-line");
+                  icon.classList.add("ri-heart-fill");
+                  button.classList.add("text-red-500");
+                  button.classList.remove("text-gray-400");
+              } else {
+                  icon.classList.remove("ri-heart-fill");
+                  icon.classList.add("ri-heart-line");
+                  button.classList.remove("text-red-500");
+                  button.classList.add("text-gray-400");
+              }
+          });
+      }
+
+      // Function to update the user UI (icon/initial)
+      function updateUserUI() {
+        // This function no longer attempts to show initials.
+        // It simply ensures the userRiIcon is visible and userInitialIcon is hidden.
+        userInitialIcon.classList.add("hidden"); // Ensure initials are always hidden
+        userRiIcon.classList.remove("hidden"); // Ensure generic icon is always visible
+
+        // Ensure auth modal is hidden by default unless explicitly opened by user click
+        authModal.classList.add("hidden");
+      }
+
+      // Function to open the Buy Now modal for a single product
+      function openBuyNowModal(productId) {
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (!currentUser || currentUser.isAnonymous || !currentUser.email) {
+              displayMessage("Please log in or sign up to complete your purchase.", "info", 5000);
+              authModal.classList.remove("hidden"); // Show auth modal
+              loginForm.classList.remove("hidden"); // Default to login
+              signupForm.classList.add("hidden");
+              loggedInUserView.classList.add("hidden");
+              return; // Prevent opening buy now modal
+          }
+
+          isCartCheckout = false; // Set flag to false for single product purchase
+          currentProductForBuy = allProducts.find(p => p.id === productId);
+          if (!currentProductForBuy) {
+              displayMessage("Product not found for purchase.", "error");
+              return;
+          }
+
+          // Reset to initial state
+          buyNowForm.reset();
+          buyNowForm.classList.remove('hidden');
+          paymentConfirmation.classList.add('hidden');
+          paymentFailed.classList.add('hidden'); // Hide failure message
+          buyNowError.classList.add('hidden');
+          buyNowError.textContent = '';
+
+          // Set GPay as default selected option and show its elements
+          document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
+          gpayButton.classList.remove('hidden'); // Show GPay button
+          codSubmitButton.classList.add('hidden'); // Hide COD button
+          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
+          gpayQrCodeContainer.classList.remove('hidden'); // Show QR code container
+          gpayUsernameInputContainer.classList.remove('hidden'); // Show GPay username input
+          gpayUsername.value = ''; // Clear GPay username input
+
+          generateGPayQrCode(); // Generate QR code immediately
+
+          buyNowModal.classList.remove('hidden');
+      }
+
+      // New function to open the Buy Now modal for cart checkout
+      function openCheckoutModalForCart() {
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (!currentUser || currentUser.isAnonymous || !currentUser.email) {
+              displayMessage("Please log in or sign up to complete your cart checkout.", "info", 5000);
+              authModal.classList.remove("hidden"); // Show auth modal
+              loginForm.classList.remove("hidden"); // Default to login
+              signupForm.classList.add("hidden");
+              loggedInUserView.classList.add("hidden");
+              cartSidebar.classList.remove("translate-x-0"); // Close cart sidebar
+              cartSidebar.classList.add("translate-x-full");
+              return; // Prevent opening buy now modal
+          }
+
+          isCartCheckout = true; // Set flag to true for cart checkout
+          currentProductForBuy = null; // Clear single product context
+
+          let totalCartPrice = window.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+          buyNowForm.reset();
+          buyNowForm.classList.remove('hidden');
+          paymentConfirmation.classList.add('hidden');
+          paymentFailed.classList.add('hidden'); // Hide failure message
+          buyNowError.classList.add('hidden');
+          buyNowError.textContent = '';
+
+          document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
+          gpayButton.classList.remove('hidden'); // Show GPay button
+          codSubmitButton.classList.add('hidden'); // Hide COD button
+          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
+          gpayQrCodeContainer.classList.remove('hidden'); // Show QR code container
+          gpayUsernameInputContainer.classList.remove('hidden'); // Show GPay username input
+          gpayUsername.value = ''; // Clear GPay username input
+
+          generateGPayQrCode(); // Generate QR code immediately
+
+          buyNowModal.classList.remove('hidden');
+          cartSidebar.classList.remove("translate-x-0"); // Close cart sidebar
+          cartSidebar.classList.add("translate-x-full");
+      }
+
+
+      // Add click event listeners to category filters - moved here for scope
+      const filterButtons = document.querySelectorAll(".category-filter");
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const category = button.getAttribute("data-category");
+
+          // Update button states
+          filterButtons.forEach((btn) => {
+            btn.classList.remove("bg-primary", "text-white");
+            btn.classList.add("bg-gray-100", "text-gray-700");
+          });
+          button.classList.remove("bg-gray-100", "text-gray-700");
+          button.classList.add("bg-primary", "text-white");
+          // Filter products
+          if (category === "all") {
+            currentProducts = [...allProducts];
+            activeFiltersDisplay.classList.add("hidden");
+            activeFilterTags.innerHTML = "";
+          } else {
+            currentProducts = allProducts.filter(
+              (product) => product.category === category,
+            );
+            activeFiltersDisplay.classList.remove("hidden");
+            activeFilterTags.innerHTML = `
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">
+              ${category}
+              <button class="ml-2 focus:outline-none" onclick="resetFilters()">
+                <i class="ri-close-line"></i>
+              </button>
+            </span>
+          `;
+          }
+          // Reset pagination and render
+          currentPage = 1;
+          renderProducts(currentProducts, currentPage);
+          renderPagination();
+        });
+      });
+
+      // --- Email Sending via EmailJS ---
+      // IMPORTANT: Initialize EmailJS with your Public Key (User ID)
+      // You can find this in your EmailJS account dashboard under "Email Services" -> "API Keys"
+      emailjs.init("sa2V5JxwcrSsTPFky"); // Replace with your actual EmailJS Public Key
+
+      async function sendOrderConfirmationEmail(orderDetails) {
+          // Check if customer email is provided
+          if (!orderDetails.customerEmail) {
+              console.warn("Email sending skipped: Customer email not provided.");
+              displayMessage("Order placed, but email confirmation could not be sent (email not provided).", "warning");
+              return;
+          }
+
+          // A simple check to ensure the placeholder is replaced.
+          // This doesn't validate the key's correctness, only that it's not the default string.
+          if (emailjs.init.toString().includes("sa2V5JxwcrSsTPFky")) {
+              console.error("EmailJS Public Key is still a placeholder. Email will not be sent.");
+              displayMessage("Email sending failed: EmailJS Public Key is not set. Please update 'emailjs.init()' in pro.html.", "error", 15000);
+              return;
+          }
+
+
+          const customerName = orderDetails.customerName || 'Customer';
+          const orderNumber = orderDetails.orderId;
+          const customerEmail = orderDetails.customerEmail;
+
+          // Prepare items array for the template
+          let itemsForTemplate = [];
+          if (isCartCheckout && orderDetails.products && Array.isArray(orderDetails.products)) {
+              itemsForTemplate = orderDetails.products.map(item => ({
+                  name: item.name,
+                  price: item.price.toFixed(2), // Format price for display
+                  qty: item.quantity // Changed from quantity to qty to match template
+              }));
+          } else if (currentProductForBuy) {
+              // For single product purchase
+              itemsForTemplate.push({
+                  name: currentProductForBuy.name,
+                  price: currentProductForBuy.price.toFixed(2),
+                  qty: 1
+              });
+          }
+
+          // These are the parameters that will be passed to your EmailJS template
+          // Ensure variable names match your EmailJS template exactly
+          const templateParams = {
+              name: customerName, // Matches {{name}} in your template
+              order_id: orderNumber, // Matches {{order_id}} in your template
+              email: customerEmail, // Matches {{email}} in your template (for 'To Email' field)
+              orders: itemsForTemplate, // Matches {{orders}} in your template (for iterating over items)
+              cost: {
+                  shipping: (0.00).toFixed(2), // Set to 0.00 or 'N/A' if not tracked
+                  tax: (0.00).toFixed(2),      // Set to 0.00 or 'N/A' if not tracked
+                  total: orderDetails.totalAmount.toFixed(2)
+              }
+          };
+
+          // IMPORTANT: Replace 'YOUR_EMAILJS_SERVICE_ID' and 'YOUR_EMAILJS_TEMPLATE_ID'
+          // You can find these in your EmailJS account dashboard under "Email Services" and "Email Templates" respectively.
+          const serviceID = 'service_wons1xq'; // Replace with your actual EmailJS Service ID
+          const templateID = 'template_y3h32ca'; // Replace with your actual EmailJS Template ID
+
+          try {
+              // Send the email using EmailJS
+              const response = await emailjs.send(serviceID, templateID, templateParams);
+
+              if (response.status === 200) {
+                  console.log(`EmailJS: Order confirmation email sent to ${customerEmail} for order #${orderNumber}`);
+                  displayMessage("Order confirmation email sent!", "success");
+              } else {
+                  console.error("EmailJS: Failed to send email.", response);
+                  displayMessage(`Order placed, but email failed. Reason: ${response.text || 'Unknown error'}. Please contact support.`, "error", 10000);
+              }
+          } catch (error) {
+              console.error("EmailJS: Network or unexpected error during email sending:", error);
+              displayMessage(`Order placed, but email failed due to network issues. Please contact support.`, "error", 10000);
+          }
+      }
+      // Expose the function to the global window object
+      window.sendOrderConfirmationEmail = sendOrderConfirmationEmail;
+
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script id="mobile-menu-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        // Ensure the elements exist before adding event listeners
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener("click", function () {
+            // Toggle the 'hidden' class to show/hide the mobile menu
+            mobileMenu.classList.toggle("hidden");
+            // Also, toggle 'flex' to ensure it displays correctly when not hidden
+            mobileMenu.classList.toggle("flex");
+          });
+        }
+
+        // Close mobile menu when clicking on any link inside it
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("hidden"); // Hide the mobile menu
+            mobileMenu.classList.remove("flex"); // Ensure flex is removed when hidden
+          });
+        });
+      });
+    </script>
+
+    <!-- Firebase Module Script -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // IMPORTANT: Firestore Security Rules for this application structure:
+      // These rules allow authenticated users to read and write to their own
+      // user document, where the document ID is their email (userEmail).
+      //
+      // To apply these rules:
+      // 1. Go to your Firebase project console.
+      // 2. Navigate to "Firestore Database" -> "Rules".
+      // 3. Replace the existing rules with the following and "Publish" them.
+      /*
+      rules_version = '2';
+      service cloud.firestore {
+        match /databases/{database}/documents {
+          // Allow authenticated users to read and write to their own user document
+          // The document ID is expected to be the user's email (userEmail)
+          // Ensure that request.auth.token.email matches the document ID (userEmail)
+          match /users/{userEmail} {
+            allow read, write: if request.auth != null && request.auth.token.email == userEmail;
+          }
+        }
+      }
+      */
+
+      // Firebase variables (provided by Canvas environment)
+      // IMPORTANT: Replace these with your ACTUAL Firebase project configuration!
+       const firebaseConfig = {
+  apiKey: "AIzaSyBz-4MRjpbIp4NUpffMI4pBtL3OdaDDaFc",
+  authDomain: "devspark-37f4f.firebaseapp.com",
+  projectId: "devspark-37f4f",
+  storageBucket: "devspark-37f4f.firebasestorage.app",
+  messagingSenderId: "169352992813",
+  appId: "1:169352992813:web:8dce0368a82060f627c0a4",
+  measurementId: "G-H5QRPXWK2P"
+};
+
+      let app;
+      let auth;
+      let db;
+      let currentUser = null;
+      let cartUnsubscribe = null;
+      let wishlistUnsubscribe = null;
+
+      // Define auth functions, these will now contain their own checks for 'auth'
+      const handleLogin = async function(email, password) {
+          const loginError = document.getElementById("loginError");
+          loginError.textContent = "";
+          if (!auth) {
+              console.error("Authentication object is not initialized. Cannot login.");
+              loginError.textContent = "Firebase is not ready. Please try again later.";
+              return;
+          }
+          try {
+              await signInWithEmailAndPassword(auth, email, password);
+              document.getElementById("authModal").classList.add("hidden");
+              window.displayMessage("Logged in successfully!", "info");
+          } catch (error) {
+              console.error("Login failed:", error);
+              let message = "Login failed. Please try again.";
+              switch (error.code) {
+                  case 'auth/user-not-found':
+                  case 'auth/wrong-password':
+                      message = "Invalid email or password.";
+                      break;
+                  case 'auth/invalid-email':
+                      message = "Invalid email format.";
+                      break;
+                  case 'auth/user-disabled':
+                      message = "Your account has been disabled.";
+                      break;
+                  case 'auth/network-request-failed':
+                      message = "Network error. Please check your internet connection.";
+                      break;
+                  default:
+                      message = "Login failed. Please try again later.";
+              }
+              loginError.textContent = message;
+          }
+      };
+
+      const handleSignup = async function(email, password) {
+          const signupError = document.getElementById("signupError");
+          signupError.textContent = "";
+          if (!auth) {
+              console.error("Authentication object is not initialized. Cannot signup.");
+              signupError.textContent = "Firebase is not ready. Please try again later.";
+              return;
+          }
+          try {
+              await createUserWithEmailAndPassword(auth, email, password);
+              document.getElementById("authModal").classList.add("hidden");
+              window.displayMessage("Signed up successfully! You are now logged in.", "info");
+          } catch (error) {
+              console.error("Signup failed:", error);
+              let message = "Signup failed. Please try again.";
+              switch (error.code) {
+                  case 'auth/email-already-in-use':
+                      message = "This email is already in use. Try logging in.";
+                      break;
+                  case 'auth/weak-password':
+                      message = "Password should be at least 6 characters.";
+                      break;
+                  case 'auth/invalid-email':
+                      message = "Invalid email format.";
+                      break;
+                  case 'auth/network-request-failed':
+                      message = "Network error. Please check your internet connection.";
+                      break;
+                  default:
+                      message = "Signup failed. Please try again later.";
+              }
+              signupError.textContent = message;
+          }
+      };
+
+      const handleLogout = async function() {
+          if (!auth) {
+              console.error("Authentication object is not initialized. Cannot logout.");
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage("Firebase is not ready. Cannot log out.", "error");
+              }
+              return;
+          }
+          try {
+              // Before logging out, save current in-memory cart/wishlist to local storage
+              localStorage.setItem('cart', JSON.stringify(window.cart));
+              localStorage.setItem('wishlist', JSON.stringify(window.wishlist));
+
+              await signOut(auth);
+              console.log("User logged out.");
+              window.displayMessage("Logged out successfully!", "info");
+              document.getElementById("authModal").classList.add("hidden"); // Hide the modal after logout
+              // onAuthStateChanged will handle UI updates and data sync
+          } catch (error) {
+              console.error("Error logging out:", error);
+              if (typeof window.displayMessage === 'function') {
+                window.displayMessage("Failed to log out. Please try again.", "error");
+              }
+          }
+      };
+
+      // Expose necessary Firebase instances and functions to the global window object
+      window.myAppFirebase = {
+        currentUser: null,
+        db: null,
+        handleLogin: handleLogin,
+        handleSignup: handleSignup,
+        handleLogout: handleLogout,
+        doc: doc,
+        getDoc: getDoc,
+        setDoc: setDoc,
+        onSnapshot: onSnapshot,
+        collection: collection,
+        addDoc: addDoc
+      };
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        console.log("Attempting Firebase initialization with config:", firebaseConfig);
+
+        // Only initialize Firebase if config seems valid
+        if (firebaseConfig && firebaseConfig.apiKey && firebaseConfig.projectId) {
+          try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            window.myAppFirebase.db = db; // Set global db reference
+            console.log("Firebase App initialized:", app);
+            console.log("Firebase Auth initialized:", auth);
+            console.log("Firestore initialized:", db); // Check if db is a valid object here
+
+            onAuthStateChanged(auth, async (user) => {
+              const previousUser = currentUser;
+              currentUser = user;
+              window.myAppFirebase.currentUser = user;
+
+              if (typeof window.updateUserUI === 'function') {
+                  window.updateUserUI(); // This will now always ensure the generic icon is shown.
+              }
+
+              if (user && user.email && !user.isAnonymous) { // Only sync for authenticated users with email
+                console.log("User state changed. Current user:", user.email);
+                // Only sync data and set up listeners if it's a new login or a change from anonymous to authenticated
+                if (!previousUser || previousUser.isAnonymous || previousUser.email !== user.email) {
+                    await syncUserDataFromFirestore(user.email);
+                    setupFirestoreListeners(user.email);
+                }
+              } else {
+                console.log("User logged out or is anonymous. Cleaning up Firestore listeners.");
+                cleanupFirestoreListeners();
+                // When logged out or anonymous, load data from local storage
+                if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
+                if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+              }
+
+              // Always update UI after any auth state change
+              if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
+              if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
+              if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
+              if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
+            });
+          } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            if (typeof window.displayMessage === 'function') {
+                window.displayMessage("Firebase setup failed. Cloud sync disabled. Check console for details. Error: " + error.message, "error");
+            }
+          }
+        } else {
+          console.error("Firebase config is missing or incomplete. Please provide valid config.");
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Firebase config missing. Running in local storage only mode.", "error");
+          }
+          // Fallback to local storage if config is bad
+          if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
+          if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+          if (typeof window.updateUserUI === 'function') {
+            window.updateUserUI();
+          }
+        }
+      });
+
+      async function syncUserDataFromFirestore(userEmail) {
+        // Ensure db is valid and userEmail is provided before proceeding
+        if (!window.myAppFirebase.db || !userEmail) {
+            console.error("Firestore object not initialized or user email missing for sync. Skipping data sync.");
+            if (typeof window.displayMessage === 'function') {
+                window.displayMessage("Firebase Firestore is not ready or user email missing. Data sync limited.", "error");
+            }
+            // Fallback to local storage if Firestore isn't ready or email is missing
+            if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            return;
+        }
+
+        const userDocRef = doc(window.myAppFirebase.db, 'users', userEmail);
+
+        try {
+          const userDoc = await getDoc(userDocRef);
+
+          let firestoreCart = [];
+          if (userDoc.exists() && userDoc.data().cartItems) {
+              try {
+                  firestoreCart = JSON.parse(userDoc.data().cartItems);
+              } catch (e) {
+                  console.error("Error parsing Firestore cart data:", e);
+              }
+          }
+
+          let firestoreWishlist = [];
+          if (userDoc.exists() && userDoc.data().wishlistItems) {
+              try {
+                  firestoreWishlist = JSON.parse(userDoc.data().wishlistItems);
+              } catch (e) {
+                  console.error("Error parsing Firestore wishlist data:", e);
+              }
+          }
+
+          // Get local storage data before merging
+          const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+          const localWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+          // Merge local cart into Firestore cart
+          localCart.forEach(localItem => {
+              const existing = firestoreCart.find(fsItem => fsItem.id === localItem.id);
+              if (existing) {
+                  existing.quantity += localItem.quantity;
+              } else {
+                  firestoreCart.push(localItem);
+              }
+          });
+
+          // Merge local wishlist into Firestore wishlist
+          localWishlist.forEach(localItem => {
+              if (!firestoreWishlist.some(fsItem => fsItem.id === localItem.id)) {
+                  firestoreWishlist.push(localItem);
+              }
+          });
+
+          // Update global state with merged data
+          if (window.cart) window.cart = firestoreCart;
+          if (window.wishlist) window.wishlist = firestoreWishlist;
+
+          // Save merged data back to Firestore
+          await setDoc(userDocRef, {
+              cartItems: JSON.stringify(window.cart),
+              wishlistItems: JSON.stringify(window.wishlist)
+          }, { merge: true });
+
+          // Clear local storage as data is now in Firestore
+          localStorage.removeItem('cart');
+          localStorage.removeItem('wishlist');
+
+          console.log("User data synced from local storage to Firestore.");
+          window.displayMessage("Your local data has been synced to your account.", "info");
+
+        } catch (e) {
+          console.error("Error syncing user data to Firestore:", e);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Failed to sync your data to cloud. Using local data. Error: " + e.message, "error");
+          }
+          // If Firestore write fails, ensure local data is what's used
+          if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
+          if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        }
+
+        // Always update UI elements after sync attempt
+        if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
+        if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
+        if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
+        if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
+      }
+
+      function setupFirestoreListeners(userEmail) {
+        // Ensure db is valid and userEmail is provided before proceeding
+        if (!window.myAppFirebase.db || !userEmail) {
+            console.error("Firestore object not initialized or user email missing for listeners. Skipping listener setup.");
+            return;
+        }
+
+        const userDocRef = doc(window.myAppFirebase.db, 'users', userEmail);
+
+        cleanupFirestoreListeners(); // Ensure previous listeners are removed
+
+        cartUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
+          if (docSnap.exists() && docSnap.data().cartItems) {
+              try {
+                  if (window.cart) {
+                    window.cart = JSON.parse(docSnap.data().cartItems);
+                    console.log("Cart updated from Firestore via listener:", window.cart);
+                  }
+              } catch (e) {
+                  console.error("Error parsing Firestore cart data from listener:", e);
+                  if (window.cart) window.cart = []; // Reset if parsing fails
+              }
+          } else {
+            if (window.cart) window.cart = []; // Reset if document doesn't exist or items are empty
+          }
+          if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
+          if (typeof window.renderCart === 'function') window.renderCart();
+          if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
+        }, (error) => {
+          console.error("Error listening to cart changes:", error);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Real-time cart updates failed. Check console for details. Error: " + error.message, "error");
+          }
+        });
+
+        wishlistUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
+          if (docSnap.exists() && docSnap.data().wishlistItems) {
+              try {
+                  if (window.wishlist) {
+                    window.wishlist = JSON.parse(docSnap.data().wishlistItems);
+                    console.log("Wishlist updated from Firestore via listener:", window.wishlist);
+                  }
+              }
+              catch (e) {
+                  console.error("Error parsing wishlist snapshot from Firestore listener:", e);
+                  if (window.wishlist) window.wishlist = []; // Reset if parsing fails
+              }
+          } else {
+            if (window.wishlist) window.wishlist = []; // Reset if document doesn't exist or items are empty
+          }
+          if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
+          if (typeof window.renderWishlist === 'function') window.renderWishlist();
+          if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
+        }, (error) => {
+          console.error("Error listening to wishlist changes:", error);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Real-time liked list updates failed. Check console for details. Error: " + error.message, "error");
+          }
+        });
+      }
+
+      function cleanupFirestoreListeners() {
+        if (cartUnsubscribe) {
+          cartUnsubscribe();
+          cartUnsubscribe = null;
+          console.log("Firestore cart listener unsubscribed.");
+        }
+        if (wishlistUnsubscribe) {
+          wishlistUnsubscribe();
+          wishlistUnsubscribe = null;
+          console.log("Firestore wishlist listener unsubscribed.");
+        }
+      }
+    </script>
+  </body>
+</html>

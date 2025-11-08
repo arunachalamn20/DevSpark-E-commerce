@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nithin Enterprises - Battery Zone - Your Trusted Battery Shop in Chennai (Arumbakkam)</title>
+    <meta name="google-site-verification" content="qeu7UN34pz6WROO8qsVl03edIxcFJXX5v-MF3PPEBpU" />
+    <meta name="description" content="Nithin Enterprises - Battery Zone is your trusted battery shop in Chennai, offering premium car, inverter, and two-wheeler batteries from top brands like Exide and Amaron.">
+    <link rel="icon" href="/logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Nithin Enterprises - Battery Zone",  
+  "url": "https://nithinbattery.onrender.com/",
+  "logo": "https://nithinbattery.onrender.com/logo.png", 
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-73387-66086",
+    "contactType": "Customer Service"
+  },
+  "sameAs": [
+    "https://www.justdial.com/Chennai/Nithin-Enterprises-Arumbakkam/044PXX44-XX44-230919102341-N7L6_BZDET",
+    "https://www.indiamart.com/proddetail/nithin-enterprises.html"
+    
+  ]
+}
+</script>
+    <script>
+      // Tailwind CSS configuration for custom colors and border-radius
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#3B82F6", secondary: "#F59E0B" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      /* Base styles for Remixicon */
+      /* Removed: :where([class^="ri-"])::before { content: "\f3c2"; } - This was causing a SyntaxError in some environments */
+      body {
+          font-family: 'Inter', sans-serif;
+          scroll-behavior: smooth;
+      }
+      /* Background gradient for hero section */
+      .hero-section {
+          background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0) 100%);
+          background-size: cover;
+          background-position: center;
+      }
+      /* Hide spin buttons for number inputs */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+      /* Product card hover effects */
+      .product-card:hover .zoom-image {
+          transform: scale(1.05);
+      }
+      .product-card:hover .add-to-cart {
+          transform: translateY(0);
+          opacity: 1;
+      }
+      .add-to-cart {
+          transform: translateY(10px);
+          opacity: 0;
+          transition: all 0.3s ease;
+      }
+      .zoom-image {
+          transition: transform 0.3s ease;
+      }
+      /* Promo card hover effects */
+      .promo-card {
+          transition: transform 0.3s ease;
+      }
+      .promo-card:hover {
+          transform: scale(1.02);
+      }
+      /* Review slider transition */
+      .review-slider {
+          transition: transform 0.5s ease;
+      }
+      /* Pulse animation for buttons/elements */
+      .pulse {
+          animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+          0% {
+              box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+          }
+          70% {
+              box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+          }
+          100% {
+              box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+          }
+      }
+      /* Custom checkbox styling */
+      .custom-checkbox {
+          appearance: none;
+          -webkit-appearance: none;
+          width: 20px;
+          height: 20px;
+          border: 2px solid #cbd5e1;
+          border-radius: 4px;
+          outline: none;
+          cursor: pointer;
+          position: relative;
+      }
+      .custom-checkbox:checked {
+          background-color: #3B82F6;
+          border-color: #3B82F6;
+      }
+      .custom-checkbox:checked::after {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 6px;
+          width: 6px;
+          height: 10px;
+          border: solid white;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+      }
+      /* Navigation link underline effect on hover */
+      .nav-link {
+          position: relative;
+      }
+      .nav-link::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -4px;
+          left: 0;
+          background-color: #3B82F6;
+          transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+          width: 100%;
+      }
+      /* Custom styles for Authentication Modal */
+      .auth-modal-content {
+          background: linear-gradient(to bottom right, #6b46c1, #a03c9d); /* Purple to pink gradient */
+          padding: 2rem;
+          border-radius: 1.5rem; /* More rounded corners */
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          position: relative; /* For absolute positioning of close button */
+          max-width: 90%; /* Responsive width */
+      }
+
+      .auth-input {
+          background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: #333;
+          padding: 0.75rem 1rem;
+          border-radius: 0.75rem; /* More rounded inputs */
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .auth-input::placeholder {
+          color: #666;
+      }
+
+      .auth-input:focus {
+          outline: none;
+          border-color: #f0f0f0;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+      }
+
+      .auth-button {
+          background: linear-gradient(to right, #6a0dad, #ec4899); /* Deeper purple to stronger pink */
+          color: white;
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px; /* Fully rounded */
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          border: none; /* Remove default button border */
+      }
+
+      .auth-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+          background: linear-gradient(to right, #8a2be2, #f472b6); /* Slightly lighter on hover */
+      }
+
+      .auth-link {
+          color: #f0f0f0; /* Lighter color for links on dark background */
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.2s ease;
+      }
+
+      .auth-link:hover {
+          color: #fff;
+          text-decoration: underline;
+      }
+      /* Custom styles for info/error messages (messageBox) */
+      .message-box {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background-color: #333;
+          color: white;
+          padding: 15px 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          opacity: 0;
+          transform: translateY(-20px);
+          transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      }
+      .message-box.show {
+          opacity: 1;
+          transform: translateY(0);
+      }
+
+      /* Explicit CSS for User Icon Visibility (Ensures it's always flex, and initial is hidden) */
+      #userButton {
+          display: flex !important; /* Ensure the user button container is always visible */
+          align-items: center;
+          justify-content: center;
+          position: relative; /* For absolute positioning of inner icons */
+          width: 40px; /* Standard size */
+          height: 40px; /* Standard size */
+      }
+
+      /* The ri-user-line icon and userInitialIcon should be controlled by JS for display */
+      #userRiIcon, #userInitialIcon {
+          position: absolute; /* Allows icons to overlap in the same space */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex; /* Ensure these are flex containers for centering */
+          align-items: center;
+          justify-content: center;
+          transition: opacity 0.2s ease; /* Smooth transition when toggling visibility */
+      }
+
+      /* FIX: Mobile Menu Positioning */
+      #mobile-menu {
+          top: 0; /* Position at the very top of the viewport */
+          z-index: 51; /* Higher than header's z-50 to appear above it */
+          /* No need for padding-top here, it will be applied to the inner container */
+      }
+      /* Optional: Add a border-top to visually separate it from the header */
+      #mobile-menu.flex {
+          border-top: 1px solid #e2e8f0; /* Light gray border */
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <!-- Header -->
+    <header
+      class="fixed top-0 left-0 w-full bg-white bg-opacity-95 shadow-sm z-50"
+    >
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center">
+          <img
+            src="logo.png"
+            alt="Nithin Battery Logo"
+            class="h-24 sm:h-32 md:h-40 object-contain"
+            style="padding-right: 40px"
+          />
+
+          <nav class="hidden md:flex space-x-8">
+            <a
+              href="index.html"
+              class="nav-link text-gray-800 hover:text-primary font-medium"
+              >Home</a
+            >
+            <a
+              href="pro.html"
+              class="nav-link text-gray-800 hover:text-primary font-medium"
+              >Products</a
+            >
+           
+            <a
+              href="contact.html"
+              class="nav-link text-gray-800 hover:text-primary font-medium"
+              >Contact</a
+            >
+          </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+          <!-- User Icon / Initial Display -->
+          <!-- This structure is copied directly from product.html and modified for constant visibility -->
+          <a href="#" class="p-2 text-gray-700 hover:text-primary" id="userButton">
+            <!-- This icon will be visible when logged out, and when logged in if userInitialIcon is hidden by JS -->
+            <i class="ri-user-line ri-lg" id="userRiIcon"></i>
+            <!-- This element will display the user's initial when logged in. Initially hidden by CSS. -->
+            <div id="userInitialIcon" class="text-lg font-bold text-white bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center"></div>
+          </a>
+          <div class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700 cursor-pointer" id="mobile-menu-button">
+            <i class="ri-menu-line ri-lg"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden bg-white shadow-lg fixed top-0 w-full z-51"
+    >
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3 pt-24">
+        <a href="index.html" class="text-gray-800 hover:text-primary font-medium py-2"
+          >Home</a
+        >
+        <a
+          href="pro.html"
+          class="text-gray-800 hover:text-primary font-medium py-2"
+          >Products</a
+        >
+      
+        <a
+          href="contact.html"
+          class="text-gray-800 hover:text-primary font-medium py-2"
+          >Contact</a
+        >
+        <!-- The original 'Sign In' button for mobile menu is kept here if desired -->
+        <!-- <button class="bg-primary text-white px-4 py-2 !rounded-button hover:bg-blue-600 transition duration-300 whitespace-nowrap">Sign In</button> -->
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+   
+
+    <!-- Special Offers Section -->
+    <section class="py-20 bg-white pt-48">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-900 mb-10">Special Offers</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Promo Card 1 -->
+          <div
+            class="promo-card bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg overflow-hidden shadow-md"
+          >
+            <div class="flex flex-col md:flex-row">
+              <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
+                <div
+                  class="bg-primary text-white text-sm font-bold px-3 py-1 rounded-full inline-block mb-4 w-max"
+                >
+                  POWER DEAL
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                  Power Zone Sale
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  Buy good batteries at wholesale price with warranties!
+                </p>
+                <div class="flex space-x-3 mb-4">
+                  <div class="bg-white rounded-lg px-3 py-2 text-center">
+                    <span
+                      class="block text-lg font-bold text-gray-900"
+                      id="days1"
+                      >2</span
+                    >
+                    <span class="text-xs text-gray-500">Days</span>
+                  </div>
+                  <div class="bg-white rounded-lg px-3 py-2 text-center">
+                    <span
+                      class="block text-lg font-bold text-gray-900"
+                      id="hours1"
+                      >18</span
+                    >
+                    <span class="text-xs text-gray-500">Hours</span>
+                  </div>
+                  <div class="bg-white rounded-lg px-3 py-2 text-center">
+                    <span
+                      class="block text-lg font-bold text-gray-900"
+                      id="minutes1"
+                      >45</span
+                    >
+                    <span class="text-xs text-gray-500">Mins</span>
+                  </div>
+                </div>
+                <button
+                  class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-blue-600 transition duration-300 w-max whitespace-nowrap"
+                >
+                  <a href="pro.html">Shop Now</a>
+                </button>
+              </div>
+              <div class="w-full md:w-1/2 p-4 flex items-center justify-center">
+                <img
+                  src="https://rukminim2.flixcart.com/image/704/844/xif0q/vehicle-battery/u/h/7/12-48pztz5l-4-powerzone-original-imagjghffc8fzdea.jpeg?q=90&crop=false"
+                  alt="Summer Power Sale"
+                  class="w-full h-auto rounded-lg"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Promo Card 2 -->
+          <div
+            class="promo-card bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg overflow-hidden shadow-md"
+          >
+            <div class="flex flex-col md:flex-row">
+              <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
+                <div
+                  class="bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full inline-block mb-4 w-max"
+                >
+                  EXIDE DEAL
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                  Power Bundle Pack
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  Buy EXIDE XPLORE AT OFFER!
+                </p>
+                <div class="flex space-x-3 mb-4">
+                  <div class="bg-white rounded-lg px-3 py-2 text-center">
+                    <span
+                      class="block text-lg font-bold text-gray-900"
+                      id="days2"
+                      >5</span
+                    >
+                  </div>
+                  <div class="bg-white rounded-lg px-3 py-2 text-center">
+                    <span
+                      class="block text-lg font-bold text-gray-900"
+                      id="hours2"
+                      >12</span
+                    >
+                    <span class="text-xs text-gray-500">Hours</span>
+                  </div>
+                  <div class="bg-white rounded-lg px-3 py-2 text-center">
+                    <span
+                      class="block text-lg font-bold text-gray-900"
+                      id="minutes2"
+                      >30</span
+                    >
+                    <span class="text-xs text-gray-500">Mins</span>
+                  </div>
+                </div>
+                <button
+                  class="bg-secondary text-white px-6 py-2 !rounded-button hover:bg-amber-600 transition duration-300 w-max whitespace-nowrap"
+                >
+                  <a href="pro.html">Shop Now</a>
+                </button>
+              </div>
+              <div class="w-full md:w-1/2 p-4 flex items-center justify-center">
+                <img
+                  src="https://jkbatteryshop.com/wp-content/uploads/2021/01/EXIDE-FXL0-XLTZ5.jpg"
+                  alt="Power Bundle Pack"
+                  class="w-full h-auto rounded-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Features Section -->
+    <section id="about" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Why Choose Our Batteries?
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            We combine cutting-edge technology with sustainable practices to
+            deliver the most reliable power solutions on the market.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div
+              class="w-14 h-14 flex items-center justify-center bg-blue-100 rounded-full mb-4"
+            >
+              <i class="ri-battery-charge-line ri-xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">
+              Long-Lasting Power
+            </h3>
+            <p class="text-gray-600">
+              Our batteries are designed to last up to 5x longer than standard
+              batteries, saving you money and reducing waste.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div
+              class="w-14 h-14 flex items-center justify-center bg-blue-100 rounded-full mb-4"
+            >
+              <i class="ri-recycle-line ri-xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">
+              Eco-Friendly
+            </h3>
+            <p class="text-gray-600">
+              Our manufacturing process and materials are environmentally
+              responsible, with recycling programs for used batteries.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div
+              class="w-14 h-14 flex items-center justify-center bg-blue-100 rounded-full mb-4"
+            >
+              <i class="ri-shield-check-line ri-xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">
+              Safety Guaranteed
+            </h3>
+            <p class="text-gray-600">
+              Every battery undergoes rigorous testing to ensure it meets the
+              highest safety standards and performance requirements.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Customer Reviews
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Hear what our satisfied customers have to say about Nithin Battery.
+          </p>
+        </div>
+
+        <div class="relative">
+          <div class="overflow-hidden" id="review-container">
+            <div
+              class="flex transition-transform duration-500 review-slider"
+              id="review-slider"
+            >
+              <!-- Review 1: Deepak Sekar -->
+              <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm h-full">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-blue-500 flex items-center justify-center text-white text-lg font-bold">
+                      DS
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-gray-900">
+                        Deepak Sekar
+                      </h4>
+                      <p class="text-gray-500 text-sm">Chennai, India</p>
+                    </div>
+                  </div>
+                  <div class="flex mb-3">
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-700 mb-3">
+                    "Excellent service at Nithin Battery! The staff was very knowledgeable and helped me choose the perfect battery for my car. Quick installation and a great price. Highly recommended!"
+                  </p>
+                  <p class="text-gray-500 text-sm">Reviewed: July 15, 2025</p>
+                </div>
+              </div>
+
+              <!-- Review 2: Sathis Kumar -->
+              <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm h-full">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-green-500 flex items-center justify-center text-white text-lg font-bold">
+                      SK
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-gray-900">
+                        Sathis Kumar
+                      </h4>
+                      <p class="text-gray-500 text-sm">Tambaram, India</p>
+                    </div>
+                  </div>
+                  <div class="flex mb-3">
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-700 mb-3">
+                    "Very happy with my inverter battery purchase from Nithin Battery. It's reliable and provides consistent power during outages. The delivery was fast and the installation team was professional."
+                  </p>
+                  <p class="text-gray-500 text-sm">Reviewed: June 28, 2025</p>
+                </div>
+              </div>
+
+              <!-- Review 3: Beetooz -->
+              <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm h-full">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-purple-500 flex items-center justify-center text-white text-lg font-bold">
+                      B
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-gray-900">
+                        Beetooz
+                      </h4>
+                      <p class="text-gray-500 text-sm">Madurai, India</p>
+                    </div>
+                  </div>
+                  <div class="flex mb-3">
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-700 mb-3">
+                    "The best place for two-wheeler batteries! Got a great deal and the battery has been working flawlessly. The team was quick and efficient with the replacement."
+                  </p>
+                  <p class="text-gray-500 text-sm">Reviewed: May 20, 2025</p>
+                </div>
+              </div>
+
+              <!-- Review 4: Suresh Babu -->
+              <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm h-full">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-orange-500 flex items-center justify-center text-white text-lg font-bold">
+                      SB
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-gray-900">
+                        Suresh Babu
+                      </h4>
+                      <p class="text-gray-500 text-sm">Salem, India</p>
+                    </div>
+                  </div>
+                  <div class="flex mb-3">
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-700 mb-3">
+                    "Nithin Battery offers top-notch products and amazing customer support. They helped me troubleshoot an issue over the phone, saving me a trip. Truly dedicated to their customers!"
+                  </p>
+                  <p class="text-gray-500 text-sm">Reviewed: April 10, 2025</p>
+                </div>
+              </div>
+
+              <!-- Review 5: Siva Kumar (Added to ensure 5 reviews if needed for slider) -->
+              <div class="w-full md:w-1/3 flex-shrink-0 px-4">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm h-full">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-red-500 flex items-center justify-center text-white text-lg font-bold">
+                      SK
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-gray-900">
+                        Siva Kumar
+                      </h4>
+                      <p class="text-gray-500 text-sm">Chennai, India</p>
+                    </div>
+                  </div>
+                  <div class="flex mb-3">
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                    <div
+                      class="w-4 h-4 flex items-center justify-center text-yellow-400"
+                    >
+                      <i class="ri-star-fill ri-sm"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-700 mb-3">
+                    "Fantastic experience at Nithin Battery. They have a wide range of products and the staff is incredibly helpful. Got my car battery replaced quickly and efficiently. Will definitely come back!"
+                  </p>
+                  <p class="text-gray-500 text-sm">Reviewed: March 25, 2025</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button
+            class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 focus:outline-none"
+            id="prev-review"
+          >
+            <div class="w-6 h-6 flex items-center justify-center text-gray-700">
+              <i class="ri-arrow-left-s-line ri-lg"></i>
+            </div>
+          </button>
+          <button
+            class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 focus:outline-none"
+            id="next-review"
+          >
+            <div class="w-6 h-6 flex items-center justify-center text-gray-700">
+              <i class="ri-arrow-right-s-line ri-lg"></i>
+            </div>
+          </button>
+
+          <!-- Navigation Dots -->
+          <div class="flex justify-center mt-6" id="review-dots">
+            <button
+              class="w-3 h-3 rounded-full bg-primary mx-1"
+              data-index="0"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-gray-300 mx-1"
+              data-index="1"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-gray-300 mx-1"
+              data-index="2"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-gray-300 mx-1"
+              data-index="3"
+            ></button>
+             <button
+              class="w-3 h-3 rounded-full bg-gray-300 mx-1"
+              data-index="4"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section (formerly Subscribe Section) -->
+    <section
+      class="py-16 bg-gradient-to-r from-blue-500 to-blue-600 text-white"
+    >
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-4">Powering Your Life, One Battery at a Time</h2>
+          <p class="text-blue-100 mb-8">
+            Visit us in-store or contact us today for reliable batteries and expert service!
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              class="bg-secondary hover:bg-amber-600 text-white px-6 py-3 !rounded-button font-medium transition duration-300 whitespace-nowrap"
+            >
+              <a href="contact.html">Contact Us</a>
+            </button>
+            <button
+              class="bg-white text-primary px-6 py-3 !rounded-button font-medium transition duration-300 whitespace-nowrap hover:bg-gray-100"
+            >
+              <a href="pro.html">View Products</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <!-- Company Info -->
+          <div>
+            <h3 class="text-xl font-[''] text-primary mb-4">Nithin Battery</h3>
+            <p class="text-gray-400 mb-4">
+              Powering your world with innovative battery solutions since.
+              Committed to quality, sustainability, and customer satisfaction.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300"
+              >
+                <i class="ri-facebook-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300"
+              >
+                <i class="ri-twitter-x-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300"
+              >
+                <i class="ri-instagram-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300"
+              >
+                <i class="ri-linkedin-fill ri-lg"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="index.html"
+                  class="text-gray-400 hover:text-primary transition duration-300"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="pro.html"
+                  class="text-gray-400 hover:text-primary transition duration-300"
+                  >Products</a
+                >
+              </li>
+              
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="text-gray-400 hover:text-primary transition duration-300"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition duration-300"
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition duration-300"
+                  ></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-primary mt-1 mr-3"
+                >
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span class="text-gray-400"
+                  >3/76, Pillayar Kovil St, opposite to Karuppiah pharmacy, Jagannatha Nagar, Arumbakkam, Chennai, Tamil Nadu 600106</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-primary mr-3"
+                >
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span class="text-gray-400">+91 73387 66086</span>
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-primary mr-3"
+                >
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span class="text-gray-400">nithinbatterychennai@gmail.com 
+</span>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-primary mt-1 mr-3"
+                >
+                  <i class="ri-time-line"></i>
+                </div>
+                <div class="text-gray-400">
+                  <p>Monday-Sunday: 24hrs</p>
+                  
+                </div>
+              </li>
+            </ul>
+          </div>
+
+         
+    </footer>
+
+    <!-- Auth Modal (Sign-in/Sign-up Popup) - Copied from product.html -->
+    <div id="authModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[100] hidden">
+        <div class="auth-modal-content w-full max-w-md">
+            <button id="closeAuthModal" class="absolute top-4 right-4 text-white hover:text-gray-200">
+                <i class="ri-close-line ri-lg"></i>
+            </button>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6">
+                <div class="flex justify-center mb-6">
+                    <img src="logo.png" alt="Nithin Battery Logo" class="h-20 w-20 rounded-full border-4 border-white shadow-lg" />
+                </div>
+                <h2 class="text-2xl font-bold text-white text-center mb-6">Nithin Battery</h2>
+                <div>
+                    <label for="loginEmail" class="sr-only">Email</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="Email address" required
+                           class="w-full auth-input">
+                </div>
+                <div>
+                    <label for="loginPassword" class="sr-only">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Password" required
+                           class="w-full auth-input">
+                </div>
+                <p id="loginError" class="text-red-300 text-sm text-center"></p>
+                <button type="submit" class="w-full auth-button">
+                    Login
+                </button>
+                <p class="text-center text-white text-sm mt-4">
+                    Don't have an account? <a href="#" id="showSignup" class="auth-link">Sign Up</a>
+                </p>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="space-y-6 hidden">
+                <div class="flex justify-center mb-6">
+                    <img src="logo.png" alt="Nithin Battery Logo" class="h-20 w-20 rounded-full border-4 border-white shadow-lg" />
+                </div>
+                <h2 class="text-2xl font-bold text-white text-center mb-6">Nithin Battery</h2>
+                <div>
+                    <label for="signupEmail" class="sr-only">Email</label>
+                    <input type="email" id="signupEmail" name="email" placeholder="Email address" required
+                           class="w-full auth-input">
+                </div>
+                <div>
+                    <label for="signupPassword" class="sr-only">Password</label>
+                    <input type="password" id="signupPassword" name="password" placeholder="Password (min 6 characters)" required
+                           class="w-full auth-input">
+                </div>
+                <p id="signupError" class="text-red-300 text-sm text-center"></p>
+                <button type="submit" class="w-full auth-button">
+                    Sign Up
+                </button>
+                <p class="text-center text-white text-sm mt-4">
+                    Already have an account? <a href="#" id="showLogin" class="auth-link">Sign In</a>
+                </p>
+            </form>
+
+            <!-- Logged-in User View -->
+            <div id="loggedInUserView" class="space-y-6 text-center text-white hidden">
+                <div class="flex justify-center mb-4">
+                    <img src="logo.png" alt="Nithin Battery Logo" class="h-20 w-20 rounded-full border-4 border-white shadow-lg" />
+                </div>
+                <p class="text-xl font-semibold mb-2">Welcome,</p>
+                <p id="loggedInUserName" class="text-2xl font-bold break-words"></p>
+                <button id="logoutButtonModal" class="w-full auth-button mt-6">
+                    Log Out
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Message Box - Copied from product.html -->
+    <div id="messageBox" class="message-box hidden"></div>
+
+    <!-- Mobile Menu Script -->
+    <script id="mobile-menu-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        // Ensure the elements exist before adding event listeners
+        if (mobileMenuButton && mobileMenu) { 
+          mobileMenuButton.addEventListener("click", function () {
+            // Toggle the 'hidden' class to show/hide the mobile menu
+            mobileMenu.classList.toggle("hidden");
+            // Also, toggle 'flex' to ensure it displays correctly when not hidden
+            mobileMenu.classList.toggle("flex"); 
+          });
+        }
+
+        // Close mobile menu when clicking on any link inside it
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("hidden"); // Hide the mobile menu
+            mobileMenu.classList.remove("flex"); // Ensure flex is removed when hidden
+          });
+        });
+      });
+    </script>
+
+    <!-- Review Slider Script -->
+    <script id="review-slider-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.getElementById("review-slider");
+        const prevButton = document.getElementById("prev-review");
+        const nextButton = document.getElementById("next-review");
+        const dots = document.querySelectorAll("#review-dots button");
+
+        let currentIndex = 0;
+        const itemWidth = 100; // Percentage
+        const totalItems = slider.children.length;
+        // Determine visible items based on screen width for responsive behavior
+        const visibleItems = window.innerWidth >= 768 ? 3 : 1; 
+        const maxIndex = totalItems - visibleItems;
+
+        function updateSlider() {
+          const translateValue = -currentIndex * (itemWidth / visibleItems);
+          slider.style.transform = `translateX(${translateValue}%)`;
+
+          // Update dots
+          dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+              dot.classList.remove("bg-gray-300");
+              dot.classList.add("bg-primary");
+            } else {
+              dot.classList.remove("bg-primary");
+              dot.classList.add("bg-gray-300");
+            }
+          });
+        }
+
+        prevButton.addEventListener("click", function () {
+          currentIndex = Math.max(0, currentIndex - 1);
+          updateSlider();
+        });
+
+        nextButton.addEventListener("click", function () {
+          currentIndex = Math.min(maxIndex, currentIndex + 1);
+          updateSlider();
+        });
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", function () {
+            currentIndex = Math.min(maxIndex, index);
+            updateSlider();
+          });
+        });
+
+        // Auto slide every 5 seconds
+        let interval = setInterval(function () {
+          currentIndex = currentIndex === maxIndex ? 0 : currentIndex + 1;
+          updateSlider();
+        }, 5000);
+
+        // Pause auto slide on hover
+        const reviewContainer = document.getElementById("review-container");
+        reviewContainer.addEventListener("mouseenter", function () {
+          clearInterval(interval);
+        });
+
+        reviewContainer.addEventListener("mouseleave", function () {
+          interval = setInterval(function () {
+            currentIndex = currentIndex === maxIndex ? 0 : currentIndex + 1;
+            updateSlider();
+          }, 5000);
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          const newVisibleItems = window.innerWidth >= 768 ? 3 : 1;
+          // Reload page only if the visibleItems count changes, to correctly re-calculate layout
+          if (newVisibleItems !== visibleItems) { 
+            location.reload();
+          }
+        });
+      });
+    </script>
+
+    <!-- Countdown Timer Script -->
+    <script id="countdown-timer-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        function updateCountdown(daysEl, hoursEl, minutesEl, endTime) {
+          const now = new Date().getTime();
+          const distance = endTime - now;
+
+          if (distance > 0) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            );
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            daysEl.textContent = days;
+            hoursEl.textContent = hours;
+            minutesEl.textContent = "0";
+          } else {
+            daysEl.textContent = "0";
+            hoursEl.textContent = "0";
+            minutesEl.textContent = "0";
+          }
+        }
+
+        // Countdown for first promo
+        const days1 = document.getElementById("days1");
+        const hours1 = document.getElementById("hours1");
+        const minutes1 = document.getElementById("minutes1");
+        const endTime1 =
+          new Date().getTime() +
+          2 * 24 * 60 * 60 * 1000 +
+          18 * 60 * 60 * 1000 +
+          45 * 60 * 1000;
+
+        // Countdown for second promo
+        const days2 = document.getElementById("days2");
+        const hours2 = document.getElementById("hours2");
+        const minutes2 = document.getElementById("minutes2");
+        const endTime2 =
+          new Date().getTime() +
+          5 * 24 * 60 * 60 * 1000 +
+          12 * 60 * 60 * 1000 +
+          30 * 60 * 1000;
+
+        // Initial update
+        updateCountdown(days1, hours1, minutes1, endTime1);
+        updateCountdown(days2, hours2, minutes2, endTime2);
+
+        // Update every minute
+        setInterval(function () {
+          updateCountdown(days1, hours1, minutes1, endTime1);
+          updateCountdown(days2, hours2, minutes2, endTime2);
+        }, 60000);
+      });
+    </script>
+
+    <script>
+      // Global cart and wishlist arrays, to be synced with Firebase
+      // These are initialized here and will be managed by the Firebase module script below.
+      window.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      window.wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
+      // DOM elements related to the Auth Modal and User Icon
+      const userButton = document.getElementById("userButton");
+      const authModal = document.getElementById("authModal");
+      const closeAuthModal = document.getElementById("closeAuthModal");
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const showSignupLink = document.getElementById("showSignup");
+      const showLoginLink = document.getElementById("showLogin");
+      const loginError = document.getElementById("loginError");
+      const signupError = document.getElementById("signupError");
+      const logoutButtonModal = document.getElementById("logoutButtonModal");
+      const userInitialIcon = document.getElementById("userInitialIcon");
+      const userRiIcon = document.getElementById("userRiIcon");
+      const loggedInUserView = document.getElementById("loggedInUserView");
+      const loggedInUserName = document.getElementById("loggedInUserName");
+
+      // Custom Message Box element
+      const messageBox = document.getElementById('messageBox');
+
+      // Utility function to display messages (exposed globally for Firebase script)
+      window.displayMessage = function(message, type = 'info', duration = 3000) {
+          messageBox.textContent = message;
+          messageBox.className = 'message-box show'; // Reset classes and show
+          if (type === 'error') {
+              messageBox.style.backgroundColor = '#dc2626'; // Red for error
+          } else if (type === 'success') {
+              messageBox.style.backgroundColor = '#10b981'; // Green for success
+          } else {
+              messageBox.style.backgroundColor = '#333'; // Dark gray for info
+          }
+
+          // Automatically hide after duration
+          setTimeout(() => {
+              messageBox.classList.remove('show');
+              // Optionally clear text after animation
+              setTimeout(() => { messageBox.textContent = ''; }, 300);
+          }, duration);
+      };
+
+      // Function to update the user UI (icon/initial) based on Firebase auth state
+      window.updateUserUI = function() {
+          const user = window.myAppFirebase?.currentUser; // Access currentUser from the globally exposed Firebase object
+          if (user && user.email && !user.isAnonymous) {
+              // If logged in and not anonymous, show initial
+              userInitialIcon.textContent = user.email.charAt(0).toUpperCase();
+              userInitialIcon.style.display = 'flex'; // Explicitly set display flex
+              userRiIcon.style.display = 'none'; // Explicitly set display none
+              loggedInUserName.textContent = user.email; // Update email in modal
+              loggedInUserView.classList.remove('hidden'); // Ensure logged-in view is shown
+          } else {
+              // If not logged in or is anonymous, show generic user icon
+              userRiIcon.style.display = 'flex'; // Explicitly set display flex
+              userInitialIcon.style.display = 'none'; // Explicitly set display none
+              loggedInUserName.textContent = ''; // Clear email in modal
+              loggedInUserView.classList.add('hidden'); // Ensure logged-in view is hidden
+          }
+      };
+
+      // Event listener for the main user button in the header
+      userButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          const currentUser = window.myAppFirebase?.currentUser;
+          if (currentUser && currentUser.email && !currentUser.isAnonymous) {
+              // If logged in (and not anonymous), show user details
+              loggedInUserName.textContent = currentUser.email;
+              loggedInUserView.classList.remove("hidden");
+              loginForm.classList.add("hidden");
+              signupForm.classList.add("hidden");
+          } else {
+              // If not logged in or is anonymous, show login form
+              loggedInUserView.classList.add("hidden");
+              loginForm.classList.remove("hidden");
+              signupForm.classList.add("hidden");
+          }
+          authModal.classList.remove("hidden"); // Show the modal
+          document.body.classList.add('overflow-hidden'); // Prevent scrolling body
+          loginError.textContent = ''; // Clear any previous errors
+          signupError.textContent = '';
+      });
+
+      // Close Auth Modal event listener
+      closeAuthModal.addEventListener('click', () => {
+          authModal.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden'); // Restore body scrolling
+      });
+
+      // Toggle between login and signup forms within the modal
+      showSignupLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          loginForm.classList.add('hidden');
+          signupForm.classList.remove('hidden');
+          loggedInUserView.classList.add('hidden'); // Hide logged-in view
+          loginError.textContent = ''; // Clear errors
+          signupError.textContent = '';
+      });
+
+      showLoginLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          signupForm.classList.add('hidden');
+          loginForm.classList.remove('hidden');
+          loggedInUserView.classList.add('hidden'); // Hide logged-in view
+          loginError.textContent = ''; // Clear errors
+          signupError.textContent = '';
+      });
+
+      // Logout button inside the modal
+      logoutButtonModal.addEventListener('click', async () => {
+          if (window.myAppFirebase && typeof window.myAppFirebase.handleLogout === 'function') {
+              await window.myAppFirebase.handleLogout();
+              authModal.classList.add('hidden'); // Close modal on logout
+              document.body.classList.remove('overflow-hidden'); // Restore body scrolling
+          } else {
+              console.error("Firebase not initialized or handleLogout not available. Cannot log out.");
+          }
+      });
+
+      // Handle form submissions
+      loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = e.target.loginEmail.value;
+          const password = e.target.loginPassword.value;
+          if (window.myAppFirebase && typeof window.myAppFirebase.handleLogin === 'function') {
+              await window.myAppFirebase.handleLogin(email, password);
+          } else {
+              window.displayMessage("Firebase is not ready. Cannot log in.", "error");
+              console.error("Firebase not initialized or handleLogin not available. Cannot log in.");
+          }
+      });
+
+      signupForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = e.target.signupEmail.value;
+          const password = e.target.signupPassword.value;
+          if (window.myAppFirebase && typeof window.myAppFirebase.handleSignup === 'function') {
+              await window.myAppFirebase.handleSignup(email, password);
+          } else {
+              window.displayMessage("Firebase is not ready. Cannot sign up.", "error");
+              console.error("Firebase not initialized or handleSignup not available. Cannot sign up.");
+          }
+      });
+
+      // Placeholder functions for cart/wishlist interactions on index.html
+      // These functions are simplified for the index page as product details and full cart/wishlist functionality
+      // are primarily handled on the product.html page. They prevent errors if called.
+      window.updateCartCount = function() {
+        // This function would typically update a cart count display.
+        // As index.html doesn't have a visible cart count, this is a stub.
+        // If you add a cart count element in the future, implement its update logic here.
+      };
+
+      window.updateWishlistCount = function() {
+        // This function would typically update a wishlist count display.
+        // As index.html doesn't have a visible wishlist count, this is a stub.
+        // If you add a wishlist count element in the future, implement its update logic here.
+      };
+
+      window.toggleCart = function(productId) {
+          // On the index page, we redirect users to the product page for cart interactions.
+          window.displayMessage("Please go to the products page to add items to your cart.", "info");
+      };
+
+      window.toggleWishlist = function(productId) {
+          // On the index page, we redirect users to the product page to manage your liked list.", "info");
+          window.displayMessage("Please go to the products page to manage your liked list.", "info");
+      };
+
+      // Initial UI update when the DOM content is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        window.updateUserUI(); // Call once on load to set initial user icon state
+      });
+
+    </script>
+
+    <!-- Firebase SDK - MUST BE LOADED AT THE END OF BODY -->
+    <!-- This entire script block is copied from product.html and adapted for index.html -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // Firebase variables (provided by Canvas environment)
+      // IMPORTANT: If you are deploying this outside the Canvas environment,
+      // replace 'default-app-id' and the placeholder firebaseConfig with your actual Firebase project's configuration.
+      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Fallback for appId
+      const firebaseConfig = {
+  apiKey: "AIzaSyBz-4MRjpbIp4NUpffMI4pBtL3OdaDDaFc",
+  authDomain: "devspark-37f4f.firebaseapp.com",
+  projectId: "devspark-37f4f",
+  storageBucket: "devspark-37f4f.firebasestorage.app",
+  messagingSenderId: "169352992813",
+  appId: "1:169352992813:web:8dce0368a82060f627c0a4",
+  measurementId: "G-H5QRPXWK2P"
+};
+      let app;
+      let auth;
+      let db;
+      let currentUser = null; // Track current user state within this module
+      let cartUnsubscribe = null;
+      let wishlistUnsubscribe = null;
+
+      // Define auth functions, these are exposed globally via window.myAppFirebase
+      const handleLogin = async function(email, password) {
+          const loginError = document.getElementById("loginError");
+          loginError.textContent = "";
+          if (!auth) {
+              console.error("Authentication object is not initialized. Cannot login.");
+              loginError.textContent = "Firebase is not ready. Please try again later.";
+              return;
+          }
+          try {
+              await signInWithEmailAndPassword(auth, email, password);
+              document.getElementById("authModal").classList.add("hidden");
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage("Logged in successfully!", "success");
+              }
+          } catch (error) {
+              console.error("Login failed:", error);
+              let message = "Login failed. Please try again.";
+              switch (error.code) {
+                  case 'auth/user-not-found':
+                      message = "Email is not registered. Please sign up or check your email.";
+                      break;
+                  case 'auth/wrong-password':
+                      message = "Invalid password.";
+                      break;
+                  case 'auth/invalid-email':
+                      message = "Invalid email format.";
+                      break;
+                  case 'auth/user-disabled':
+                      message = "Your account has been disabled.";
+                      break;
+                  case 'auth/network-request-failed':
+                      message = "Network error. Please check your internet connection.";
+                      break;
+                  default:
+                      message = "Login failed. Please try again later.";
+              }
+              loginError.textContent = message;
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage(message, "error");
+              }
+          }
+      };
+
+      const handleSignup = async function(email, password) {
+          const signupError = document.getElementById("signupError");
+          signupError.textContent = "";
+          if (!auth) {
+              console.error("Authentication object is not initialized. Cannot signup.");
+              signupError.textContent = "Firebase is not ready. Please try again later.";
+              return;
+          }
+          try {
+              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+              // Create user's document in Firestore with empty cartItems and wishlistItems fields
+              // Use user.email as the document ID directly under the 'users' collection
+              await setDoc(doc(db, 'users', userCredential.user.email), { cartItems: "[]", wishlistItems: "[]" });
+
+              document.getElementById("authModal").classList.add("hidden");
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage("Signed up successfully! You are now logged in.", "success");
+              }
+          } catch (error) {
+              console.error("Signup failed:", error);
+              let message = "Signup failed. Please try again.";
+              switch (error.code) {
+                  case 'auth/email-already-in-use':
+                      message = "This email is already in use. Try logging in.";
+                      break;
+                  case 'auth/weak-password':
+                      message = "Password should be at least 6 characters.";
+                      break;
+                  case 'auth/invalid-email':
+                      message = "Invalid email format.";
+                      break;
+                  case 'auth/network-request-failed':
+                      message = "Network error. Please check your internet connection.";
+                      break;
+                  default:
+                      message = "Signup failed. Please try again later.";
+              }
+              signupError.textContent = message;
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage(message, "error");
+              }
+          }
+      };
+
+      const handleLogout = async function() {
+          if (!auth) {
+              console.error("Authentication object is not initialized. Cannot logout.");
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage("Firebase is not ready. Cannot log out.", "error");
+              }
+              return;
+          }
+          try {
+              // Before logging out, ensure local storage reflects current in-memory state
+              localStorage.setItem('cart', JSON.stringify(window.cart || [])); // Ensure window.cart is an array
+              localStorage.setItem('wishlist', JSON.stringify(window.wishlist || [])); // Ensure window.wishlist is an array
+
+              await signOut(auth);
+              console.log("User logged out.");
+              if (typeof window.displayMessage === 'function') {
+                  window.displayMessage("Logged out successfully!", "info");
+              }
+              document.getElementById("authModal").classList.add("hidden"); // Hide the modal after logout
+              // onAuthStateChanged will handle UI updates and data sync
+          } catch (error) {
+              console.error("Error logging out:", error);
+              if (typeof window.displayMessage === 'function') {
+                window.displayMessage("Failed to log out. Please try again.", "error");
+              }
+          }
+      };
+
+      // Expose necessary Firebase instances and functions to the global window object
+      window.myAppFirebase = {
+        appId: appId,
+        currentUser: null, // Will be updated by onAuthStateChanged
+        db: null, // Will be set after Firestore initialization
+        handleLogin: handleLogin,
+        handleSignup: handleSignup,
+        handleLogout: handleLogout,
+        doc: doc,
+        getDoc: getDoc,
+        setDoc: setDoc,
+        onSnapshot: onSnapshot
+      };
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        console.log("Firebase config:", firebaseConfig);
+        // Only initialize Firebase if config seems valid (check for apiKey presence and non-placeholder value)
+        if (Object.keys(firebaseConfig).length > 0 && firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+          try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            window.myAppFirebase.db = db; // Set global db reference
+
+            // Listen for authentication state changes
+            onAuthStateChanged(auth, async (user) => {
+              const previousUser = currentUser; // Store previous user state
+              currentUser = user; // Update local module's currentUser
+              window.myAppFirebase.currentUser = user; // Update global reference for non-module script
+
+              // Update the user icon in the header based on login status
+              if (typeof window.updateUserUI === 'function') {
+                  window.updateUserUI(); // Calls the function defined in the non-module script
+              }
+
+              if (user && user.email && !user.isAnonymous) {
+                console.log("User state changed. Current user:", user.email, "Is Anonymous:", user.isAnonymous);
+                // Only sync data and set up listeners if it's a new login or a change from anonymous to authenticated
+                if (!previousUser || previousUser.isAnonymous || previousUser.email !== user.email) {
+                    await syncUserDataFromFirestore(user.email);
+                    setupFirestoreListeners(user.email);
+                }
+              } else {
+                console.log("User logged out or is anonymous. Cleaning up Firestore listeners.");
+                cleanupFirestoreListeners(); // Clean up listeners when logged out
+                // When logged out or anonymous, load data from local storage
+                if (window.cart !== undefined) window.cart = JSON.parse(localStorage.getItem('cart') || "[]");
+                if (window.wishlist !== undefined) window.wishlist = JSON.parse(localStorage.getItem('wishlist') || "[]");
+                
+                // If no user is authenticated (including anonymous), sign in anonymously
+                // This ensures there's always an auth context for Firestore operations
+                if (!user) {
+                    try {
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously to enable Firestore access.");
+                    } catch (anonError) {
+                        console.error("Failed to sign in anonymously:", anonError);
+                        if (typeof window.displayMessage === 'function') {
+                            window.displayMessage("Failed to establish anonymous session for cloud sync.", "error");
+                        }
+                    }
+                }
+              }
+
+              // Call UI update functions after any auth state change.
+              if (typeof window.updateCartCount === 'function') window.updateCartCount();
+              if (typeof window.updateWishlistCount === 'function') window.updateWishlistCount();
+            });
+          } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            if (typeof window.displayMessage === 'function') {
+                window.displayMessage("Firebase setup failed. Cloud sync disabled.", "error");
+            }
+          }
+        } else {
+          console.warn("Firebase config not found or incomplete. Running in local storage only mode.");
+          // Ensure initial UI update for user icon even if Firebase is not configured
+          if (typeof window.updateUserUI === 'function') {
+            window.updateUserUI();
+          }
+          // Cart/wishlist initialized by the non-module script.
+        }
+      });
+
+      /**
+       * Synchronizes user's cart and wishlist data from local storage to Firestore upon successful login,
+       * merging any existing data in Firestore with local data.
+       * @param {string} userEmail The user's Firebase email (used as document ID).
+       */
+      async function syncUserDataFromFirestore(userEmail) {
+        if (!db) {
+            console.error("Firestore object is not initialized. Cannot sync user data.");
+            if (typeof window.displayMessage === 'function') {
+                window.displayMessage("Firebase Firestore is not ready. Data sync limited.", "error");
+            }
+            // Fallback to local storage if Firestore isn't ready
+            if (window.cart !== undefined) window.cart = JSON.parse(localStorage.getItem('cart') || "[]");
+            if (window.wishlist !== undefined) window.wishlist = JSON.parse(localStorage.getItem('wishlist') || "[]");
+            return;
+        }
+
+        // Define document reference for the current user's document
+        const userDocRef = doc(db, 'users', userEmail);
+
+        try {
+          // Fetch current user document data from Firestore
+          const userDoc = await getDoc(userDocRef);
+
+          let firestoreCart = [];
+          if (userDoc.exists() && userDoc.data().cartItems) {
+              try {
+                  firestoreCart = JSON.parse(userDoc.data().cartItems);
+              } catch (e) {
+                  console.error("Error parsing Firestore cart data:", e);
+              }
+          }
+
+          let firestoreWishlist = [];
+          if (userDoc.exists() && userDoc.data().wishlistItems) {
+              try {
+                  firestoreWishlist = JSON.parse(userDoc.data().wishlistItems);
+              } catch (e) {
+                  console.error("Error parsing Firestore wishlist data:", e);
+              }
+          }
+
+          // Get data from local storage before merging
+          const localCart = JSON.parse(localStorage.getItem('cart') || "[]");
+          const localWishlist = JSON.parse(localStorage.getItem('wishlist') || "[]");
+
+          // Merge local cart into Firestore cart.
+          localCart.forEach(localItem => {
+              const existingItemIndex = firestoreCart.findIndex(item => item.id === localItem.id);
+              if (existingItemIndex > -1) {
+                  // If item exists in Firestore, update its quantity by adding local quantity
+                  firestoreCart[existingItemIndex].quantity += localItem.quantity;
+              } else {
+                  // If item does not exist in Firestore, add it
+                  firestoreCart.push(localItem);
+              }
+          });
+
+          // Merge local wishlist into Firestore wishlist (avoiding duplicates)
+          localWishlist.forEach(localItem => {
+              if (!firestoreWishlist.some(item => item.id === localItem.id)) {
+                  firestoreWishlist.push(localItem);
+              }
+          });
+
+          // Update global window variables with the merged data
+          if (window.cart !== undefined) window.cart = firestoreCart;
+          if (window.wishlist !== undefined) window.wishlist = firestoreWishlist;
+
+          // Save the merged data back to Firestore (serializing arrays to JSON strings)
+          await setDoc(userDocRef, {
+              cartItems: JSON.stringify(window.cart),
+              wishlistItems: JSON.stringify(window.wishlist)
+          }, { merge: true });
+
+          // Clear local storage as the data is now safely in Firestore
+          localStorage.removeItem('cart');
+          localStorage.removeItem('wishlist');
+
+          console.log("User data synced from local storage to Firestore.");
+          if (typeof window.displayMessage === 'function') {
+              window.displayMessage("Your local data has been synced to your account.", "info");
+          }
+
+        } catch (e) {
+          console.error("Error syncing user data to Firestore:", e);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Failed to sync your data to cloud. Using local data.", "error");
+          }
+          // If Firestore write fails, ensure local data is what's used
+          if (window.cart !== undefined) window.cart = JSON.parse(localStorage.getItem('cart') || "[]");
+          if (window.wishlist !== undefined) window.wishlist = JSON.parse(localStorage.getItem('wishlist') || "[]");
+        }
+
+        // Always update UI elements after sync attempt
+        if (typeof window.updateCartCount === 'function') window.updateCartCount();
+        if (typeof window.updateWishlistCount === 'function') window.updateWishlistCount();
+      }
+
+      /**
+       * Sets up real-time Firestore listeners for the user's cart and wishlist.
+       * These listeners will update the global `window.cart` and `window.wishlist` arrays
+       * whenever changes occur in Firestore.
+       * @param {string} userEmail The user's Firebase email (used as document ID).
+       */
+      function setupFirestoreListeners(userEmail) {
+        if (!db) {
+            console.error("Firestore object is not initialized. Cannot set up listeners.");
+            return;
+        }
+
+        const userDocRef = doc(db, 'users', userEmail);
+
+        cleanupFirestoreListeners(); // Ensure previous listeners are removed to avoid duplicates
+
+        cartUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
+          if (docSnap.exists() && docSnap.data().cartItems) {
+              try {
+                  // Update window.cart with data from Firestore (parsed from JSON string to array)
+                  if (window.cart !== undefined) window.cart = JSON.parse(docSnap.data().cartItems);
+                  console.log("Cart updated from Firestore via listener:", window.cart);
+              } catch (e) {
+                  console.error("Error parsing Firestore cart data from listener:", e);
+                  if (window.cart !== undefined) window.cart = []; // Reset if parsing fails
+              }
+          } else {
+            // If the document doesn't exist or `cartItems` field is empty, clear the local cart
+            if (window.cart !== undefined) window.cart = [];
+          }
+          // Call the UI update function for the cart, if it exists
+          if (typeof window.updateCartCount === 'function') window.updateCartCount();
+        }, (error) => {
+          console.error("Error listening to cart changes:", error);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Real-time cart updates failed. Check console for details.", "error");
+          }
+        });
+
+        wishlistUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
+          if (docSnap.exists() && docSnap.data().wishlistItems) {
+              try {
+                  // Update window.wishlist with data from Firestore (parsed from JSON string to array)
+                  if (window.wishlist !== undefined) window.wishlist = JSON.parse(docSnap.data().wishlistItems);
+                  console.log("Wishlist updated from Firestore via listener:", window.wishlist);
+              }
+              catch (e) {
+                  console.error("Error parsing wishlist snapshot from Firestore listener:", e);
+                  if (window.wishlist !== undefined) window.wishlist = []; // Reset if parsing fails
+              }
+          } else {
+            // If the document doesn't exist or `wishlistItems` field is empty, clear the local wishlist
+            if (window.wishlist !== undefined) window.wishlist = [];
+          }
+          // Call the UI update function for the wishlist, if it exists
+          if (typeof window.updateWishlistCount === 'function') window.updateWishlistCount();
+        }, (error) => {
+          console.error("Error listening to wishlist changes:", error);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage("Real-time liked list updates failed. Check console for details.", "error");
+          }
+        });
+      }
+
+      /**
+       * Unsubscribes from Firestore real-time listeners for cart and wishlist to prevent memory leaks.
+       */
+      function cleanupFirestoreListeners() {
+        if (cartUnsubscribe) {
+          cartUnsubscribe();
+          cartUnsubscribe = null;
+          console.log("Firestore cart listener unsubscribed.");
+        }
+        if (wishlistUnsubscribe) {
+          wishlistUnsubscribe();
+          wishlistUnsubscribe = null;
+          console.log("Firestore wishlist listener unsubscribed.");
+        }
+      }
+    </script>
+  </body>
+</html>
