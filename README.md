@@ -11,6 +11,7 @@
 9. Message will be sent using emailjs to customer mailid after placing order
 10. user datas will be stored in firebase
 11.Implemented all objectives in problem statement 1 and problem statement 2
+12.Deployed in onrender - link: https://devspark-e-commerce.onrender.com
 
 Step 1 - install node inside C:\Users\lapto\Downloads\Projects\Nithin Battery\server
 Step 2 - OPEN CMD-C:\Users\lapto\Downloads\Projects\Nithin Battery\server
