@@ -20,6 +20,12 @@
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <!-- EmailJS SDK CDN - IMPORTANT: Add this script -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init('sa2V5JxwcrSsTPFky');
+        })();
+    </script>
     <style>
       /* Custom Tailwind Configuration for primary color and border-radius */
       /* This must be correctly defined for Tailwind classes like bg-primary, bg-secondary to work */
@@ -620,7 +626,7 @@
           class="border-t border-gray-200 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center"
         >
           <p class="text-gray-500 text-sm">
-            © 2025 Nithin Battery. All rights reserved.
+            2025 Nithin Battery. All rights reserved.
           </p>
           <div class="flex space-x-6 mt-4 md:mt-0">
             <a href="#" class="text-sm text-gray-500 hover:text-primary"
@@ -659,7 +665,7 @@
           <div class="flex justify-between mb-4">
             <span class="text-gray-600">Total:</span>
             <span class="text-xl font-semibold text-gray-800" id="cartTotal"
-              >₹0.00</span
+              >0.00</span
             >
           </div>
           <button
@@ -827,7 +833,7 @@
 
                 <div id="paymentButtons" class="flex justify-center mt-6">
                     <button type="button" id="gpayButton" class="buy-now-button green-btn">
-                        Pay with GPay <span id="gpayAmount">₹0.00</span>
+                        Pay with GPay <span id="gpayAmount">0.00</span>
                     </button>
                     <button type="submit" id="codSubmitButton" class="buy-now-button primary-btn hidden">
                         Submit Order (Cash on Delivery)
@@ -880,7 +886,7 @@
           name: "POWERZONE 48PZTZ5L",
           price: 1434,
           description:
-            "BIKE: POWERZONE: 48M WARRANTY : WITH EXCHANGE ₹1100",
+            "BIKE: POWERZONE: 48M WARRANTY : WITH EXCHANGE 1100",
           image:
             "https://rukminim2.flixcart.com/image/704/844/xif0q/vehicle-battery/u/h/7/12-48pztz5l-4-powerzone-original-imagjghffc8fzdea.jpeg?q=90&crop=false",
           category: "POWERZONE BIKE",
@@ -891,7 +897,7 @@
           name: "EXIDE EXPLORE 12XLSL-B",
           price: 1637,
           description:
-            "BIKE: EXIDE EXPLORE: 48M WARRANTY: WITH EXCHANGE ₹1350",
+            "BIKE: EXIDE EXPLORE: 48M WARRANTY: WITH EXCHANGE 1350",
           image:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSarUVmmI2W5xdta2j6Zt_Y-OypPeiHYaw-rQ&s",
           category: "EXIDE BIKE",
@@ -902,7 +908,7 @@
           name: "EXIDE XLTZ4",
           price: 1250,
           description:
-            "BIKE: EXIDE XLTZ4: 48M WARRANTY: WITH EXCHANGE ₹1100",
+            "BIKE: EXIDE XLTZ4: 48M WARRANTY: WITH EXCHANGE 1100",
           image:
             "https://rukminim2.flixcart.com/image/704/844/xif0q/solar-battery/u/t/h/12xlt-z4-exide-12-original-imagn565rgy6u6ss.jpeg?q=90&crop=false".trim(), // Trimmed trailing space
           category: "EXIDE BIKE",
@@ -924,7 +930,7 @@
           name: "SF SONIC Z9",
           price: 2280,
           description:
-            "BIKE: SF SONIC Z9: 48M WARRANTY: WITH EXCHANGE ₹1650",
+            "BIKE: SF SONIC Z9: 48M WARRANTY: WITH EXCHANGE 1650",
           image:
             "https://content.jdmagicbox.com/quickquotes/images_main/torque-fsq0-sq1440-tz9-b-379454725-em6ft.png?impolicy=queryparam&im=Resize=(360,360),aspect=fit".trim(), // Trimmed trailing space
           category: "SF SONIC BIKE",
@@ -935,7 +941,7 @@
           name: "EXIDE 5LB",
           price: 1637,
           description:
-            "BIKE: EXIDE XPLORE: 48M WARRANTY: WITH EXCHANGE ₹1350",
+            "BIKE: EXIDE XPLORE: 48M WARRANTY: WITH EXCHANGE 1350",
           image:
             "https://rukminim2.flixcart.com/image/704/844/k09vv680/vehicle-battery/a/e/h/5lb-exide-original-imafk3pvrcktzggx.jpeg?q=90&crop=false",
           category: "EXIDE BIKE",
@@ -946,7 +952,7 @@
           name: "EXIDE XLTX14",
           price: 3500,
           description:
-            "BIKE: EXIDE XLTX14: 48M WARRANTY: WITH EXCHANGE ₹2800",
+            "BIKE: EXIDE XLTX14: 48M WARRANTY: WITH EXCHANGE 2800",
           image:
             "https://m.media-amazon.com/images/I/71RQ4bgnvaL.jpg".trim(), // Trimmed trailing space
           category: "EXIDE BIKE",
@@ -957,7 +963,7 @@
           name: "EXIDE XLTZ9",
           price: 2450,
           description:
-            "BIKE: EXIDE XLTZ9: 48M WARRANTY: WITH EXCHANGE ₹1950",
+            "BIKE: EXIDE XLTZ9: 48M WARRANTY: WITH EXCHANGE 1950",
           image:
             "https://5.imimg.com/data5/ANDROID/Default/2024/2/388133114/KS/QQ/LC/61242310/product-jpeg-500x500.jpg",
           category: "EXIDE BIKE",
@@ -968,7 +974,7 @@
           name: "EXIDE EEZY 34B19L",
           price: 4500,
           description:
-            "CAR/SUV: EXIDE EEZY 34B19L: 48M WARRANTY: WITH EXCHANGE ₹3450",
+            "CAR/SUV: EXIDE EEZY 34B19L: 48M WARRANTY: WITH EXCHANGE 3450",
           image:
             "https://batteryseller.in/wp-content/uploads/2021/06/exide-34b19l.png".trim(), // Trimmed trailing spaces
           category: "EXIDE CAR/SUV",
@@ -979,7 +985,7 @@
           name: "POWERZONE 40B20L",
           price: 4100,
           description:
-            "CAR/SUV: POWERZONE 40B20L: 60M WARRANTY: WITH EXCHANGE ₹3050",
+            "CAR/SUV: POWERZONE 40B20L: 60M WARRANTY: WITH EXCHANGE 3050",
           image:
             "https://m.media-amazon.com/images/I/41bAWq2h--L._UF1000,1000_QL80_.jpg".trim(), // Trimmed trailing space
           category: "POWERZONE CAR/SUV",
@@ -990,9 +996,9 @@
           name: "EXIDE MILEAGE ML DIN 60",
           price: 9340,
           description:
-            "CAR/SUV: EXIDE MILEAGE ML DIN 60: 60M WARRANTY: WITH EXCHANGE ₹7200",
+            "CAR/SUV: EXIDE MILEAGE ML DIN 60: 60M WARRANTY: WITH EXCHANGE 7200",
           image:
-            "https://www.batterymantra.com/images/product/613cdad2e239eExide_MLDIN60.png".trim(), // Trimmed trailing space
+            "https://www.batteryboss.in/assets/images/batteryboss/battery/71_71_MGRID60LBH.jpg",
           category: "EXIDE CAR/SUV",
           war: "60MON WARRANTY"
         },
@@ -1001,7 +1007,7 @@
           name: "EXIDE XPLORE XLTZ5",
           price: 1600,
           description:
-            "BIKE: EXIDE XPLORE XLTZ5: 60M WARRANTY: WITH EXCHANGE ₹1350",
+            "BIKE: EXIDE XPLORE XLTZ5: 60M WARRANTY: WITH EXCHANGE 1350",
           image:
             "https://5.imimg.com/data5/SELLER/Default/2022/6/QK/VB/MS/144510791/exide-xplore-xltz9-battery-500x500.jpg ",
           category: "EXIDE BIKE",
@@ -1012,7 +1018,7 @@
           name: "EXIDE IMTT1500 150AH TALL TUBULAR",
           price: 16500,
           description:
-            "INVERTER: EXIDE IMTT1500: 60M WARRANTY: WITH EXCHANGE ₹11000",
+            "INVERTER: EXIDE IMTT1500: 60M WARRANTY: WITH EXCHANGE 11000",
           image:
             "https://solar-world.in/cdn/shop/files/51UtLogDrzL._AC_UF894_1000_QL80.jpg?v=1707214192&width=1445 ",
           category: "EXIDE INVERTER",
@@ -1023,7 +1029,7 @@
           name: "EXIDE EEZY EY700",
           price: 8900,
           description:
-            "CAR/SUV: EXIDE EEZY EY700: 48M WARRANTY: WITH EXCHANGE ₹6700",
+            "CAR/SUV: EXIDE EEZY EY700: 48M WARRANTY: WITH EXCHANGE 6700",
           image:
             "https://www.exidecare.com/assets/ProductImages/EY700.jpg ",
           category: "EXIDE CAR/SUV",
@@ -1034,7 +1040,7 @@
           name: "POWERZONE 5LB",
           price: 1494,
           description:
-            "BIKE: POWERZONE 5LB: 48M WARRANTY: WITH EXCHANGE ₹1100",
+            "BIKE: POWERZONE 5LB: 48M WARRANTY: WITH EXCHANGE 1100",
           image:
             "https://m.media-amazon.com/images/I/81E5LI6Y4sL.jpg",
           category: "POWERZONE BIKE",
@@ -1045,7 +1051,7 @@
           name: "POWERZONE 35AH 4000L",
           price: 3844,
           description:
-            "CAR/SUV: : 3YEARS WARRANTY: WITH EXCHANGE ₹2800",
+            "CAR/SUV: : 3YEARS WARRANTY: WITH EXCHANGE 2800",
           image:
             "https://5.imimg.com/data5/SELLER/Default/2023/3/296214382/HE/CX/VU/187124166/powerzone-35-ah-car-battery.jpg",
           category: "POWERZONE CAR/SUV",
@@ -1056,7 +1062,7 @@
           name: "EXIDE MILEAGE ML40LBH",
           price: 5900,
           description:
-            "CAR/SUV: : 60M WARRANTY: WITH EXCHANGE ₹4600",
+            "CAR/SUV: : 60M WARRANTY: WITH EXCHANGE 4600",
           image:
             "https://www.batteryboss.in/assets/images/batteryboss/battery/71_71_MGRID40LBH.jpg",
           category: "EXIDE CAR/SUV",
@@ -1390,7 +1396,7 @@
           const transactionNote = isCartCheckout ? `Payment for items in your Nithin Battery cart` : `Payment for ${currentProductForBuy ? currentProductForBuy.name : 'product'} from Nithin Battery`;
 
           const myGPayId = 'ushanatarajan1411-1@okicici'; // Your GPay UPI ID
-          const myGPayName = 'Usha Natarajan'; // Your name for GPay
+          const myGPayName = 'ESAKKI MUTHU'; // Your name for GPay
 
           const gpayUri = `upi://pay?pa=${myGPayId}&pn=${encodeURIComponent(myGPayName)}&mc=0000&tid=TEST${Date.now()}&tr=TEST${Date.now()}&tn=${encodeURIComponent(transactionNote)}&am=${amount}&cu=INR`;
 
@@ -2277,7 +2283,7 @@
           document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
           gpayButton.classList.remove('hidden'); // Show GPay button
           codSubmitButton.classList.add('hidden'); // Hide COD button
-          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
+          confirmPaidButton.classList.add('hidden'); // Hide confirm button for GPay
           gpayQrCodeContainer.classList.remove('hidden'); // Show QR code container
           gpayUsernameInputContainer.classList.remove('hidden'); // Show GPay username input
           gpayUsername.value = ''; // Clear GPay username input
@@ -2316,8 +2322,8 @@
           document.querySelector('input[name="paymentOption"][value="gpay"]').checked = true;
           gpayButton.classList.remove('hidden'); // Show GPay button
           codSubmitButton.classList.add('hidden'); // Hide COD button
-          confirmPaidButton.classList.add('hidden'); // Hide confirm paid button
           gpayQrCodeContainer.classList.remove('hidden'); // Show QR code container
+          confirmPaidButton.classList.add('hidden'); // Hide confirm button for GPay
           gpayUsernameInputContainer.classList.remove('hidden'); // Show GPay username input
           gpayUsername.value = ''; // Clear GPay username input
 
@@ -2371,7 +2377,7 @@
       // --- Email Sending via EmailJS ---
       // IMPORTANT: Initialize EmailJS with your Public Key (User ID)
       // You can find this in your EmailJS account dashboard under "Email Services" -> "API Keys"
-      emailjs.init("sa2V5JxwcrSsTPFky"); // Replace with your actual EmailJS Public Key
+      // EmailJS is already initialized at the top of the page
 
       async function sendOrderConfirmationEmail(orderDetails) {
           // Check if customer email is provided
@@ -2380,15 +2386,6 @@
               displayMessage("Order placed, but email confirmation could not be sent (email not provided).", "warning");
               return;
           }
-
-          // A simple check to ensure the placeholder is replaced.
-          // This doesn't validate the key's correctness, only that it's not the default string.
-          if (emailjs.init.toString().includes("sa2V5JxwcrSsTPFky")) {
-              console.error("EmailJS Public Key is still a placeholder. Email will not be sent.");
-              displayMessage("Email sending failed: EmailJS Public Key is not set. Please update 'emailjs.init()' in pro.html.", "error", 15000);
-              return;
-          }
-
 
           const customerName = orderDetails.customerName || 'Customer';
           const orderNumber = orderDetails.orderId;
@@ -2411,39 +2408,42 @@
               });
           }
 
-          // These are the parameters that will be passed to your EmailJS template
-          // Ensure variable names match your EmailJS template exactly
+          // Flatten the template parameters - EmailJS works better with flat objects
           const templateParams = {
-              name: customerName, // Matches {{name}} in your template
-              order_id: orderNumber, // Matches {{order_id}} in your template
-              email: customerEmail, // Matches {{email}} in your template (for 'To Email' field)
-              orders: itemsForTemplate, // Matches {{orders}} in your template (for iterating over items)
-              cost: {
-                  shipping: (0.00).toFixed(2), // Set to 0.00 or 'N/A' if not tracked
-                  tax: (0.00).toFixed(2),      // Set to 0.00 or 'N/A' if not tracked
-                  total: orderDetails.totalAmount.toFixed(2)
-              }
+              to_email: customerEmail,
+              customer_name: customerName,
+              order_number: orderNumber,
+              order_items: itemsForTemplate.map(item => `${item.name} x${item.qty} - ₹${item.price}`).join('\n'),
+              total_amount: orderDetails.totalAmount.toFixed(2)
           };
 
-          // IMPORTANT: Replace 'YOUR_EMAILJS_SERVICE_ID' and 'YOUR_EMAILJS_TEMPLATE_ID'
-          // You can find these in your EmailJS account dashboard under "Email Services" and "Email Templates" respectively.
-          const serviceID = 'service_wons1xq'; // Replace with your actual EmailJS Service ID
-          const templateID = 'template_y3h32ca'; // Replace with your actual EmailJS Template ID
-
           try {
-              // Send the email using EmailJS
-              const response = await emailjs.send(serviceID, templateID, templateParams);
+              console.log('Attempting to send email...');
+              console.log('Service ID: service_wons1xq');
+              console.log('Template ID: template_y3h32ca');
+              console.log('Recipient:', customerEmail);
+              
+              const response = await emailjs.send(
+                  'service_duq6cfq',
+                  'template_y3h32ca',
+                  templateParams
+              );
 
-              if (response.status === 200) {
-                  console.log(`EmailJS: Order confirmation email sent to ${customerEmail} for order #${orderNumber}`);
-                  displayMessage("Order confirmation email sent!", "success");
-              } else {
-                  console.error("EmailJS: Failed to send email.", response);
-                  displayMessage(`Order placed, but email failed. Reason: ${response.text || 'Unknown error'}. Please contact support.`, "error", 10000);
-              }
+              console.log('Email sent successfully!', response);
+              displayMessage("Order confirmation email sent!", "success");
+              
           } catch (error) {
-              console.error("EmailJS: Network or unexpected error during email sending:", error);
-              displayMessage(`Order placed, but email failed due to network issues. Please contact support.`, "error", 10000);
+              console.error('EmailJS Error Details:');
+              console.error('- Error object:', error);
+              console.error('- Status:', error.status);
+              console.error('- Text:', error.text);
+              console.error('- Message:', error.message);
+              
+              if (error.status === 400 && error.text.includes('service ID not found')) {
+                  displayMessage('Email service configuration error. Please verify your EmailJS service ID in the dashboard.', "error", 10000);
+              } else {
+                  displayMessage(`Email failed: ${error.text || error.message || 'Unknown error'}`, "error", 10000);
+              }
           }
       }
       // Expose the function to the global window object
