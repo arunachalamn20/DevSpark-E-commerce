@@ -1676,7 +1676,7 @@
               console.error("Error processing order or saving to Firestore:", error);
               displayMessage("Order placed, but failed to record details in cloud. Please contact support and provide this error: " + error.message, "error");
               paymentConfirmation.classList.add('hidden');
-              paymentFailed.classList.remove('hidden');
+              paymentFailed.classList.add('hidden');
               failureMessage.textContent = "There was an issue recording your order. Please contact support.";
           }
           isCartCheckout = false;
@@ -1851,6 +1851,20 @@
         console.log("Creating product card for:", product.name); // Confirm card creation
         const card = document.createElement("div");
         card.className = "product-card bg-white rounded shadow-sm overflow-hidden";
+
+        // Admin-only inline controls (visible when localStorage.isAdmin === 'true')
+        const isAdminStored = localStorage.getItem('isAdmin') === 'true';
+        const adminControls = isAdminStored ? `
+            <div class="flex gap-2 mt-2">
+                <button onclick="editProduct(${product.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-sm">
+                    <i class=\"ri-edit-line mr-1\"></i>Edit
+                </button>
+                <button onclick="deleteProduct(${product.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm">
+                    <i class=\"ri-delete-bin-line mr-1\"></i>Delete
+                </button>
+            </div>
+        ` : '';
+
         card.innerHTML = `
           <div class="relative h-48 overflow-hidden">
               <img src="${product.image}" alt="${product.name}" class="w-full h-full object-top transition-transform duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e0e0e0/505050?text=Image+Not+Found';">
@@ -1878,11 +1892,10 @@
                       Add to Cart
                   </button>
                   <button class="buy-now-btn bg-secondary hover:bg-green-600 text-white rounded w-full gap-1" data-id="${product.id}">
-                      <div class="w- h- flex items-center justify-center">
-
-                      </div>
+                      <div class="w- h- flex items-center justify-center"></div>
                       <span>Buy Now</span>
                   </button>
+                  ${adminControls}
               </div>
           </div>
         `;
@@ -1907,7 +1920,7 @@
         // Add page number buttons
         for (let i = startPage; i <= endPage; i++) {
           const pageBtn = document.createElement("button");
-          pageBtn.className = `relative inline-flex items-center px-4 py-2 border ${
+          pageBtn.className = `relative inline-flex items-center px-3 py-2 border ${
             i === currentPage
               ? "border-primary bg-primary/10 text-primary font-medium"
               : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -2374,498 +2387,172 @@
         });
       });
 
-      // --- Email Sending via EmailJS ---
-      // IMPORTANT: Initialize EmailJS with your Public Key (User ID)
-      // You can find this in your EmailJS account dashboard under "Email Services" -> "API Keys"
-      // EmailJS is already initialized at the top of the page
-
-      async function sendOrderConfirmationEmail(orderDetails) {
-          // Check if customer email is provided
-          if (!orderDetails.customerEmail) {
-              console.warn("Email sending skipped: Customer email not provided.");
-              displayMessage("Order placed, but email confirmation could not be sent (email not provided).", "warning");
-              return;
+      // --- Admin header UI toggling on load (pro.html) ---
+      document.addEventListener('DOMContentLoaded', () => {
+        try {
+          const isAdmin = localStorage.getItem('isAdmin') === 'true';
+          const adminBtn = document.getElementById('adminButton');
+          let adminBadge = document.getElementById('adminBadge');
+          if (!adminBadge) {
+            // Inject a small Admin badge near the user icon if not present
+            const headerActions = document.querySelector('header .flex.items-center.space-x-4');
+            if (headerActions) {
+              const span = document.createElement('span');
+              span.id = 'adminBadge';
+              span.className = 'hidden text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded';
+              span.textContent = 'Admin';
+              headerActions.insertBefore(span, headerActions.firstChild);
+              adminBadge = span;
+            }
           }
-
-          const customerName = orderDetails.customerName || 'Customer';
-          const orderNumber = orderDetails.orderId;
-          const customerEmail = orderDetails.customerEmail;
-
-          // Prepare items array for the template
-          let itemsForTemplate = [];
-          if (isCartCheckout && orderDetails.products && Array.isArray(orderDetails.products)) {
-              itemsForTemplate = orderDetails.products.map(item => ({
-                  name: item.name,
-                  price: item.price.toFixed(2), // Format price for display
-                  qty: item.quantity // Changed from quantity to qty to match template
-              }));
-          } else if (currentProductForBuy) {
-              // For single product purchase
-              itemsForTemplate.push({
-                  name: currentProductForBuy.name,
-                  price: currentProductForBuy.price.toFixed(2),
-                  qty: 1
-              });
+          if (isAdmin) {
+            adminBtn?.classList.remove('hidden');
+            adminBadge?.classList.remove('hidden');
+          } else {
+            adminBtn?.classList.add('hidden');
+            adminBadge?.classList.add('hidden');
           }
-
-          // Flatten the template parameters - EmailJS works better with flat objects
-          const templateParams = {
-              to_email: customerEmail,
-              customer_name: customerName,
-              order_number: orderNumber,
-              order_items: itemsForTemplate.map(item => `${item.name} x${item.qty} - ₹${item.price}`).join('\n'),
-              total_amount: orderDetails.totalAmount.toFixed(2)
-          };
-
-          try {
-              console.log('Attempting to send email...');
-              console.log('Service ID: service_wons1xq');
-              console.log('Template ID: template_y3h32ca');
-              console.log('Recipient:', customerEmail);
-              
-              const response = await emailjs.send(
-                  'service_duq6cfq',
-                  'template_y3h32ca',
-                  templateParams
-              );
-
-              console.log('Email sent successfully!', response);
-              displayMessage("Order confirmation email sent!", "success");
-              
-          } catch (error) {
-              console.error('EmailJS Error Details:');
-              console.error('- Error object:', error);
-              console.error('- Status:', error.status);
-              console.error('- Text:', error.text);
-              console.error('- Message:', error.message);
-              
-              if (error.status === 400 && error.text.includes('service ID not found')) {
-                  displayMessage('Email service configuration error. Please verify your EmailJS service ID in the dashboard.', "error", 10000);
-              } else {
-                  displayMessage(`Email failed: ${error.text || error.message || 'Unknown error'}`, "error", 10000);
-              }
-          }
-      }
-      // Expose the function to the global window object
-      window.sendOrderConfirmationEmail = sendOrderConfirmationEmail;
-
-    </script>
-
-    <!-- Mobile Menu Script -->
-    <script id="mobile-menu-script">
-      document.addEventListener("DOMContentLoaded", function () {
-        const mobileMenuButton = document.getElementById("mobile-menu-button");
-        const mobileMenu = document.getElementById("mobile-menu");
-
-        // Ensure the elements exist before adding event listeners
-        if (mobileMenuButton && mobileMenu) {
-          mobileMenuButton.addEventListener("click", function () {
-            // Toggle the 'hidden' class to show/hide the mobile menu
-            mobileMenu.classList.toggle("hidden");
-            // Also, toggle 'flex' to ensure it displays correctly when not hidden
-            mobileMenu.classList.toggle("flex");
-          });
+        } catch (e) {
+          console.warn('Admin UI toggle failed:', e);
         }
-
-        // Close mobile menu when clicking on any link inside it
-        const mobileLinks = mobileMenu.querySelectorAll("a");
-        mobileLinks.forEach((link) => {
-          link.addEventListener("click", function () {
-            mobileMenu.classList.add("hidden"); // Hide the mobile menu
-            mobileMenu.classList.remove("flex"); // Ensure flex is removed when hidden
-          });
-        });
       });
+      // admin UI toggle completed
+ 
+       // Safety: if for any reason the first render didn't happen (e.g., another script error earlier),
+       // try once more shortly after load to ensure products are visible.
+       function ensureProductsVisible() {
+         try {
+           const container = document.getElementById('productsContainer');
+           if (!container) return;
+           const needsRender = container.children.length === 0;
+           if (needsRender) {
+             console.warn('[Safety] Forcing product render fallback.');
+             currentProducts = Array.isArray(allProducts) ? [...allProducts] : [];
+             currentPage = 1;
+             renderProducts(currentProducts, currentPage);
+             renderPagination();
+           }
+           // Always unhide container in case a previous state hid it
+           container.classList.remove('hidden');
+           container.style.visibility = 'visible';
+           container.style.height = '';
+         } catch (e) {
+           console.error('ensureProductsVisible failed:', e);
+         }
+       }
+
+       window.addEventListener('load', () => {
+         // Run a moment after full load to recover from any earlier parse/exec issues
+         setTimeout(ensureProductsVisible, 200);
+       });
     </script>
 
-    <!-- Firebase Module Script -->
+    <!-- Firebase SDK on product page (share same session as index.html) -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-      import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
       import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-      // IMPORTANT: Firestore Security Rules for this application structure:
-      // These rules allow authenticated users to read and write to their own
-      // user document, where the document ID is their email (userEmail).
-      //
-      // To apply these rules:
-      // 1. Go to your Firebase project console.
-      // 2. Navigate to "Firestore Database" -> "Rules".
-      // 3. Replace the existing rules with the following and "Publish" them.
-      /*
-      rules_version = '2';
-      service cloud.firestore {
-        match /databases/{database}/documents {
-          // Allow authenticated users to read and write to their own user document
-          // The document ID is expected to be the user's email (userEmail)
-          // Ensure that request.auth.token.email matches the document ID (userEmail)
-          match /users/{userEmail} {
-            allow read, write: if request.auth != null && request.auth.token.email == userEmail;
-          }
-        }
-      }
-      */
-
-      // Firebase variables (provided by Canvas environment)
-      // IMPORTANT: Replace these with your ACTUAL Firebase project configuration!
-       const firebaseConfig = {
-  apiKey: "AIzaSyBz-4MRjpbIp4NUpffMI4pBtL3OdaDDaFc",
-  authDomain: "devspark-37f4f.firebaseapp.com",
-  projectId: "devspark-37f4f",
-  storageBucket: "devspark-37f4f.firebasestorage.app",
-  messagingSenderId: "169352992813",
-  appId: "1:169352992813:web:8dce0368a82060f627c0a4",
-  measurementId: "G-H5QRPXWK2P"
-};
-
-      let app;
-      let auth;
-      let db;
-      let currentUser = null;
-      let cartUnsubscribe = null;
-      let wishlistUnsubscribe = null;
-
-      // Define auth functions, these will now contain their own checks for 'auth'
-      const handleLogin = async function(email, password) {
-          const loginError = document.getElementById("loginError");
-          loginError.textContent = "";
-          if (!auth) {
-              console.error("Authentication object is not initialized. Cannot login.");
-              loginError.textContent = "Firebase is not ready. Please try again later.";
-              return;
-          }
-          try {
-              await signInWithEmailAndPassword(auth, email, password);
-              document.getElementById("authModal").classList.add("hidden");
-              window.displayMessage("Logged in successfully!", "info");
-          } catch (error) {
-              console.error("Login failed:", error);
-              let message = "Login failed. Please try again.";
-              switch (error.code) {
-                  case 'auth/user-not-found':
-                  case 'auth/wrong-password':
-                      message = "Invalid email or password.";
-                      break;
-                  case 'auth/invalid-email':
-                      message = "Invalid email format.";
-                      break;
-                  case 'auth/user-disabled':
-                      message = "Your account has been disabled.";
-                      break;
-                  case 'auth/network-request-failed':
-                      message = "Network error. Please check your internet connection.";
-                      break;
-                  default:
-                      message = "Login failed. Please try again later.";
-              }
-              loginError.textContent = message;
-          }
+      // Use the same Firebase config as index.html
+      const firebaseConfig = {
+        apiKey: "AIzaSyBz-4MRjpbIp4NUpffMI4pBtL3OdaDDaFc",
+        authDomain: "devspark-37f4f.firebaseapp.com",
+        projectId: "devspark-37f4f",
+        storageBucket: "devspark-37f4f.firebasestorage.app",
+        messagingSenderId: "169352992813",
+        appId: "1:169352992813:web:8dce0368a82060f627c0a4",
+        measurementId: "G-H5QRPXWK2P"
       };
 
-      const handleSignup = async function(email, password) {
-          const signupError = document.getElementById("signupError");
-          signupError.textContent = "";
-          if (!auth) {
-              console.error("Authentication object is not initialized. Cannot signup.");
-              signupError.textContent = "Firebase is not ready. Please try again later.";
-              return;
-          }
-          try {
-              await createUserWithEmailAndPassword(auth, email, password);
-              document.getElementById("authModal").classList.add("hidden");
-              window.displayMessage("Signed up successfully! You are now logged in.", "info");
-          } catch (error) {
-              console.error("Signup failed:", error);
-              let message = "Signup failed. Please try again.";
-              switch (error.code) {
-                  case 'auth/email-already-in-use':
-                      message = "This email is already in use. Try logging in.";
-                      break;
-                  case 'auth/weak-password':
-                      message = "Password should be at least 6 characters.";
-                      break;
-                  case 'auth/invalid-email':
-                      message = "Invalid email format.";
-                      break;
-                  case 'auth/network-request-failed':
-                      message = "Network error. Please check your internet connection.";
-                      break;
-                  default:
-                      message = "Signup failed. Please try again later.";
-              }
-              signupError.textContent = message;
-          }
-      };
+      let app, auth, db;
+      try {
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
 
-      const handleLogout = async function() {
-          if (!auth) {
-              console.error("Authentication object is not initialized. Cannot logout.");
-              if (typeof window.displayMessage === 'function') {
-                  window.displayMessage("Firebase is not ready. Cannot log out.", "error");
-              }
-              return;
-          }
-          try {
-              // Before logging out, save current in-memory cart/wishlist to local storage
-              localStorage.setItem('cart', JSON.stringify(window.cart));
-              localStorage.setItem('wishlist', JSON.stringify(window.wishlist));
+        // Expose minimal API so existing code paths keep working
+        window.myAppFirebase = window.myAppFirebase || {};
+        window.myAppFirebase.db = db;
+        window.myAppFirebase.doc = doc;
+        window.myAppFirebase.getDoc = getDoc;
+        window.myAppFirebase.setDoc = setDoc;
+        window.myAppFirebase.onSnapshot = onSnapshot;
+        window.myAppFirebase.collection = collection;
+        window.myAppFirebase.addDoc = addDoc;
+        window.myAppFirebase.handleLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
+        window.myAppFirebase.handleLogout = () => signOut(auth);
 
-              await signOut(auth);
-              console.log("User logged out.");
-              window.displayMessage("Logged out successfully!", "info");
-              document.getElementById("authModal").classList.add("hidden"); // Hide the modal after logout
-              // onAuthStateChanged will handle UI updates and data sync
-          } catch (error) {
-              console.error("Error logging out:", error);
-              if (typeof window.displayMessage === 'function') {
-                window.displayMessage("Failed to log out. Please try again.", "error");
-              }
-          }
-      };
-
-      // Expose necessary Firebase instances and functions to the global window object
-      window.myAppFirebase = {
-        currentUser: null,
-        db: null,
-        handleLogin: handleLogin,
-        handleSignup: handleSignup,
-        handleLogout: handleLogout,
-        doc: doc,
-        getDoc: getDoc,
-        setDoc: setDoc,
-        onSnapshot: onSnapshot,
-        collection: collection,
-        addDoc: addDoc
-      };
-
-      document.addEventListener("DOMContentLoaded", async function () {
-        console.log("Attempting Firebase initialization with config:", firebaseConfig);
-
-        // Only initialize Firebase if config seems valid
-        if (firebaseConfig && firebaseConfig.apiKey && firebaseConfig.projectId) {
-          try {
-            app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-            window.myAppFirebase.db = db; // Set global db reference
-            console.log("Firebase App initialized:", app);
-            console.log("Firebase Auth initialized:", auth);
-            console.log("Firestore initialized:", db); // Check if db is a valid object here
-
-            onAuthStateChanged(auth, async (user) => {
-              const previousUser = currentUser;
-              currentUser = user;
-              window.myAppFirebase.currentUser = user;
-
-              if (typeof window.updateUserUI === 'function') {
-                  window.updateUserUI(); // This will now always ensure the generic icon is shown.
-              }
-
-              if (user && user.email && !user.isAnonymous) { // Only sync for authenticated users with email
-                console.log("User state changed. Current user:", user.email);
-                // Only sync data and set up listeners if it's a new login or a change from anonymous to authenticated
-                if (!previousUser || previousUser.isAnonymous || previousUser.email !== user.email) {
-                    await syncUserDataFromFirestore(user.email);
-                    setupFirestoreListeners(user.email);
-                }
-              } else {
-                console.log("User logged out or is anonymous. Cleaning up Firestore listeners.");
-                cleanupFirestoreListeners();
-                // When logged out or anonymous, load data from local storage
-                if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
-                if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-              }
-
-              // Always update UI after any auth state change
-              if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
-              if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
-              if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
-              if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
-            });
-          } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            if (typeof window.displayMessage === 'function') {
-                window.displayMessage("Firebase setup failed. Cloud sync disabled. Check console for details. Error: " + error.message, "error");
-            }
-          }
-        } else {
-          console.error("Firebase config is missing or incomplete. Please provide valid config.");
-          if (typeof window.displayMessage === 'function') {
-            window.displayMessage("Firebase config missing. Running in local storage only mode.", "error");
-          }
-          // Fallback to local storage if config is bad
-          if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
-          if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-          if (typeof window.updateUserUI === 'function') {
-            window.updateUserUI();
-          }
-        }
-      });
-
-      async function syncUserDataFromFirestore(userEmail) {
-        // Ensure db is valid and userEmail is provided before proceeding
-        if (!window.myAppFirebase.db || !userEmail) {
-            console.error("Firestore object not initialized or user email missing for sync. Skipping data sync.");
-            if (typeof window.displayMessage === 'function') {
-                window.displayMessage("Firebase Firestore is not ready or user email missing. Data sync limited.", "error");
-            }
-            // Fallback to local storage if Firestore isn't ready or email is missing
-            if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
-            if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-            return;
-        }
-
-        const userDocRef = doc(window.myAppFirebase.db, 'users', userEmail);
-
-        try {
-          const userDoc = await getDoc(userDocRef);
-
-          let firestoreCart = [];
-          if (userDoc.exists() && userDoc.data().cartItems) {
-              try {
-                  firestoreCart = JSON.parse(userDoc.data().cartItems);
-              } catch (e) {
-                  console.error("Error parsing Firestore cart data:", e);
-              }
-          }
-
-          let firestoreWishlist = [];
-          if (userDoc.exists() && userDoc.data().wishlistItems) {
-              try {
-                  firestoreWishlist = JSON.parse(userDoc.data().wishlistItems);
-              } catch (e) {
-                  console.error("Error parsing Firestore wishlist data:", e);
-              }
-          }
-
-          // Get local storage data before merging
-          const localCart = JSON.parse(localStorage.getItem('cart')) || [];
-          const localWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-          // Merge local cart into Firestore cart
-          localCart.forEach(localItem => {
-              const existing = firestoreCart.find(fsItem => fsItem.id === localItem.id);
-              if (existing) {
-                  existing.quantity += localItem.quantity;
-              } else {
-                  firestoreCart.push(localItem);
-              }
-          });
-
-          // Merge local wishlist into Firestore wishlist
-          localWishlist.forEach(localItem => {
-              if (!firestoreWishlist.some(fsItem => fsItem.id === localItem.id)) {
-                  firestoreWishlist.push(localItem);
-              }
-          });
-
-          // Update global state with merged data
-          if (window.cart) window.cart = firestoreCart;
-          if (window.wishlist) window.wishlist = firestoreWishlist;
-
-          // Save merged data back to Firestore
-          await setDoc(userDocRef, {
-              cartItems: JSON.stringify(window.cart),
-              wishlistItems: JSON.stringify(window.wishlist)
-          }, { merge: true });
-
-          // Clear local storage as data is now in Firestore
-          localStorage.removeItem('cart');
-          localStorage.removeItem('wishlist');
-
-          console.log("User data synced from local storage to Firestore.");
-          window.displayMessage("Your local data has been synced to your account.", "info");
-
-        } catch (e) {
-          console.error("Error syncing user data to Firestore:", e);
-          if (typeof window.displayMessage === 'function') {
-            window.displayMessage("Failed to sync your data to cloud. Using local data. Error: " + e.message, "error");
-          }
-          // If Firestore write fails, ensure local data is what's used
-          if (window.cart) window.cart = JSON.parse(localStorage.getItem('cart')) || [];
-          if (window.wishlist) window.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        }
-
-        // Always update UI elements after sync attempt
-        if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
-        if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
-        if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
-        if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
-      }
-
-      function setupFirestoreListeners(userEmail) {
-        // Ensure db is valid and userEmail is provided before proceeding
-        if (!window.myAppFirebase.db || !userEmail) {
-            console.error("Firestore object not initialized or user email missing for listeners. Skipping listener setup.");
-            return;
-        }
-
-        const userDocRef = doc(window.myAppFirebase.db, 'users', userEmail);
-
-        cleanupFirestoreListeners(); // Ensure previous listeners are removed
-
-        cartUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
-          if (docSnap.exists() && docSnap.data().cartItems) {
-              try {
-                  if (window.cart) {
-                    window.cart = JSON.parse(docSnap.data().cartItems);
-                    console.log("Cart updated from Firestore via listener:", window.cart);
-                  }
-              } catch (e) {
-                  console.error("Error parsing Firestore cart data from listener:", e);
-                  if (window.cart) window.cart = []; // Reset if parsing fails
-              }
-          } else {
-            if (window.cart) window.cart = []; // Reset if document doesn't exist or items are empty
-          }
+        onAuthStateChanged(auth, (user) => {
+          window.myAppFirebase.currentUser = user || null;
+          console.log('[pro.html] Auth state:', user?.email || 'no user');
+          // Update any UI that depends on auth
           if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
-          if (typeof window.renderCart === 'function') window.renderCart();
-          if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
-        }, (error) => {
-          console.error("Error listening to cart changes:", error);
-          if (typeof window.displayMessage === 'function') {
-            window.displayMessage("Real-time cart updates failed. Check console for details. Error: " + error.message, "error");
-          }
-        });
-
-        wishlistUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
-          if (docSnap.exists() && docSnap.data().wishlistItems) {
-              try {
-                  if (window.wishlist) {
-                    window.wishlist = JSON.parse(docSnap.data().wishlistItems);
-                    console.log("Wishlist updated from Firestore via listener:", window.wishlist);
-                  }
-              }
-              catch (e) {
-                  console.error("Error parsing wishlist snapshot from Firestore listener:", e);
-                  if (window.wishlist) window.wishlist = []; // Reset if parsing fails
-              }
-          } else {
-            if (window.wishlist) window.wishlist = []; // Reset if document doesn't exist or items are empty
-          }
           if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
-          if (typeof window.renderWishlist === 'function') window.renderWishlist();
+          if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
           if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
-        }, (error) => {
-          console.error("Error listening to wishlist changes:", error);
-          if (typeof window.displayMessage === 'function') {
-            window.displayMessage("Real-time liked list updates failed. Check console for details. Error: " + error.message, "error");
-          }
         });
+      } catch (e) {
+        console.error('[pro.html] Firebase init failed:', e);
       }
+    </script>
 
-      function cleanupFirestoreListeners() {
-        if (cartUnsubscribe) {
-          cartUnsubscribe();
-          cartUnsubscribe = null;
-          console.log("Firestore cart listener unsubscribed.");
+    <script>
+      // Inline admin actions
+      window.editProduct = function(productId) {
+        try {
+          const idx = allProducts.findIndex(p => p.id === productId);
+          if (idx === -1) return displayMessage('Product not found', 'error');
+          const p = allProducts[idx];
+          const newName = prompt('Edit name:', p.name);
+          if (newName === null) return; // cancelled
+          const newPriceStr = prompt('Edit price (number):', String(p.price));
+          if (newPriceStr === null) return;
+          const newPrice = parseFloat(newPriceStr);
+          if (isNaN(newPrice)) return displayMessage('Invalid price', 'error');
+          const newCategory = prompt('Edit category:', p.category);
+          if (newCategory === null) return;
+          const newWar = prompt('Edit warranty text:', p.war || '');
+          if (newWar === null) return;
+          const newImage = prompt('Edit image URL:', p.image || '');
+          if (newImage === null) return;
+          const newDesc = prompt('Edit description:', p.description || '');
+          if (newDesc === null) return;
+
+          allProducts[idx] = { ...p, name: newName, price: newPrice, category: newCategory, war: newWar, image: newImage, description: newDesc };
+          currentProducts = [...allProducts];
+          renderProducts(currentProducts, currentPage);
+          renderPagination();
+          displayMessage('Product updated.', 'success');
+        } catch (e) {
+          console.error('editProduct failed:', e);
+          displayMessage('Failed to update product.', 'error');
         }
-        if (wishlistUnsubscribe) {
-          wishlistUnsubscribe();
-          wishlistUnsubscribe = null;
-          console.log("Firestore wishlist listener unsubscribed.");
+      };
+
+      window.deleteProduct = function(productId) {
+        try {
+          if (!confirm('Delete this product? This cannot be undone.')) return;
+          const before = allProducts.length;
+          const idNum = Number(productId);
+          // Remove from master list
+          for (let i = allProducts.length - 1; i >= 0; i--) {
+            if (allProducts[i].id === idNum) {
+              allProducts.splice(i, 1);
+            }
+          }
+          // Keep current filtered list in sync
+          currentProducts = allProducts.filter(() => true);
+          // Reset to first page if current page is now out of bounds
+          const maxPage = Math.max(1, Math.ceil(currentProducts.length / productsPerPage));
+          if (currentPage > maxPage) currentPage = maxPage;
+          renderProducts(currentProducts, currentPage);
+          renderPagination();
+          displayMessage(before !== allProducts.length ? 'Product deleted.' : 'Product not found.', before !== allProducts.length ? 'success' : 'error');
+        } catch (e) {
+          console.error('deleteProduct failed:', e);
+          displayMessage('Failed to delete product.', 'error');
         }
-      }
+      };
     </script>
   </body>
 </html>
