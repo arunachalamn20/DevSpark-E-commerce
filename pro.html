@@ -297,7 +297,7 @@
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          white-space: nowrap;
+          white-space: nowrap; /* Prevent text from wrapping */
       }
 
       .buy-now-button.primary-btn {
@@ -1109,7 +1109,7 @@
           description:
             "BIKE: EXIDE XLTX14: 48M WARRANTY: WITH EXCHANGE 2800",
           image:
-            "https://m.media-amazon.com/images/I/71RQ4bgnvaL.jpg".trim(), // Trimmed trailing space
+            "https://m.media-amazon.com/cdn-cgi/image/fit=cover,width=1445,height=1445,format=auto,quality=80/src/A1R4S0O0STH0VC/media-amazon.com/images/I/71RQ4bgnvaL._AC_UF894_QL80_.jpg".trim(), // Trimmed trailing space
           category: "EXIDE BIKE",
           war: "48MON WARRANTY"
         },
@@ -2013,15 +2013,14 @@
         console.log("Creating product card for:", product.name); // Confirm card creation
         const card = document.createElement("div");
         card.className = "product-card bg-white rounded shadow-sm overflow-hidden";
+        const safeId = String(product.id);
+        card.setAttribute('data-pid', safeId);
 
         // Admin-only inline controls (visible when localStorage.isAdmin === 'true')
         const isAdminStored = localStorage.getItem('isAdmin') === 'true';
         const adminControls = isAdminStored ? `
             <div class="flex gap-2 mt-2">
-                <button onclick="editProduct(${product.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-sm">
-                    <i class=\"ri-edit-line mr-1\"></i>Edit
-                </button>
-                <button onclick="deleteProduct(${product.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm">
+                <button onclick="deleteProduct('${safeId}')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm">
                     <i class=\"ri-delete-bin-line mr-1\"></i>Delete
                 </button>
             </div>
@@ -2029,23 +2028,23 @@
 
         card.innerHTML = `
           <div class="relative h-48 overflow-hidden">
-              <img src="${product.image}" alt="${product.name}" class="w-full h-full object-top transition-transform duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e0e0e0/505050?text=Image+Not+Found';">
+              <img src="${product.image}" alt="${product.name}" class="js-img w-full h-full object-top transition-transform duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e0e0e0/505050?text=Image+Not+Found';">
               <button class="absolute top-2 left-2 text-gray-400 hover:text-red-500 transition wishlist-icon" data-id="${product.id}">
                   <i class="ri-heart-line ri-lg"></i>
               </button>
           </div>
           <div
-              class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"
+              class="js-war absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"
           >
               ${product.war}
           </div>
 
           <div class="p-4">
               <div class="flex justify-between items-start mb-2">
-                  <h3 class="text-lg font-medium text-gray-900 line-clamp-1">${product.name}</h3>
-                  <span class="font-semibold text-primary">₹${product.price.toFixed(2)}</span>
+                  <h3 class="js-name text-lg font-medium text-gray-900 line-clamp-1">${product.name}</h3>
+                  <span class="js-price font-semibold text-primary">₹${product.price.toFixed(2)}</span>
               </div>
-              <p class="text-gray-600 text-sm mb-4 line-clamp-2">${product.description}</p>
+              <p class="js-desc text-gray-600 text-sm mb-4 line-clamp-2">${product.description}</p>
               <div class="flex flex-col gap-2"> <!-- Changed to flex-col to stack buttons -->
                   <button class="add-to-cart-btn bg-primary hover:bg-blue-600 text-white rounded w-full gap-1" data-id="${product.id}">
                       <div class="w-4 h-4 flex items-center justify-center">
@@ -2609,53 +2608,54 @@
        });
     </script>
 
-    <!-- Firebase SDK on product page (share same session as index.html) -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-      import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-      // Use the same Firebase config as index.html
-      const firebaseConfig = {
-        apiKey: "AIzaSyBz-4MRjpbIp4NUpffMI4pBtL3OdaDDaFc",
-        authDomain: "devspark-37f4f.firebaseapp.com",
-        projectId: "devspark-37f4f",
-        storageBucket: "devspark-37f4f.firebasestorage.app",
-        messagingSenderId: "169352992813",
-        appId: "1:169352992813:web:8dce0368a82060f627c0a4",
-        measurementId: "G-H5QRPXWK2P"
-      };
-
-      let app, auth, db;
-      try {
-        app = initializeApp(firebaseConfig);
-        auth = getAuth(app);
-        db = getFirestore(app);
-
-        // Expose minimal API so existing code paths keep working
-        window.myAppFirebase = window.myAppFirebase || {};
-        window.myAppFirebase.db = db;
-        window.myAppFirebase.doc = doc;
-        window.myAppFirebase.getDoc = getDoc;
-        window.myAppFirebase.setDoc = setDoc;
-        window.myAppFirebase.onSnapshot = onSnapshot;
-        window.myAppFirebase.collection = collection;
-        window.myAppFirebase.addDoc = addDoc;
-        window.myAppFirebase.handleLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
-        window.myAppFirebase.handleLogout = () => signOut(auth);
-
-        onAuthStateChanged(auth, (user) => {
-          window.myAppFirebase.currentUser = user || null;
-          console.log('[pro.html] Auth state:', user?.email || 'no user');
-          // Update any UI that depends on auth
-          if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
-          if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
-          if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
-          if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
-        });
-      } catch (e) {
-        console.error('[pro.html] Firebase init failed:', e);
+    <!-- Admin inline actions (global, non-module) -->
+    <script>
+      // Only allow when admin flag is set
+      function __isAdminActive() {
+        return localStorage.getItem('isAdmin') === 'true';
       }
-    </script>
-  </body>
-</html>
+
+      // Minimal DOM patch helpers (avoid wiping the entire grid)
+      function __patchCard(pid, updated) {
+        const card = document.querySelector(`.product-card[data-pid="${pid}"]`);
+        if (!card) return false;
+        const nameEl = card.querySelector('.js-name');
+        const priceEl = card.querySelector('.js-price');
+        const descEl = card.querySelector('.js-desc');
+        const warEl = card.querySelector('.js-war');
+        const imgEl = card.querySelector('.js-img');
+        if (nameEl) nameEl.textContent = updated.name;
+        if (priceEl) priceEl.textContent = `₹${(+updated.price || 0).toFixed(2)}`;
+        if (descEl) descEl.textContent = updated.description || '';
+        if (warEl) warEl.textContent = updated.war || '';
+        if (imgEl && updated.image) imgEl.src = updated.image;
+        return true;
+      }
+      function __removeCard(pid) {
+        const card = document.querySelector(`.product-card[data-pid="${pid}"]`);
+        if (card && card.parentElement) {
+          card.parentElement.removeChild(card);
+          return true;
+        }
+        return false;
+      }
+
+      window.editProduct = function(productId) {
+        try {
+          if (!__isAdminActive()) { if (typeof displayMessage === 'function') displayMessage('Admin privileges required.', 'error'); return; }
+          let targetId = productId != null ? String(productId) : null;
+
+          // Fallback: try to read from the clicked button's card dataset
+          if (!targetId && window.event && window.event.target) {
+            const btn = window.event.target.closest && window.event.target.closest('.product-card');
+            if (btn && btn.dataset && btn.dataset.pid) targetId = String(btn.dataset.pid);
+          }
+
+          // Locate index by id first
+          let idx = Array.isArray(window.allProducts) ? window.allProducts.findIndex(p => String(p.id) === targetId) : -1;
+
+          // If not found, attempt name-based fallback from DOM card
+          if (idx === -1 && window.event && window.event.target) {
+            const card = window.event.target.closest && window.event.target.closest('.product-card');
+            const nameEl = card ? card.querySelector('.js-name') : null;
+       
