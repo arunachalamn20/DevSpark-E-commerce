@@ -281,6 +281,11 @@
     </style>
   </head>
   <body class="bg-white">
+    <!-- Admin Welcome Banner (hidden by default) -->
+    <div id="adminWelcomeBanner" class="hidden bg-indigo-600 text-white text-center py-2 text-sm">
+      <i class="ri-shield-star-line mr-2"></i>
+      Welcome, Admin! You have full access to manage the website.
+    </div>
     <!-- Header -->
     <header
       class="fixed top-0 left-0 w-full bg-white bg-opacity-95 shadow-sm z-50"
@@ -315,7 +320,12 @@
             >
           </nav>
         </div>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3">
+          <!-- Admin buttons -->
+          <a href="pro.html#admin" id="adminPanelBtn" class="hidden px-3 py-2 rounded bg-red-600 text-white font-semibold hover:bg-red-700 transition">Admin Panel</a>
+          <button id="adminLoginBtn" class="px-3 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-50">Admin Login</button>
+          <button id="adminLogoutBtn" class="hidden px-3 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-50">Admin Logout</button>
++
           <!-- User Icon / Initial Display -->
           <!-- This structure is copied directly from product.html and modified for constant visibility -->
           <a href="#" class="p-2 text-gray-700 hover:text-primary" id="userButton">
@@ -1084,6 +1094,31 @@
     <!-- Custom Message Box - Copied from product.html -->
     <div id="messageBox" class="message-box hidden"></div>
 
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black/60 z-[100] hidden">
+      <div class="max-w-md mx-auto mt-40 bg-white rounded-2xl shadow-xl p-6 relative">
+        <button id="closeAdminModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Admin Login</h3>
+        <form id="adminLoginForm" class="space-y-4">
+          <div>
+            <label class="block text-sm text-gray-700 mb-1">Email</label>
+            <input type="email" id="adminEmail" class="w-full border rounded-lg px-3 py-2" placeholder="Admin email" required />
+          </div>
+          <div>
+            <label class="block text-sm text-gray-700 mb-1">Password</label>
+            <input type="password" id="adminPassword" class="w-full border rounded-lg px-3 py-2" placeholder="Password" required />
+          </div>
+          <p id="adminLoginError" class="text-sm text-red-500"></p>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" id="cancelAdminLogin" class="px-4 py-2 border rounded-lg">Cancel</button>
+            <button type="submit" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Mobile Menu Script -->
     <script id="mobile-menu-script">
       document.addEventListener("DOMContentLoaded", function () {
@@ -1830,6 +1865,94 @@
           console.log("Firestore wishlist listener unsubscribed.");
         }
       }
+    </script>
+
+    <!-- Admin Login Logic (non-module) -->
+    <script>
+      // Hardcoded admin credentials (separate from Firebase)
+      const ADMIN_EMAIL = 'ushanatarajan1411@gmail.com';
+      const ADMIN_PASSWORD = 'natu1474';
+
+      const adminWelcomeBanner = document.getElementById('adminWelcomeBanner');
+      const adminPanelBtn = document.getElementById('adminPanelBtn');
+      const adminLoginBtn = document.getElementById('adminLoginBtn');
+      const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+      const adminLoginModal = document.getElementById('adminLoginModal');
+      const closeAdminModal = document.getElementById('closeAdminModal');
+      const cancelAdminLogin = document.getElementById('cancelAdminLogin');
+      const adminLoginForm = document.getElementById('adminLoginForm');
+      const adminEmailInput = document.getElementById('adminEmail');
+      const adminPasswordInput = document.getElementById('adminPassword');
+      const adminLoginError = document.getElementById('adminLoginError');
+
+      function showAdminUI() {
+        adminWelcomeBanner?.classList.remove('hidden');
+        adminPanelBtn?.classList.remove('hidden');
+        adminLogoutBtn?.classList.remove('hidden');
+        adminLoginBtn?.classList.add('hidden');
+      }
+
+      function hideAdminUI() {
+        adminWelcomeBanner?.classList.add('hidden');
+        adminPanelBtn?.classList.add('hidden');
+        adminLogoutBtn?.classList.add('hidden');
+        adminLoginBtn?.classList.remove('hidden');
+      }
+
+      function setAdminLoggedIn() {
+        localStorage.setItem('isAdmin', 'true');
+        localStorage.setItem('userEmail', ADMIN_EMAIL);
+        showAdminUI();
+      }
+
+      function clearAdminLoggedIn() {
+        localStorage.removeItem('isAdmin');
+        // don't clear userEmail used by Firebase users
+        hideAdminUI();
+      }
+
+      // Initialize based on persisted state
+      document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('isAdmin') === 'true') {
+          showAdminUI();
+        } else {
+          hideAdminUI();
+        }
+      });
+
+      // Open/close modal
+      adminLoginBtn?.addEventListener('click', () => {
+        adminLoginError.textContent = '';
+        adminEmailInput.value = '';
+        adminPasswordInput.value = '';
+        adminLoginModal.classList.remove('hidden');
+      });
+      closeAdminModal?.addEventListener('click', () => adminLoginModal.classList.add('hidden'));
+      cancelAdminLogin?.addEventListener('click', () => adminLoginModal.classList.add('hidden'));
+
+      // Handle admin login submit
+      adminLoginForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = adminEmailInput.value.trim();
+        const pwd = adminPasswordInput.value;
+        if (email === ADMIN_EMAIL && pwd === ADMIN_PASSWORD) {
+          setAdminLoggedIn();
+          adminLoginModal.classList.add('hidden');
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage('Welcome, Admin! You are now logged in.', 'success');
+          }
+        } else {
+          adminLoginError.textContent = 'Invalid admin credentials.';
+        }
+      });
+
+      // Admin logout
+      adminLogoutBtn?.addEventListener('click', () => {
+        clearAdminLoggedIn();
+        if (typeof window.displayMessage === 'function') {
+          window.displayMessage('Admin logged out.', 'info');
+        }
+      });
     </script>
   </body>
 </html>
