@@ -18,13 +18,82 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <!-- EmailJS SDK CDN - IMPORTANT: Add this script -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        // Initialize EmailJS with your public key
-        (function() {
-            emailjs.init('sa2V5JxwcrSsTPFky');
-        })();
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      // EmailJS configuration — UPDATE THESE TO MATCH YOUR EMAILJS DASHBOARD
+      const EMAILJS_PUBLIC_KEY = 'sa2V5JxwcrSsTPFky'; // <-- replace with your actual Public Key
+      const EMAILJS_SERVICE_ID = 'service_duq6cfq';    // <-- replace with your Service ID
+      const EMAILJS_TEMPLATE_ID = 'template_y3h32ca';  // <-- replace with your Template ID
+
+      // Try init (optional) — we will also pass the key to emailjs.send for reliability
+      try {
+        if (window.emailjs && typeof emailjs.init === 'function') {
+          emailjs.init(EMAILJS_PUBLIC_KEY);
+          console.log('[EmailJS] Initialized with public key');
+        }
+      } catch (e) {
+        console.warn('[EmailJS] init failed (will still attempt send with key):', e);
+      }
+
+      function buildEmailParams(orderDetails) {
+        const products = Array.isArray(orderDetails.products) ? orderDetails.products : [];
+        const orderItems = products.length
+          ? products.map(it => `${it.name} x${it.quantity || 1} - ₹${(+it.price || 0).toFixed(2)}`).join('\n')
+          : (orderDetails.itemName ? `${orderDetails.itemName} - ₹${(+orderDetails.totalAmount || 0).toFixed(2)}` : '');
+
+        // Adjust these keys to match your EmailJS template fields exactly
+        const params = {
+          to_email: orderDetails.customerEmail,                 // map to your template variable
+          customer_name: orderDetails.customerName || 'Customer',
+          order_number: orderDetails.orderId || '',
+          order_items: orderItems,
+          total_amount: (+orderDetails.totalAmount || 0).toFixed(2),
+          // Helpful extras that you can add to your template if needed:
+          reply_to: orderDetails.customerEmail,
+          to_name: orderDetails.customerName || 'Customer'
+        };
+        return params;
+      }
+
+      // Actual implementation used by checkout to send confirmation emails
+      window.sendOrderConfirmationEmail = async function(orderDetails) {
+        try {
+          if (!window.emailjs || typeof emailjs.send !== 'function') {
+            console.warn('[EmailJS] SDK unavailable. Skipping actual email send.');
+            return { status: 'skipped' };
+          }
+          if (!orderDetails || !orderDetails.customerEmail) {
+            console.warn('[EmailJS] Missing customer email. Skipping.');
+            return { status: 'skipped' };
+          }
+
+          const params = buildEmailParams(orderDetails);
+          // Basic parameter validation — adjust to your template requirements
+          const missing = [];
+          if (!EMAILJS_PUBLIC_KEY) missing.push('PUBLIC_KEY');
+          if (!EMAILJS_SERVICE_ID) missing.push('SERVICE_ID');
+          if (!EMAILJS_TEMPLATE_ID) missing.push('TEMPLATE_ID');
+          if (!params.to_email) missing.push('params.to_email');
+          if (missing.length) {
+            console.error('[EmailJS] Missing config/params:', missing.join(', '));
+            return { status: 'error', error: 'Missing EmailJS config/params: ' + missing.join(', ') };
+          }
+
+          console.log('[EmailJS] Sending with:', { service: EMAILJS_SERVICE_ID, template: EMAILJS_TEMPLATE_ID, params });
+          // Pass public key directly to send to avoid reliance on init()
+          const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY);
+          console.log('[EmailJS] Email sent:', res);
+          return { status: 'sent' };
+        } catch (err) {
+          // Many 400 errors are due to wrong service/template IDs or mismatched template vars
+          console.error('[EmailJS] Failed to send email:', err);
+          if (typeof window.displayMessage === 'function') {
+            window.displayMessage('Email send failed. Please verify EmailJS Public Key/Service/Template and template variables.', 'error');
+          }
+          return { status: 'error', error: String(err?.text || err?.message || err) };
+        }
+      };
     </script>
     <style>
       /* Custom Tailwind Configuration for primary color and border-radius */
@@ -878,6 +947,92 @@
         </div>
     </div>
 
+    <!-- Floating Chatbot Widget (same as index.html) -->
+    <div id="chatbotWidget" class="fixed bottom-4 right-4 z-[60]">
+      <div id="chatbotPanel" class="hidden w-80 sm:w-96 bg-white rounded-xl shadow-2xl mb-3 overflow-hidden">
+        <div class="px-3 py-2 bg-primary text-white flex justify-between items-center">
+          <span class="font-semibold">Assistant</span>
+          <button id="chatbotClose" class="text-white/90 hover:text-white"><i class="ri-close-line"></i></button>
+        </div>
+        <div id="chatbotMessages" class="h-72 overflow-y-auto p-3 space-y-2 bg-gray-50 text-sm"></div>
+        <form id="chatbotForm" class="flex gap-2 p-3 border-t">
+          <input id="chatbotInput" type="text" placeholder="Ask me anything..." class="flex-1 border rounded-lg px-3 py-2" required />
+          <button class="bg-primary text-white px-3 py-2 rounded-lg"><i class="ri-send-plane-2-line"></i></button>
+        </form>
+      </div>
+      <button id="chatbotToggle" class="bg-primary text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center hover:bg-blue-600">
+        <i class="ri-chat-1-line ri-lg"></i>
+      </button>
+    </div>
+
+    <!-- Socket.io client -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+      let socket = null;
+      try {
+        socket = io('http://localhost:3000', { transports: ['websocket'] });
+      } catch (e) { console.warn('Socket.io not available yet:', e); }
+
+      function getUserIdForSocket() {
+        const firebaseEmail = window.myAppFirebase?.currentUser?.email;
+        const savedEmail = localStorage.getItem('userEmail');
+        return firebaseEmail || savedEmail || ('anon-' + Math.random().toString(36).slice(2));
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const isAdmin = localStorage.getItem('isAdmin') === 'true';
+        if (socket) {
+          socket.emit('join', { userId: getUserIdForSocket(), isAdmin });
+          socket.on('notification', (payload) => {
+            if (typeof window.displayMessage === 'function') {
+              window.displayMessage(payload.message || 'New notification', 'info');
+            } else {
+              console.log('[notification]', payload);
+            }
+          });
+        }
+
+        // Chat UI wiring
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotPanel = document.getElementById('chatbotPanel');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotForm = document.getElementById('chatbotForm');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        let threadId = localStorage.getItem('chat_thread_id') || (Date.now()+"-"+Math.random().toString(36).slice(2));
+        localStorage.setItem('chat_thread_id', threadId);
+
+        function pushMsg(role, text) {
+          const div = document.createElement('div');
+          div.className = role === 'user' ? 'text-right' : 'text-left';
+          div.innerHTML = `<div class="inline-block px-3 py-2 rounded-lg ${role==='user'?'bg-blue-600 text-white':'bg-white border'}">${text}</div>`;
+          chatbotMessages.appendChild(div);
+          chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        chatbotToggle.addEventListener('click', () => chatbotPanel.classList.toggle('hidden'));
+        chatbotClose.addEventListener('click', () => chatbotPanel.classList.add('hidden'));
+        chatbotForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const msg = chatbotInput.value.trim();
+          if (!msg) return;
+          pushMsg('user', msg);
+          chatbotInput.value = '';
+          try {
+            const res = await fetch('http://localhost:3000/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId: getUserIdForSocket(), threadId, message: msg })
+            });
+            const data = await res.json();
+            pushMsg('assistant', data.reply || '...');
+          } catch (err) {
+            pushMsg('assistant', 'Server not available yet. Start backend at http://localhost:3000');
+          }
+        });
+      });
+    </script>
+
     <script>
       // Product data - MOVED HERE FOR RELIABLE LOADING
       const allProducts = [
@@ -1513,7 +1668,6 @@
                       existingOrders = JSON.parse(userDocSnap.data().orders);
                   } catch (e) {
                       console.error("Error parsing existing orders from Firestore:", e);
-                      // If parsing fails, treat as empty to avoid breaking
                       existingOrders = [];
                   }
               }
@@ -1537,7 +1691,11 @@
               displayMessage("Order placed and details recorded in Firestore!", "success");
 
               if (orderData.customerEmail) {
-                  await sendOrderConfirmationEmail(orderData);
+                  if (typeof window.sendOrderConfirmationEmail === 'function') {
+                      await window.sendOrderConfirmationEmail(orderData);
+                  } else {
+                      console.warn("Email service not configured. Skipping confirmation email.");
+                  }
               } else {
                   console.warn("Customer email not provided. Email confirmation not sent.");
               }
@@ -1667,7 +1825,11 @@
               displayMessage("Order placed via Cash on Delivery! Details recorded in Firestore.", "success");
 
               if (orderData.customerEmail) {
-                  await sendOrderConfirmationEmail(orderData);
+                  if (typeof window.sendOrderConfirmationEmail === 'function') {
+                      await window.sendOrderConfirmationEmail(orderData);
+                  } else {
+                      console.warn("Email service not configured. Skipping confirmation email.");
+                  }
               } else {
                   console.warn("Customer email not provided. Email confirmation not sent.");
               }
@@ -1820,7 +1982,7 @@
         if (paginatedProducts.length > 0) {
           productsContainer.classList.remove("hidden"); // Ensure products container is visible
           productsContainer.style.visibility = 'visible'; // Ensure visibility
-          productsContainer.style.height = ''; // Ensure height is reset
+          productsContainer.style.height = ''; // Reset height
           paginatedProducts.forEach((product) => {
             const productCard = createProductCard(product);
             productsContainer.appendChild(productCard);
@@ -2095,7 +2257,7 @@
           } else {
               window.cart.forEach(item => {
                   const itemElement = document.createElement("div");
-                  itemElement.className = "flex justify-between items-center mb-4";
+                  itemElement.className = "flex items-center gap-4 mb-4";
                   itemElement.innerHTML = `
                       <div class="flex items-center gap-4">
                           <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
@@ -2214,7 +2376,7 @@
           } else {
               window.wishlist.forEach(item => {
                   const itemElement = document.createElement("div");
-                  itemElement.className = "flex justify-between items-center mb-4";
+                  itemElement.className = "flex items-center gap-4 mb-4";
                   itemElement.innerHTML = `
                       <div class="flex items-center gap-4">
                           <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
@@ -2434,8 +2596,8 @@
            }
            // Always unhide container in case a previous state hid it
            container.classList.remove('hidden');
-           container.style.visibility = 'visible';
-           container.style.height = '';
+           container.style.visibility = 'visible'; // Make element visible
+           container.style.height = ''; // Reset height
          } catch (e) {
            console.error('ensureProductsVisible failed:', e);
          }
@@ -2494,65 +2656,6 @@
       } catch (e) {
         console.error('[pro.html] Firebase init failed:', e);
       }
-    </script>
-
-    <script>
-      // Inline admin actions
-      window.editProduct = function(productId) {
-        try {
-          const idx = allProducts.findIndex(p => p.id === productId);
-          if (idx === -1) return displayMessage('Product not found', 'error');
-          const p = allProducts[idx];
-          const newName = prompt('Edit name:', p.name);
-          if (newName === null) return; // cancelled
-          const newPriceStr = prompt('Edit price (number):', String(p.price));
-          if (newPriceStr === null) return;
-          const newPrice = parseFloat(newPriceStr);
-          if (isNaN(newPrice)) return displayMessage('Invalid price', 'error');
-          const newCategory = prompt('Edit category:', p.category);
-          if (newCategory === null) return;
-          const newWar = prompt('Edit warranty text:', p.war || '');
-          if (newWar === null) return;
-          const newImage = prompt('Edit image URL:', p.image || '');
-          if (newImage === null) return;
-          const newDesc = prompt('Edit description:', p.description || '');
-          if (newDesc === null) return;
-
-          allProducts[idx] = { ...p, name: newName, price: newPrice, category: newCategory, war: newWar, image: newImage, description: newDesc };
-          currentProducts = [...allProducts];
-          renderProducts(currentProducts, currentPage);
-          renderPagination();
-          displayMessage('Product updated.', 'success');
-        } catch (e) {
-          console.error('editProduct failed:', e);
-          displayMessage('Failed to update product.', 'error');
-        }
-      };
-
-      window.deleteProduct = function(productId) {
-        try {
-          if (!confirm('Delete this product? This cannot be undone.')) return;
-          const before = allProducts.length;
-          const idNum = Number(productId);
-          // Remove from master list
-          for (let i = allProducts.length - 1; i >= 0; i--) {
-            if (allProducts[i].id === idNum) {
-              allProducts.splice(i, 1);
-            }
-          }
-          // Keep current filtered list in sync
-          currentProducts = allProducts.filter(() => true);
-          // Reset to first page if current page is now out of bounds
-          const maxPage = Math.max(1, Math.ceil(currentProducts.length / productsPerPage));
-          if (currentPage > maxPage) currentPage = maxPage;
-          renderProducts(currentProducts, currentPage);
-          renderPagination();
-          displayMessage(before !== allProducts.length ? 'Product deleted.' : 'Product not found.', before !== allProducts.length ? 'success' : 'error');
-        } catch (e) {
-          console.error('deleteProduct failed:', e);
-          displayMessage('Failed to delete product.', 'error');
-        }
-      };
     </script>
   </body>
 </html>
