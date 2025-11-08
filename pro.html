@@ -2608,54 +2608,154 @@
        });
     </script>
 
-    <!-- Admin inline actions (global, non-module) -->
+    <!-- Firebase readiness + proxies to avoid "Firebase not initialized" at runtime -->
     <script>
-      // Only allow when admin flag is set
-      function __isAdminActive() {
-        return localStorage.getItem('isAdmin') === 'true';
-      }
-
-      // Minimal DOM patch helpers (avoid wiping the entire grid)
-      function __patchCard(pid, updated) {
-        const card = document.querySelector(`.product-card[data-pid="${pid}"]`);
-        if (!card) return false;
-        const nameEl = card.querySelector('.js-name');
-        const priceEl = card.querySelector('.js-price');
-        const descEl = card.querySelector('.js-desc');
-        const warEl = card.querySelector('.js-war');
-        const imgEl = card.querySelector('.js-img');
-        if (nameEl) nameEl.textContent = updated.name;
-        if (priceEl) priceEl.textContent = `₹${(+updated.price || 0).toFixed(2)}`;
-        if (descEl) descEl.textContent = updated.description || '';
-        if (warEl) warEl.textContent = updated.war || '';
-        if (imgEl && updated.image) imgEl.src = updated.image;
-        return true;
-      }
-      function __removeCard(pid) {
-        const card = document.querySelector(`.product-card[data-pid="${pid}"]`);
-        if (card && card.parentElement) {
-          card.parentElement.removeChild(card);
-          return true;
+      // Wait until Firebase globals are ready
+      window.__ensureFirebaseReady = async function(timeoutMs = 8000) {
+        const start = Date.now();
+        while (true) {
+          const ready = !!(window.myAppFirebase && typeof window.myAppFirebase.handleLogin === 'function');
+          if (ready) return true;
+          if (Date.now() - start > timeoutMs) return false;
+          await new Promise(r => setTimeout(r, 120));
         }
-        return false;
+      };
+
+      // Safe proxies (in case UI calls happen before module loads)
+      async function __safeLogin(email, password) {
+        const ok = await window.__ensureFirebaseReady();
+        if (!ok) {
+          console.warn('Firebase still not ready. Aborting login.');
+          if (typeof window.displayMessage === 'function') window.displayMessage('Firebase not ready. Please wait a moment and try again.', 'error');
+          return;
+        }
+        return window.myAppFirebase.handleLogin(email, password);
+      }
+      async function __safeSignup(email, password) {
+        const ok = await window.__ensureFirebaseReady();
+        if (!ok) {
+          console.warn('Firebase still not ready. Aborting signup.');
+          if (typeof window.displayMessage === 'function') window.displayMessage('Firebase not ready. Please wait a moment and try again.', 'error');
+          return;
+        }
+        return window.myAppFirebase.handleSignup(email, password);
+      }
+      async function __safeLogout() {
+        const ok = await window.__ensureFirebaseReady();
+        if (!ok) {
+          console.warn('Firebase still not ready. Aborting logout.');
+          if (typeof window.displayMessage === 'function') window.displayMessage('Please wait and try again.', 'error');
+          return;
+        }
+        return window.myAppFirebase.handleLogout();
       }
 
-      window.editProduct = function(productId) {
-        try {
-          if (!__isAdminActive()) { if (typeof displayMessage === 'function') displayMessage('Admin privileges required.', 'error'); return; }
-          let targetId = productId != null ? String(productId) : null;
+      // Attach proxies if real methods not yet set at the moment of click
+      window.myAppFirebase = window.myAppFirebase || {};
+      if (typeof window.myAppFirebase.handleLogin !== 'function') window.myAppFirebase.handleLogin = __safeLogin;
+      if (typeof window.myAppFirebase.handleSignup !== 'function') window.myAppFirebase.handleSignup = __safeSignup;
+      if (typeof window.myAppFirebase.handleLogout !== 'function') window.myAppFirebase.handleLogout = __safeLogout;
 
-          // Fallback: try to read from the clicked button's card dataset
-          if (!targetId && window.event && window.event.target) {
-            const btn = window.event.target.closest && window.event.target.closest('.product-card');
-            if (btn && btn.dataset && btn.dataset.pid) targetId = String(btn.dataset.pid);
+      // When the page loads, wait for auth readiness and sync UI so the same session is used
+      document.addEventListener('DOMContentLoaded', async () => {
+        const ok = await window.__ensureFirebaseReady();
+        if (ok) {
+          // If already logged in on index.html, currentUser will be populated automatically by onAuthStateChanged
+          const user = window.myAppFirebase.currentUser;
+          console.log('[pro.html] Auth ready. Current user:', user?.email || '(none)');
+          if (typeof window.updateUserUI === 'function') window.updateUserUI();
+          if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
+          if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
+          if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
+          if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
+        } else {
+          console.warn('[pro.html] Firebase was not ready after timeout. UI will fall back gracefully.');
+        }
+      });
+    </script>
+
+    <!-- Firebase Module Script (restored) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // Firebase config (same as index.html)
+      const firebaseConfig = {
+        apiKey: "AIzaSyBz-4MRjpbIp4NUpffMI4pBtL3OdaDDaFc",
+        authDomain: "devspark-37f4f.firebaseapp.com",
+        projectId: "devspark-37f4f",
+        storageBucket: "devspark-37f4f.firebasestorage.app",
+        messagingSenderId: "169352992813",
+        appId: "1:169352992813:web:8dce0368a82060f627c0a4",
+        measurementId: "G-H5QRPXWK2P"
+      };
+
+      let app, auth, db;
+      try {
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        // Expose global API expected by existing code
+        window.myAppFirebase = window.myAppFirebase || {};
+        window.myAppFirebase.currentUser = null;
+        window.myAppFirebase.db = db;
+        window.myAppFirebase.doc = doc;
+        window.myAppFirebase.getDoc = getDoc;
+        window.myAppFirebase.setDoc = setDoc;
+        window.myAppFirebase.onSnapshot = onSnapshot;
+        window.myAppFirebase.collection = collection;
+        window.myAppFirebase.addDoc = addDoc;
+
+        // Auth helpers used by login/logout buttons
+        window.myAppFirebase.handleLogin = async (email, password) => {
+          try {
+            await signInWithEmailAndPassword(auth, email, password);
+            if (typeof window.displayMessage === 'function') window.displayMessage('Logged in successfully!', 'success');
+          } catch (err) {
+            console.error('Login failed:', err);
+            if (typeof document !== 'undefined') {
+              const loginError = document.getElementById('loginError');
+              if (loginError) loginError.textContent = 'Login failed. Please check your credentials.';
+            }
           }
+        };
 
-          // Locate index by id first
-          let idx = Array.isArray(window.allProducts) ? window.allProducts.findIndex(p => String(p.id) === targetId) : -1;
+        window.myAppFirebase.handleSignup = async (email, password) => {
+          try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            if (typeof window.displayMessage === 'function') window.displayMessage('Signed up successfully!', 'success');
+          } catch (err) {
+            console.error('Signup failed:', err);
+            const el = document.getElementById('signupError');
+            if (el) el.textContent = 'Signup failed. Please try again.';
+          }
+        };
 
-          // If not found, attempt name-based fallback from DOM card
-          if (idx === -1 && window.event && window.event.target) {
-            const card = window.event.target.closest && window.event.target.closest('.product-card');
-            const nameEl = card ? card.querySelector('.js-name') : null;
-       
+        window.myAppFirebase.handleLogout = async () => {
+          try {
+            await signOut(auth);
+            if (typeof window.displayMessage === 'function') window.displayMessage('Logged out.', 'info');
+          } catch (err) {
+            console.error('Logout failed:', err);
+            if (typeof window.displayMessage === 'function') window.displayMessage('Failed to log out.', 'error');
+          }
+        };
+
+        // Keep currentUser in sync like before
+        onAuthStateChanged(auth, (user) => {
+          window.myAppFirebase.currentUser = user || null;
+          console.log('[pro.html] Firebase auth state:', user?.email || 'no user');
+          if (typeof window.updateCartDisplay === 'function') window.updateCartDisplay();
+          if (typeof window.updateWishlistDisplay === 'function') window.updateWishlistDisplay();
+          if (typeof window.updateAddToCartButtons === 'function') window.updateAddToCartButtons();
+          if (typeof window.updateWishlistIcons === 'function') window.updateWishlistIcons();
+        });
+
+      } catch (e) {
+        console.error('[pro.html] Firebase initialization failed:', e);
+      }
+    </script>
+   </body>
+ </html>
