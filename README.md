@@ -14,10 +14,10 @@
 12.Implemented all objectives in problem statement 1 and problem statement 2  
 13.Deployed in onrender - link: https://devspark-e-commerce.onrender.com
 
-Step 1 - install node inside C:\Users\lapto\Downloads\Projects\Nithin Battery\server
-Step 2 - OPEN CMD-C:\Users\lapto\Downloads\Projects\Nithin Battery\server
+Step 1 - install node inside C:\Users\lapto\Downloads\Projects\Nithin Battery\server  
+Step 2 - OPEN CMD-C:\Users\lapto\Downloads\Projects\Nithin Battery\server  
 Step 3 - npm init -y  
-Step 4 - npm pkg set type=module
+Step 4 - npm pkg set type=module  
 Step 5 - npm install express socket.io cors dotenv openai  
 Step 6 - npm run dev
 
