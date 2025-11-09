@@ -1,4 +1,4 @@
-# DevSpark-E-commerce
+# Title : ZAPPYCART
 
 1. Added firebase for storing user details (used gemini,windsurf)  
 2. Added emailjs for send order details to customer(like professional e-commerce site)  
